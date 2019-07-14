@@ -1,0 +1,42 @@
+@using CaseExtensions
+@using Newtonsoft.Json.Linq
+@using Thalassa.App_GlobalResources
+
+<div class="responseStatus" style="display:none;">@ViewData["status"]</div>
+
+<div class="container bg-text userContracts animate slideIn">
+    @if (ViewBag.Contracts == null)
+    {
+        <div class="row">
+            <div class="col">
+                <div class="symbol bgTextSymbolCenter"></div>
+                <div class="bgTextMessage">@Messages.Legal_Contracts_Empty</div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col">
+                <div class="symbol bgTextSymbolCenter"></div>
+                <div class="bgTextTitleText">@Messages.Legal_Contracts</div>
+            </div>
+        </div>
+        <div>
+            <div class="row tableTitleRow">
+                <div class="col align-self-center text-center wordBreak">@Messages.Legal_Contracts_Title</div>
+                <div class="col align-self-center text-center wordBreak">@Messages.Blockchain_Timestamp</div>
+                <div class="col align-self-center text-center wordBreak">@Messages.Blockchain_Hash</div>
+            </div>
+            @foreach (var contract in ViewBag.Contracts)
+            {
+                <div class="row tableSimpleRow contractRow">
+                    <div class="blockIndex" style="display:none;">@contract["index"]</div>
+                    <div class="col align-self-center text-center resultsBlockNumber">@typeof(Messages).GetProperty("Legal_Contracts_Titles_Lower_" + ((JValue) contract["title"]).ToObject<string>().ToPascalCase()).GetValue(null)</div>
+                    <div class="col align-self-center text-center">@contract["timestamp"]</div>
+                    <div class="col align-self-center text-center validationResultsHash">@contract["hash"]</div>
+                </div>
+            }
+        </div>
+    }
+</div>

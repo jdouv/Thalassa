@@ -1,0 +1,22 @@
+{
+  "name": "Thalassa",
+  "short_name": "Thalassa",
+  "description": "Electronic service for the marine industry.",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "logo192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logo512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "color": "#f7faff",
+  "background_color": "#f7faff",
+  "theme_color": "#f7faff"
+}

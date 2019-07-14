@@ -1,0 +1,74 @@
+﻿@using Thalassa.App_GlobalResources
+@model Common.User
+
+<div class="responseStatus" style="display:none;">@ViewData["status"]</div>
+
+<div class="register-parent animate slideIn">
+    <div class="register">
+        <div class="title">@Messages.Users_Register</div>
+        <div class="bg-text">
+            <form class="registerForm formClass" asp-controller="User" asp-action="Register" method="post">
+                <div class="form-row firstFormRow">
+                    <div class="col inputParent">
+                        <input asp-for="FirstName" id="firstName" maxlength="30" required />
+                        <label asp-for="FirstName" for="firstName"></label>
+                        <div class="formErrors">
+                            <div class="formWarning" style="display:none;">@Messages.Users_InvalidFirstName</div>
+                            <span asp-validation-for="FirstName" class="formWarningServer"></span>
+                        </div>
+                    </div>
+                    <div class="col inputParent">
+                        <input asp-for="LastName" id="lastName" maxlength="30" required />
+                        <label asp-for="LastName" for="lastName"></label>
+                        <div class="formErrors">
+                            <div class="formWarning" style="display:none;">@Messages.Users_InvalidLastName</div>
+                            <span asp-validation-for="LastName" class="formWarningServer"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col inputParent positionsParent">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle dropdownButton" id="userPosition" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="@Messages.Users_Position">@Messages.Users_Position
+                                <span class="caret symbol"></span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="userPosition">
+                                <button class="dropdown-item navButSymbol position dropdownItem" type="button" value="LegalEngineer">@Messages.Users_Positions_LegalEngineer</button>
+                                <button class="dropdown-item navButSymbol position dropdownItem" type="button" value="Shipbroker">@Messages.Users_Positions_Shipbroker</button>
+                            </div>
+                        </div>
+                        <input asp-for="Position" class="positionInput" id="position" required hidden />
+                        <label for="position"></label>
+                        <div class="formErrors formErrorsFull">
+                            <span asp-validation-for="Position" class="formWarningServer"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col inputParent">
+                        <input asp-for="Email" class="registerEmailInput" id="email" required />
+                        <label asp-for="Email" for="email"></label>
+                        <div class="formErrors formErrorsFull">
+                            <div class="formWarning" style="display: none;">@Messages.Error_EmailInvalid</div>
+                            <div class="emailAlreadyInUse" style="display: none;">@Messages.Error_EmailAlreadyInUse</div>
+                            <span asp-validation-for="Email" class="formWarningServer"></span>
+                        </div>
+                        <input asp-for="PublicKey" id="publicKeyText" hidden required />
+                        <label for="publicKeyText"></label>
+                        <input asp-for="PrivateKey" id="privateKeyText" type="password" hidden required />
+                        <label for="privateKeyText"></label>
+                    </div>
+                </div>
+                <div class="generatedKeys" style="display:none;"></div>
+                <div class="text-center formButtons">
+                    <div class="submitButtonParent formButton1" style="display:none;">
+                        <button type="submit" class="button submitButton registerButton">@Messages.Users_Register</button>
+                    </div>
+                    <div class="resetButtonParent formButton2" style="display:none;">
+                        <button class="button resetButton" type="reset">@Messages.Basics_FormReset</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

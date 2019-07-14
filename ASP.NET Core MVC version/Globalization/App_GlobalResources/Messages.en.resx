@@ -1,0 +1,480 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+        Microsoft ResX Schema 
+        
+        Version 2.0
+        
+        The primary goals of this format is to allow a simple XML format 
+        that is mostly human readable. The generation and parsing of the 
+        various data types are done through the TypeConverter classes 
+        associated with the data types.
+        
+        Example:
+        
+        ... ado.net/XML headers & schema ...
+        <resheader name="resmimetype">text/microsoft-resx</resheader>
+        <resheader name="version">2.0</resheader>
+        <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+        <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+        <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+        <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+        <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+            <value>[base64 mime encoded serialized .NET Framework object]</value>
+        </data>
+        <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+            <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+            <comment>This is a comment</comment>
+        </data>
+                    
+        There are any number of "resheader" rows that contain simple 
+        name/value pairs.
+        
+        Each data row contains a name, and value. The row also contains a 
+        type or mimetype. Type corresponds to a .NET class that support 
+        text/value conversion through the TypeConverter architecture. 
+        Classes that don't support this are serialized and stored with the 
+        mimetype set.
+        
+        The mimetype is used for serialized objects, and tells the 
+        ResXResourceReader how to depersist the object. This is currently not 
+        extensible. For a given mimetype the value must be set accordingly:
+        
+        Note - application/x-microsoft.net.object.binary.base64 is the format 
+        that the ResXResourceWriter will generate, however the reader can 
+        read any of the formats listed below.
+        
+        mimetype: application/x-microsoft.net.object.binary.base64
+        value   : The object must be serialized with 
+                : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+                : and then encoded with base64 encoding.
+        
+        mimetype: application/x-microsoft.net.object.soap.base64
+        value   : The object must be serialized with 
+                : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+                : and then encoded with base64 encoding.
+    
+        mimetype: application/x-microsoft.net.object.bytearray.base64
+        value   : The object must be serialized into a byte array 
+                : using a System.ComponentModel.TypeConverter
+                : and then encoded with base64 encoding.
+        -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About.Attention" xml:space="preserve">
+    <value>ATTENTION: THIS PROJECT IS UNDER DEVELOPMENT. UNTIL IT IS HAS REACHED THE FINAL RELEASE STAGE, NO LIABILITY ARISES IN CASE OF ANY MALFUNCTION, LOSS OF DATA OR ANY OTHER NEGATIVE CONSEQUENCES CAUSED BY ITS USE.</value>
+  </data>
+  <data name="About.Experimental" xml:space="preserve">
+    <value>“Thalassa” is an experimental web service for the marine industry based on blockchain technology. See &lt;a href="https://github.com/jdouv/Thalassa" target="_blank"&gt;here&lt;/a&gt; for more information.</value>
+  </data>
+  <data name="About.Subtitle" xml:space="preserve">
+    <value>Electronic service for the marine industry.</value>
+  </data>
+  <data name="Admin.BlockchainInvalidResults" xml:space="preserve">
+    <value>Invalidity is reported in the following blocks:</value>
+  </data>
+  <data name="Admin.BlockchainIsEmpty" xml:space="preserve">
+    <value>The service’s blockchain is empty, therefore there is no need for validation.</value>
+  </data>
+  <data name="Admin.BlockchainIsInvalid" xml:space="preserve">
+    <value>For some reason, the service’s blockchain is not valid.</value>
+  </data>
+  <data name="Admin.BlockchainIsValid" xml:space="preserve">
+    <value>The service’s blockchain is valid.</value>
+  </data>
+  <data name="Admin.BlockchainResultsCalculationMessage" xml:space="preserve">
+    <value>In the following blocks, the hash expected is different from the hash found.</value>
+  </data>
+  <data name="Admin.BlockchainResultsReferenceMessage" xml:space="preserve">
+    <value>In the following blocks, the second block’s reference to the first block’s hash is different from the first block’s actual hash.</value>
+  </data>
+  <data name="Admin.ValidateBlockchain" xml:space="preserve">
+    <value>Validate blockchain</value>
+  </data>
+  <data name="Basics.CopiedQR" xml:space="preserve">
+    <value>The QR code has been copied to the clipboard.</value>
+  </data>
+  <data name="Basics.CopyQR" xml:space="preserve">
+    <value>Copy QR code</value>
+  </data>
+  <data name="Error.EmailAlreadyInUse" xml:space="preserve">
+    <value>This e-mail is already in use.</value>
+  </data>
+  <data name="Error.EmailInvalid" xml:space="preserve">
+    <value>This e-mail is not valid.</value>
+  </data>
+  <data name="Error.EmailNotChecked" xml:space="preserve">
+    <value>Something happened and the e-mail could not be checked.</value>
+  </data>
+  <data name="Error.KeysNotGenerated" xml:space="preserve">
+    <value>Something happened and user keys generation failed.</value>
+  </data>
+  <data name="Error.LoginFailed" xml:space="preserve">
+    <value>Something happened and login failed.</value>
+  </data>
+  <data name="Error.LoginFormNotValidated" xml:space="preserve">
+    <value>Something happened and the login form could not be validated.</value>
+  </data>
+  <data name="Error.LoginPageNotFetched" xml:space="preserve">
+    <value>Something happened and the login page could not be fetched.</value>
+  </data>
+  <data name="Legal.Contracts" xml:space="preserve">
+    <value>Contracts</value>
+  </data>
+  <data name="Basics.CurrentlyUnavailable" xml:space="preserve">
+    <value>currently unavailable</value>
+  </data>
+  <data name="Basics.Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Basics.ErrorDetails" xml:space="preserve">
+    <value>Error details</value>
+  </data>
+  <data name="Basics.Eye" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="Basics.FormReset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="Error.Code" xml:space="preserve">
+    <value>Error status:</value>
+  </data>
+  <data name="Error.BlockchainNotValidated" xml:space="preserve">
+    <value>Something happened and the service’s blockchain could not be validated.</value>
+  </data>
+  <data name="Error.ContractNotFetched" xml:space="preserve">
+    <value>Something happened and the contract could not be fetched.</value>
+  </data>
+  <data name="Error.ContractsNotFetched" xml:space="preserve">
+    <value>Something happened and the saved contracts could not be fetched.</value>
+  </data>
+  <data name="Legal.Contracts.AllContracts" xml:space="preserve">
+    <value>All contracts</value>
+  </data>
+  <data name="Legal.Contracts.NewContract" xml:space="preserve">
+    <value>Draft new contract</value>
+  </data>
+  <data name="Users.Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Users.Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="Users.WelcomeSubtitle" xml:space="preserve">
+    <value>Use navigation bar for more.</value>
+  </data>
+  <data name="Users.Welcome" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
+  <data name="Users.SwitchToRegister" xml:space="preserve">
+    <value>Switch to Register</value>
+  </data>
+  <data name="Users.SwitchToLogin" xml:space="preserve">
+    <value>Switch to Login</value>
+  </data>
+  <data name="Users.RevealPrivateKey" xml:space="preserve">
+    <value>Reveal private key</value>
+  </data>
+  <data name="Users.Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Users.PublicKey" xml:space="preserve">
+    <value>Public key</value>
+  </data>
+  <data name="Users.PrivateKey" xml:space="preserve">
+    <value>Private key</value>
+  </data>
+  <data name="Users.Positions.Shipbroker" xml:space="preserve">
+    <value>Shipbroker</value>
+  </data>
+  <data name="Users.Positions.LegalEngineer" xml:space="preserve">
+    <value>Legal engineer</value>
+  </data>
+  <data name="Users.Position" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="Users.OrTypeQRCodeLogin" xml:space="preserve">
+    <value>Or type it here:</value>
+  </data>
+  <data name="Users.MessageBeforeRegister" xml:space="preserve">
+    <value>By pressing “Submit” below you agree that you have copied (by tapping any of the QR codes above) and safely saved your public and private keys and that you are solely responsible in case of their loss.</value>
+  </data>
+  <data name="Users.LoginWithQRScan" xml:space="preserve">
+    <value>Scan your QR private key:</value>
+  </data>
+  <data name="Users.Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Users.LastName" xml:space="preserve">
+    <value>Last name</value>
+  </data>
+  <data name="Users.KeysCopiedToClipboard" xml:space="preserve">
+    <value>The keys have been copied to the clipboard.</value>
+  </data>
+  <data name="Users.InvalidLastName" xml:space="preserve">
+    <value>The last name is invalid.</value>
+  </data>
+  <data name="Users.InvalidFirstName" xml:space="preserve">
+    <value>The first name is invalid.</value>
+  </data>
+  <data name="Users.FirstName" xml:space="preserve">
+    <value>First name</value>
+  </data>
+  <data name="Users.Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="Users.CopyKeysToClipboard" xml:space="preserve">
+    <value>Copy keys to clipboard</value>
+  </data>
+  <data name="Settings.Theme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="Settings.Light" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="Settings.Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Settings.EffectAfterRestart" xml:space="preserve">
+    <value>Changes will take effect after you reload the page.</value>
+  </data>
+  <data name="Settings.Dark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="Settings.ChangeLanguage" xml:space="preserve">
+    <value>Change language</value>
+  </data>
+  <data name="Settings.Appearance" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="Settings.About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Other.SectionUnderConstruction" xml:space="preserve">
+    <value>This section is under construction…</value>
+  </data>
+  <data name="Error.WelcomePageNotFetched" xml:space="preserve">
+    <value>Something happened and the welcome page could not be fetched.</value>
+  </data>
+  <data name="Error.RequiredPrivateKey" xml:space="preserve">
+    <value>You must enter your private key to login.</value>
+  </data>
+  <data name="Error.RequiredPosition" xml:space="preserve">
+    <value>You must select your position.</value>
+  </data>
+  <data name="Error.RequiredLastName" xml:space="preserve">
+    <value>The last name field is required.</value>
+  </data>
+  <data name="Error.RequiredFirstName" xml:space="preserve">
+    <value>The first name field is required.</value>
+  </data>
+  <data name="Error.RequiredEmail" xml:space="preserve">
+    <value>The e-mail field is required.</value>
+  </data>
+  <data name="Error.RegisterPageNotFetched" xml:space="preserve">
+    <value>Something happened and the register page could not be fetched.</value>
+  </data>
+  <data name="Error.RegisterFormNotValidated" xml:space="preserve">
+    <value>Something happened and the register form could not be validated.</value>
+  </data>
+  <data name="Error.RegisterFailed" xml:space="preserve">
+    <value>Something happened and register failed.</value>
+  </data>
+  <data name="Error.PrivateKeyInvalid" xml:space="preserve">
+    <value>The private key is invalid.</value>
+  </data>
+  <data name="Error.NoUserWithSuchCredentials" xml:space="preserve">
+    <value>There is no account with such credentials.</value>
+  </data>
+  <data name="Error.NavbarLoadingFailed" xml:space="preserve">
+    <value>Something happened and navigation bar could not be loaded.</value>
+  </data>
+  <data name="Error.Message" xml:space="preserve">
+    <value>Error message:</value>
+  </data>
+  <data name="Error.MaxLastName" xml:space="preserve">
+    <value>The last name must contain at most 30 characters.</value>
+  </data>
+  <data name="Error.MaxFirstName" xml:space="preserve">
+    <value>The first name must contain at most 30 characters.</value>
+  </data>
+  <data name="Blockchain.Timestamp" xml:space="preserve">
+    <value>Timestamp</value>
+  </data>
+  <data name="Blockchain.Hash" xml:space="preserve">
+    <value>Hash</value>
+  </data>
+  <data name="Blockchain.HashFound" xml:space="preserve">
+    <value>Hash found</value>
+  </data>
+  <data name="Blockchain.HashExpected" xml:space="preserve">
+    <value>Expected hash</value>
+  </data>
+  <data name="Blockchain.NumberTimestampOfFirst" xml:space="preserve">
+    <value>Number/Timestamp of first block</value>
+  </data>
+  <data name="Blockchain.NumberTimestampOfSecond" xml:space="preserve">
+    <value>Number/Timestamp of second block</value>
+  </data>
+  <data name="Blockchain.BlockNumber" xml:space="preserve">
+    <value>Block number</value>
+  </data>
+  <data name="Blockchain.SignatureInvalid" xml:space="preserve">
+    <value>Invalid signature</value>
+  </data>
+  <data name="Blockchain.SignatureValid" xml:space="preserve">
+    <value>Valid signature</value>
+  </data>
+  <data name="Basics.WelcomeUnderConstruction" xml:space="preserve">
+    <value>This project is under development.</value>
+  </data>
+  <data name="Basics.Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Basics.Logo.Title" xml:space="preserve">
+    <value>Logo</value>
+  </data>
+  <data name="Basics.Lang.En" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Basics.Lang.El" xml:space="preserve">
+    <value>Ελληνικά</value>
+  </data>
+  <data name="Basics.Home" xml:space="preserve">
+    <value>Thalassa</value>
+  </data>
+  <data name="Legal.ContractingParties" xml:space="preserve">
+    <value>Contracting Parties</value>
+  </data>
+  <data name="Legal.Contracts.Clauses" xml:space="preserve">
+    <value>Clauses</value>
+  </data>
+  <data name="Legal.Contracts.Empty" xml:space="preserve">
+    <value>You do not have any contracts in your file.</value>
+  </data>
+  <data name="Legal.Contracts.OnBehalfOf" xml:space="preserve">
+    <value>on behalf of</value>
+  </data>
+  <data name="Legal.Contracts.Readable" xml:space="preserve">
+    <value>Readable</value>
+  </data>
+  <data name="Legal.Contracts.Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="Legal.Contracts.Titles.Lower.TimeCharter" xml:space="preserve">
+    <value>Time Charter</value>
+  </data>
+  <data name="Legal.Contracts.Titles.Upper.TimeCharter" xml:space="preserve">
+    <value>Time Charter</value>
+  </data>
+  <data name="Legal.Contracts.ToggleLegen" xml:space="preserve">
+    <value>Show/Hide Legen clause</value>
+  </data>
+  <data name="Legal.EnableClause" xml:space="preserve">
+    <value>Enable clause</value>
+  </data>
+  <data name="Error.MaxVesselDwt" xml:space="preserve">
+    <value>The vessel’s deadweight tonnage must contain at most 10 characters.</value>
+  </data>
+  <data name="Error.SizeVesselFlag" xml:space="preserve">
+    <value>The vessel’s flag must contain 2 characters.</value>
+  </data>
+  <data name="Error.MaxVesselName" xml:space="preserve">
+    <value>The vessel’s name must contain at most 30 characters.</value>
+  </data>
+  <data name="Error.SizeVesselYearBuilt" xml:space="preserve">
+    <value>The year when the vessel was built must contain 4 characters.</value>
+  </data>
+  <data name="Error.RequiredVesselDwt" xml:space="preserve">
+    <value>The vessel’s deadweight tonnage is required.</value>
+  </data>
+  <data name="Error.RequiredVesselFlag" xml:space="preserve">
+    <value>The vessel’s flag is required.</value>
+  </data>
+  <data name="Error.RequiredVesselImoNumber" xml:space="preserve">
+    <value>The vessel’s IMO number is required.</value>
+  </data>
+  <data name="Error.RequiredVesselName" xml:space="preserve">
+    <value>The vessel’s name is required.</value>
+  </data>
+  <data name="Error.RequiredVesselYearBuilt" xml:space="preserve">
+    <value>The year when the vessel was built is required.</value>
+  </data>
+  <data name="Legal.Contracts.Essentials" xml:space="preserve">
+    <value>Essential Elements</value>
+  </data>
+  <data name="Error.MaxVesselImoNumber" xml:space="preserve">
+    <value>The vessel’s IMO number must contain at most 10 characters.</value>
+  </data>
+  <data name="Vessels.Dwt" xml:space="preserve">
+    <value>DWT</value>
+  </data>
+  <data name="Vessels.Flag" xml:space="preserve">
+    <value>Flag</value>
+  </data>
+  <data name="Vessels.ImoNumber" xml:space="preserve">
+    <value>IMO number</value>
+  </data>
+  <data name="Vessels.Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Vessels.YearBuilt" xml:space="preserve">
+    <value>Year built</value>
+  </data>
+</root>

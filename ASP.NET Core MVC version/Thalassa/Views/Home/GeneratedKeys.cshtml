@@ -1,0 +1,18 @@
+﻿@using Thalassa.App_GlobalResources
+
+<div class="container">
+    <div class="row copyKeysToClipboard" title="@Messages.Users_CopyKeysToClipboard">
+    <div class="col">
+        <div class="generatedKeysTitle">@Messages.Users_PublicKey</div>
+        <div id="publicKeyQR"></div>
+        <div class="generatedPublicKey" style="display:none;">@ViewData["PublicKey"]</div>
+    </div>
+    <div class="col">
+        <div class="generatedKeysTitle">@Messages.Users_PrivateKey</div>
+        <div id="privateKeyQR"></div>
+        <div class="generatedPrivateKey" style="display:none;">@ViewData["PrivateKey"]</div>
+    </div>
+</div>
+<div class="keysCopiedToClipboard" style="display:none;">@Messages.Users_KeysCopiedToClipboard</div>
+<div class="messageBeforeRegister">@Messages.Users_MessageBeforeRegister</div>
+</div>
