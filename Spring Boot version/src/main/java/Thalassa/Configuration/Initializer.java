@@ -115,7 +115,7 @@ public class Initializer {
         if (!blockRepository.findLastBlock().getIndex().equals("0")) return;
         HashMap<String, Object> essentials = new HashMap<>() {{
             put("type", "timeCharter");
-            put("preamble", "THIS CHARTERPARTY, made and concluded in the datetime mentioned above between the parties described in the contracting parties section, shall be performed subject to all the terms and conditions included in the clauses section along with any additional clauses and addenda.");
+            put("preamble", "THIS TIME CHARTER, made and concluded in the datetime mentioned above between the parties described in the contracting parties section, shall be performed subject to all the terms and conditions included in the clauses section along with any additional clauses and addenda.");
             put("vessel", "1234567890");
         }};
         LinkedList<Clause> clauses = new LinkedList<>(Collections.singletonList(FixedClausesFactory.getOffHireClause()));
