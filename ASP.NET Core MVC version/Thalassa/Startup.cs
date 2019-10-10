@@ -155,7 +155,7 @@ namespace Thalassa
                 var essentials = new Dictionary<string, dynamic>
                 {
                     ["type"] = "timeCharter",
-                    ["preamble"] = "THIS CHARTERPARTY, made and concluded in the datetime mentioned above between the parties described in the contracting parties section, shall be performed subject to all the terms and conditions included in the clauses section along with any additional clauses and addenda.",
+                    ["preamble"] = "THIS TIME CHARTER, made and concluded in the datetime mentioned above between the parties described in the contracting parties section, shall be performed subject to all the terms and conditions included in the clauses section along with any additional clauses and addenda.",
                     ["vessel"] = "1234567890"
                 };
                 var clauses = new LinkedList<Clause>( new[] {FixedClausesFactory.GetOffHireClause()});
