@@ -4,6 +4,12 @@ import com.arangodb.ArangoDB;
 import com.arangodb.springframework.annotation.EnableArangoRepositories;
 import com.arangodb.springframework.config.ArangoConfiguration;
 import com.arangodb.springframework.core.convert.DefaultArangoTypeMapper;
+import org.apache.catalina.Context;
+import org.apache.catalina.connector.Connector;
+import org.apache.tomcat.util.descriptor.web.SecurityCollection;
+import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,27 +46,42 @@ public class AppConfig extends DefaultArangoTypeMapper implements WebMvcConfigur
 
     @Bean
     public MessageSource messageSource() {
-        ReloadableResourceBundleMessageSource messageSource=new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("classpath:messages");
-        messageSource.setDefaultEncoding("UTF-8");
-        messageSource.setUseCodeAsDefaultMessage(true);
-
-        return messageSource;
+        return new ReloadableResourceBundleMessageSource() {{
+            setBasename("classpath:messages");
+            setDefaultEncoding("UTF-8");
+            setUseCodeAsDefaultMessage(true);
+        }};
     }
 
     @Bean
     public LocalValidatorFactoryBean getValidator() {
-        LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
-        bean.setValidationMessageSource(messageSource());
-
-        return bean;
+        return new LocalValidatorFactoryBean() {{setValidationMessageSource(messageSource());}};
     }
 
     @Bean
     public LocaleResolver localeResolver() {
-        CookieLocaleResolver cookieLocaleResolver = new CookieLocaleResolver();
-        cookieLocaleResolver.setCookieName("Locale");
+        return new CookieLocaleResolver() {{setCookieName("Locale");}};
+    }
 
-        return cookieLocaleResolver;
+    @Bean
+    public ServletWebServerFactory servletContainer() {
+        TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory() {
+            @Override
+            protected void postProcessContext(Context context) {
+                SecurityConstraint securityConstraint = new SecurityConstraint();
+                securityConstraint.setUserConstraint("CONFIDENTIAL");
+                SecurityCollection collection = new SecurityCollection();
+                collection.addPattern("/*");
+                securityConstraint.addCollection(collection);
+                context.addConstraint(securityConstraint);
+            }
+        };
+        tomcat.addAdditionalTomcatConnectors(new Connector("org.apache.coyote.http11.Http11NioProtocol") {{
+            setScheme("http");
+            setPort(8080);
+            setSecure(false);
+            setRedirectPort(8443);
+        }});
+        return tomcat;
     }
 }
