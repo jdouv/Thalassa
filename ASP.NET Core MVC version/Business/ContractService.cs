@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Common;
 using Common.LegalEngineering;
 using Common.LegalEngineering.Clauses;
@@ -44,9 +45,8 @@ namespace Business
 
             // Encrypt and send the secret key to all users included in the contract
             var signatures = (List<dynamic>) contract.Essentials["signatures"];
-            foreach (var hashMap in signatures)
+            foreach (var signature in signatures.Select(hashMap => (Dictionary<string, dynamic>) hashMap))
             {
-                var signature = (Dictionary<string, dynamic>) hashMap;
                 foreach (var (key, value) in signature)
                 {
                     if (!key.Equals("signer") && !key.Equals("onBehalfOf")) continue;
@@ -81,7 +81,7 @@ namespace Business
                     ["title"] = dataToString["title"].Value<string>(),
                     ["index"] = block.Index,
                     ["hash"] = block.Hash,
-                    ["timestamp"] = block.GetDatetimeFromTimestamp()
+                    ["timestamp"] = block.Timestamp
                 };
                 // Add contract to contracts list
                 contracts.Add(contract);
@@ -97,7 +97,7 @@ namespace Business
             var block = _blockchainDataAccess.FindByIndex(index);
             var composedContract = new Dictionary<string, dynamic>
             {
-                ["index"] = block.Index, ["hash"] = block.Hash, ["timestamp"] = block.GetDatetimeFromTimestamp()
+                ["index"] = block.Index, ["hash"] = block.Hash, ["timestamp"] = block.Timestamp
             };
 
             var decryptedSecretKey = CryptographyService.DecryptWithPrivateKey(encryptedSecretKey, privateKey);
@@ -122,8 +122,7 @@ namespace Business
                         signature[key] = JToken.FromObject(_usersDataAccess.FindByPublicKey(value));
                 var signatureToValidate = signature["signature"].Value<string>();
                 var publicKey = signature["signer"]["PublicKey"].Value<string>();
-                signature["valid"] =
-                    CryptographyService.Verify(contractNoSignatures.ToString(Formatting.None), signatureToValidate, publicKey);
+                signature["valid"] = CryptographyService.Verify(contractNoSignatures.ToString(Formatting.None), signatureToValidate, publicKey);
             }
             
             // Convert each paragraph to readable format and add it to the contract

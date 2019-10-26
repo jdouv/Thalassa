@@ -21,7 +21,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 
 @Configuration
-@EnableArangoRepositories(basePackages = "Thalassa.Accessories.Repositories")
+@EnableArangoRepositories(basePackages = "Thalassa.DataManagement.Repositories")
 public class AppConfig extends DefaultArangoTypeMapper implements WebMvcConfigurer, ArangoConfiguration {
 
     @Override
@@ -50,6 +50,7 @@ public class AppConfig extends DefaultArangoTypeMapper implements WebMvcConfigur
             setBasename("classpath:messages");
             setDefaultEncoding("UTF-8");
             setUseCodeAsDefaultMessage(true);
+            setCacheSeconds(1);
         }};
     }
 

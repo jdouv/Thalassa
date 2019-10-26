@@ -1,12 +1,10 @@
-@using Thalassa.App_GlobalResources
-
 <div class="container bg-text blockchainValidationResults animate slideIn">
     @if (ViewBag.Results == null)
     {
         <div class="row">
             <div class="col">
                 <div class="symbol bgTextSymbolCenter"></div>
-                <div class="bgTextMessage">@Messages.Admin_BlockchainIsEmpty</div>
+                <div class="bgTextMessage" data-localization="adminBlockchainIsEmpty"></div>
             </div>
         </div>
     }
@@ -17,7 +15,7 @@
             <div class="row">
                 <div class="col">
                     <div class="symbol bgTextSymbolCenter successTextColor"></div>
-                    <div class="bgTextMessage">@Messages.Admin_BlockchainIsValid</div>
+                    <div class="bgTextMessage" data-localization="adminBlockchainIsValid"></div>
                 </div>
             </div>
         }
@@ -26,18 +24,16 @@
             <div class="row">
                 <div class="col">
                     <div class="symbol bgTextSymbolCenter errorTextColor"></div>
-                    <div>@Messages.Admin_BlockchainIsInvalid</div>
+                    <div data-localization="adminBlockchainIsInvalid"></div>
                     @if (ViewBag.Results[0].Count != 0)
                     {
                         <div>
-                            <div class="invalidBlockchainResultsHead text-center">
-                                @Messages.Admin_BlockchainResultsCalculationMessage
-                            </div>
+                            <div class="invalidBlockchainResultsHead text-center" data-localization="adminBlockchainResultsCalculationMessage"></div>
                             <div class="row tableTitleRow">
-                                <div class="col-2 align-self-center text-center wordBreak">@Messages.Blockchain_BlockNumber</div>
-                                <div class="col align-self-center text-center wordBreak">@Messages.Blockchain_Timestamp</div>
-                                <div class="col align-self-center text-center wordBreak">@Messages.Blockchain_HashExpected</div>
-                                <div class="col align-self-center text-center wordBreak">@Messages.Blockchain_HashFound</div>
+                                <div class="col-2 align-self-center text-center wordBreak" data-localization="blockchainBlockNumber"></div>
+                                <div class="col align-self-center text-center wordBreak" data-localization="blockchainTimestamp"></div>
+                                <div class="col align-self-center text-center wordBreak" data-localization="blockchainHashExpected"></div>
+                                <div class="col align-self-center text-center wordBreak" data-localization="blockchainHashFound"></div>
                             </div>
                             @foreach (var result in ViewBag.Results[0])
                             {
@@ -53,21 +49,19 @@
                     @if (ViewBag.Results[1].Count != 0)
                     {
                         <div>
-                            <div class="invalidBlockchainResultsHead text-center">
-                                @Messages.Admin_BlockchainResultsReferenceMessage
-                            </div>
+                            <div class="invalidBlockchainResultsHead text-center" data-localization="adminBlockchainResultsReferenceMessage"></div>
                             <div class="row tableTitleRow">
-                                <div class="col align-self-center text-center wordBreak">@Messages.Blockchain_NumberTimestampOfFirst</div>
-                                <div class="col align-self-center text-center wordBreak">@Messages.Blockchain_NumberTimestampOfSecond</div>
-                                <div class="col align-self-center text-center wordBreak">@Messages.Blockchain_HashExpected</div>
-                                <div class="col align-self-center text-center wordBreak">@Messages.Blockchain_HashFound</div>
+                                <div class="col align-self-center text-center wordBreak" data-localization="blockchainNumberTimestampOfFirst"></div>
+                                <div class="col align-self-center text-center wordBreak" data-localization="blockchainNumberTimestampOfSecond"></div>
+                                <div class="col align-self-center text-center wordBreak" data-localization="blockchainHashExpected"></div>
+                                <div class="col align-self-center text-center wordBreak" data-localization="bBlockchainHashFound"></div>
                             </div>
                             
                             @foreach (var result in ViewBag.Results[1])
                             {
                                 <div class="row tableSimpleRow blockchainValidationResultRow">
-                                    <div class="col align-self-center text-center">@result.Key / @result.Value[0]</div>
-                                    <div class="col align-self-center text-center">@(result.Key + 1) / @result.Value[1]</div>
+                                    <div class="col align-self-center text-center">@result.Key / <span data-timestamp="@result.Value[0]"></span></div>
+                                    <div class="col align-self-center text-center">@(result.Key + 1) / <span data-timestamp="@result.Value[1]"></span></div>
                                     <div class="col align-self-center text-center validationResultsHash">@result.Value[2]</div>
                                     <div class="col align-self-center text-center validationResultsHash">@result.Value[3]</div>
                                 </div>

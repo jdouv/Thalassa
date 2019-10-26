@@ -1,9 +1,11 @@
 package Thalassa.Controllers;
 
-import Thalassa.Accessories.Services.UserService;
+import Thalassa.DataManagement.Services.UserService;
+import Thalassa.DataManagement.Utils;
 import Thalassa.Models.User;
-import Thalassa.Accessories.Services.CryptographyService;
-import org.apache.commons.text.CaseUtils;
+import Thalassa.DataManagement.Services.CryptographyService;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -15,8 +17,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
 
 @Controller
 public class UserController {
@@ -69,13 +75,11 @@ public class UserController {
     }
 
     // Validates registration form before final registration
-    @PostMapping("/registerIsValid")
+    @GetMapping("/registerIsValid")
     public @ResponseBody boolean registerIsValid(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Errors errors) {
-        if (user.getEmail().length() > 0) {
+        if (user.getEmail().length() > 0)
             if (userService.findByEmail(user.getEmail()) != null)
                 errors.rejectValue("email", "error.emailAlreadyInUse");
-        }
-
         return !bindingResult.hasErrors();
     }
 
@@ -83,17 +87,16 @@ public class UserController {
     public String register(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Errors errors, ModelMap model, HttpSession session) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "publicKey", "error.requiredPublicKey");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "privateKey", "error.requiredPrivateKey");
-        if (user.getEmail().length() > 0) {
+        if (user.getEmail().length() > 0)
             if (userService.findByEmail(user.getEmail()) != null)
                 errors.rejectValue("email", "error.emailAlreadyInUse");
-        }
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("status", "error");
             return "register";
         } else {
             session.setAttribute("loggedInPrivateKey", user.getPrivateKey());
-            session.setAttribute("position", CaseUtils.toCamelCase(user.getPosition(), true));
+            session.setAttribute("position", user.getPosition());
             model.addAttribute("status", "success");
             userService.save(user);
 
@@ -127,10 +130,26 @@ public class UserController {
             return "login";
         } else {
             session.setAttribute("loggedInPrivateKey", user.getPrivateKey());
-            session.setAttribute("position", CaseUtils.toCamelCase(user.getPosition(), true));
+            session.setAttribute("position", user.getPosition());
             model.addAttribute("status", "success");
             return "redirect:/dashboard";
         }
+    }
+
+    // Returns localized messages
+    @GetMapping("/localization")
+    public @ResponseBody String json(HttpServletRequest request) throws IOException {
+        String locale = null;
+        for (Cookie cookie : request.getCookies()) {
+            if (cookie.getName().equals("Locale")) {
+                locale = cookie.getValue();
+                break;
+            }
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode jsonFile = mapper.readTree(new File("src/main/webapp/bin/locales.json"));
+
+        return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonFile.get(locale));
     }
 
     @GetMapping("/dashboard")
@@ -138,7 +157,7 @@ public class UserController {
         String privateKey = (String) session.getAttribute("loggedInPrivateKey");
         User user = userService.findByPublicKey(CryptographyService.getPublicKeyFromPrivate(privateKey));
         String firstName = user.getFirstName();
-        String position = CaseUtils.toCamelCase(user.getPosition(), true);
+        String position = Utils.toPascalCase(user.getPosition());
         model.addAttribute("status", "success");
         model.addAttribute("firstName", firstName);
         return "dashboards/" + position + "/dashboard" + position;
@@ -157,7 +176,7 @@ public class UserController {
     }
 
     // Adjusts navbar after logout
-    @GetMapping("/mainNavbarLogout")
+    @GetMapping("/logout")
     public String renderNavbarLogout(HttpSession session) {
         session.invalidate();
         return "navbar/mainNavbar";
@@ -173,12 +192,11 @@ public class UserController {
     @GetMapping("/userNavbar")
     public String userNavbar(HttpSession session) {
         String privateKey = (String) session.getAttribute("loggedInPrivateKey");
-        if (privateKey == null) {
+        if (privateKey == null)
             return "navbar/navbarRegisterLogin";
-        } else {
+        else {
             User user = userService.findByPublicKey(CryptographyService.getPublicKeyFromPrivate(privateKey));
-            String position = CaseUtils.toCamelCase(user.getPosition(), true);
-            return "navbar/navbar" + position;
+            return "navbar/navbar" + Utils.toPascalCase(user.getPosition());
         }
     }
 }

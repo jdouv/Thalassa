@@ -46,7 +46,7 @@ namespace Business
             var genesisBlock = blockchain[0];
             if (!genesisBlock.Hash.Equals(genesisBlock.CalculateHash()))
             {
-                var hashes = new List<string> {genesisBlock.GetDatetimeFromTimestamp(), genesisBlock.CalculateHash(), genesisBlock.Hash};
+                var hashes = new List<string> {genesisBlock.Timestamp.ToString(), genesisBlock.CalculateHash(), genesisBlock.Hash};
                 calculationResults[genesisBlock.Index] = hashes;
             }
 
@@ -54,10 +54,10 @@ namespace Business
             for (var i = 1; i < blockchain.Count; i++)
             {
                 var currentBlock = blockchain[i];
-                var currentBlockDatetime = currentBlock.GetDatetimeFromTimestamp();
+                var currentBlockDatetime = currentBlock.Timestamp.ToString();
                 var currentBlockExpectedHash = currentBlock.CalculateHash();
                 var previousBlock = blockchain[i - 1];
-                var previousBlockDatetime = previousBlock.GetDatetimeFromTimestamp();
+                var previousBlockDatetime = previousBlock.Timestamp.ToString();
 
                 // If current block’s hash field is not equal to its hash expected after recalculation
                 if (!currentBlock.Hash.Equals(currentBlockExpectedHash))

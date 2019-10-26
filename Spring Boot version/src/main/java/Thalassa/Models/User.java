@@ -21,7 +21,7 @@ public class User {
     @NotBlank(message =  "{error.requiredLastName}")
     @Size(max = 30, message = "{error.maxLastName}")
     private String lastName;
-    @Field("E-mail")
+    @Field("Email")
     @NotBlank(message =  "{error.requiredEmail}")
     @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "{error.emailInvalid}")
     private String email;

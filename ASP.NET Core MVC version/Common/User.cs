@@ -23,7 +23,7 @@ namespace Common
          StringLength(30, ErrorMessageResourceName = "Error_MaxLastName", ErrorMessageResourceType = typeof(Messages))]
         public string LastName { get; set; }
         
-        [DocumentProperty(PropertyName = "E-mail"),
+        [DocumentProperty(PropertyName = "Email"),
          Display(Name = "Users_Email", ResourceType = typeof(Messages)),
          Required(ErrorMessageResourceName = "Error_RequiredEmail", ErrorMessageResourceType = typeof(Messages)),
          RegularExpression("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",

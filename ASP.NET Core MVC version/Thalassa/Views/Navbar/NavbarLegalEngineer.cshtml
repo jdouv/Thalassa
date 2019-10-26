@@ -1,11 +1,9 @@
-@using Thalassa.App_GlobalResources
-
 <li class="dropdown navButDropdown animate slideIn">
-    <button class="btn btn-secondary dropdown-toggle dropdownButton navBut" type="button" id="navContractOptions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="symbol navButSymbolInline"></span> @Messages.Legal_Contracts
-    <span class="caret symbol"></span>
+    <button class="btn btn-secondary dropdown-toggle dropdownButton navBut" type="button" id="navContractOptions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="symbol navButSymbolInline"></span> <span data-localization="legalContracts"></span>
+        <span class="caret symbol"></span>
     </button>
     <div class="dropdown-menu" aria-labelledby="navContractOptions">
-        <button class="dropdown-item contractOption dropdownItem allContractsButton" type="button">@Messages.Legal_Contracts_AllContracts</button>
-        <button class="dropdown-item contractOption dropdownItem draftNewContractButton" type="button">@Messages.Legal_Contracts_NewContract (@Messages.Basics_CurrentlyUnavailable)</button>
+        <button class="dropdown-item contractOption dropdownItem allContractsButton" data-localization="legalContractsAllContracts" type="button"></button>
+        <button class="dropdown-item contractOption dropdownItem draftNewContractButton" type="button"><span data-localization="legalContractsNewContract"></span> (<span data-localization="basicsCurrentlyUnavailable"></span>)</button>
     </div>
 </li>

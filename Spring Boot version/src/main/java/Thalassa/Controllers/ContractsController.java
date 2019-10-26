@@ -1,6 +1,6 @@
 package Thalassa.Controllers;
 
-import Thalassa.Accessories.Services.ContractService;
+import Thalassa.DataManagement.Services.ContractService;
 import Thalassa.Models.LegalEngineering.Contract;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

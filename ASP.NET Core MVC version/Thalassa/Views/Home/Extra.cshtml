@@ -1,6 +1,4 @@
-﻿@using Thalassa.App_GlobalResources
-
-@* Notifications *@
+﻿@* Notifications *@
 <div class="notify pushNotification" data-notification-status="success"></div>
 <div class="notify pushNotification" data-notification-status="error"></div>
 <div class="notify pushNotification" data-notification-status="neutral"></div>
@@ -15,7 +13,7 @@
     </div>
 </div>
 
-@* Settings modal *@
+@* Settings modal> *@
 <div class="modal-overlay modal-overlay-settings hidden">
     <div class="modal modal-settings">
         <div class="settingsIcon"></div>
@@ -29,44 +27,44 @@
                 <div class="row">
                     <section class="col settingsLeftPane">
                         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                            <a draggable="false" class="settingsButtonLeftPane nav-link active" id="settings-appearance-tab" data-toggle="pill" href="#settings-appearance" role="tab" aria-controls="settings-appearance" aria-selected="true"><span class="settingsButtonSymbol"></span> <span>@Messages.Settings_Appearance</span></a>
-                            <a draggable="false" class="settingsButtonLeftPane nav-link" id="settings-about-tab" data-toggle="pill" href="#settings-about" role="tab" aria-controls="settings-about" aria-selected="false"><span class="settingsButtonSymbol"></span> <span>@Messages.Settings_About</span></a>
+                            <a draggable="false" class="settingsButtonLeftPane nav-link active" id="settings-appearance-tab" data-toggle="pill" href="#settings-appearance" role="tab" aria-controls="settings-appearance" aria-selected="true"><span class="settingsButtonSymbol"></span> <span data-localization="settingsAppearance"></span></a>
+                            <a draggable="false" class="settingsButtonLeftPane nav-link" id="settings-about-tab" data-toggle="pill" href="#settings-about" role="tab" aria-controls="settings-about" aria-selected="false"><span class="settingsButtonSymbol"></span> <span data-localization="settingsAbout"></span></a>
                         </div>
                     </section>
                     <section class="col settingsRightPane tab-content" id="settings-right-pane-content">
-                        <div class="settingsAppearanceParent settingsGeneralSectionParent tab-pane fade show active" id="settings-appearance" role="tabpanel" aria-labelledby="settings-appearance-tab">
+                        <div class="settingsAppearanceWrapper settingsGeneralSectionWrapper tab-pane fade show active" id="settings-appearance" role="tabpanel" aria-labelledby="settings-appearance-tab">
                             <section class="themeSection">
-                                <div class="settingsSectionTitle">@Messages.Settings_Theme</div>
+                                <div class="settingsSectionTitle" data-localization="settingsTheme"></div>
                                 <section class="settingsTitleSubsection">
-                                    <button class="lightSymbol settingsSectionButton" name="light"><span class="settingsButtonSymbol"></span> <span>@Messages.Settings_Light</span></button>
-                                    <button class="settingsSectionButton" name="dark"><span class="settingsButtonSymbol"></span> <span>@Messages.Settings_Dark</span></button>
+                                    <button class="lightSymbol settingsSectionButton" name="light"><span class="settingsButtonSymbol"></span> <span data-localization="settingsLight"></span></button>
+                                    <button class="settingsSectionButton" name="dark"><span class="settingsButtonSymbol"></span> <span data-localization="settingsDark"></span></button>
                                 </section>
                             </section>
                             <br/>
                             <section class="languageSection">
-                                <div class="settingsSectionTitle">@Messages.Settings_Language</div>
+                                <div class="settingsSectionTitle" data-localization="settingsLanguage"></div>
                                 <section class="settingsTitleSubsection">
                                     <div class="dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle dropdownButton" type="button" id="locales" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="@Messages.Settings_ChangeLanguage">@Messages.Settings_ChangeLanguage
-                                            <span class="caret symbol"></span>
+                                        <button class="btn btn-secondary dropdown-toggle dropdownButton" data-localization-title="settingsChangeLanguage" type="button" id="locales" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span data-localization="settingsChangeLanguage"></span>
+                                            <span class="caret symbol"> </span>
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="locales">
-                                            <button class="dropdown-item locale dropdownItem" type="button" value="en">@Messages.Basics_Lang_En</button>
-                                            <button class="dropdown-item locale dropdownItem" type="button" value="el">@Messages.Basics_Lang_El</button>
+                                            <button class="dropdown-item locale dropdownItem" data-localization="basicsLangEn" type="button" value="en"></button>
+                                            <button class="dropdown-item locale dropdownItem" data-localization="basicsLangEl" type="button" value="el"></button>
                                         </div>
                                     </div>
-                                    <div class="effectAfterRestart" style="display:none;"><span class="settingsSmallWarning"></span> <span>@Messages.Settings_EffectAfterRestart</span></div>
                                 </section>
                             </section>
                         </div>
-                        <div class="settingsAboutParent settingsGeneralSectionParent tab-pane fade" id="settings-about" role="tabpanel" aria-labelledby="settings-about-tab">
+                        <div class="settingsAboutWrapper settingsGeneralSectionWrapper tab-pane fade" id="settings-about" role="tabpanel" aria-labelledby="settings-about-tab">
                             <div class="aboutHeader">
-                                <h1 class="aboutH1">@Messages.Basics_Home</h1>
-                                <p>@Messages.About_Subtitle</p>
+                                <h1 class="aboutH1" data-localization="basicsHome"></h1>
+                                <p data-localization="aboutSubtitle"></p>
                             </div>
                             <div class="aboutContent">
-                                <p>@Messages.About_Attention</p>
-                                <p>@Html.Raw(Messages.About_Experimental)</p>
+                                <p data-localization="aboutAttention"></p>
+                                <p data-localization="aboutExperimental"></p>
                             </div>
                         </div>
                     </section>
@@ -90,32 +88,11 @@
 
 @* Messages *@
 <div style="display:none;">
-    <div class="errorBlockchainNotValidated">@Messages.Error_BlockchainNotValidated</div>
-    <div class="errorContractNotFetched">@Messages.Error_ContractNotFetched</div>
-    <div class="errorContractsNotFetched">@Messages.Error_ContractsNotFetched</div>
-    <div class="errorCode">@Messages.Error_Code</div>
-    <div class="errorLoginFailed">@Messages.Error_LoginFailed</div>
-    <div class="errorEmailNotChecked">@Messages.Error_EmailNotChecked</div>
-    <div class="errorMessage">@Messages.Error_Message</div>
-    <div class="errorKeysNotGenerated">@Messages.Error_KeysNotGenerated</div>
-    <div class="errorLoginPageNotFetched">@Messages.Error_LoginPageNotFetched</div>
-    <div class="errorLoginFormNotValidated">@Messages.Error_LoginFormNotValidated</div>
-    <div class="errorNavbarLoadingFailed">@Messages.Error_NavbarLoadingFailed</div>
-    <div class="errorRegisterPageNotFetched">@Messages.Error_RegisterPageNotFetched</div>
-    <div class="errorRegisterFailed">@Messages.Error_RegisterFailed</div>
-    <div class="errorRegisterFormNotValidated">@Messages.Error_RegisterFormNotValidated</div>
-    <div class="errorWelcomePageNotFetched">@Messages.Error_WelcomePageNotFetched</div>
-    <div class="legalContracts">@Messages.Legal_Contracts</div>
-    <div class="messageDetailsText">@Messages.Basics_Details</div>
-    <div class="messageErrorDetailsText">@Messages.Basics_ErrorDetails</div>
-    <div class="pageTitleLogin">@Messages.Users_Login</div>
-    <div class="pageTitleHome">@Messages.Basics_Home</div>
-    <div class="pageTitleRegister">@Messages.Users_Register</div>
-    <div class="pageTitleReloadForEffect">@Messages.Settings_EffectAfterRestart</div>
-    <div class="usersHome">@Messages.Users_Home</div>
-    <div class="usersPosition">@Messages.Users_Position</div>
-    <div class="usersPrivateKey">@Messages.Users_PrivateKey</div>
-    <div class="usersPublicKey">@Messages.Users_PublicKey</div>
+    <div class="errorChangeLanguageFailed" data-localization="errorChangeLanguageFailed"></div>
+    <div class="errorChangePageTitleFailed" data-localization="errorChangePageTitleFailed"></div>
+    <div class="usersPosition" data-localization="usersPosition"></div>
+    <div class="usersPrivateKey" data-localization="usersPrivateKey"></div>
+    <div class="usersPublicKey" data-localization="usersPublicKey"></div>
 </div>
 
 @* Logo languages *@

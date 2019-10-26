@@ -6,9 +6,6 @@ import org.springframework.data.annotation.Id;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.TimeZone;
 
 @Document("Blockchain")
 public class Block {
@@ -50,6 +47,10 @@ public class Block {
         return hash;
     }
 
+    public long getTimestamp() {
+        return timestamp;
+    }
+
     public String getData() {
         return data;
     }
@@ -65,15 +66,5 @@ public class Block {
     public String calculateHash() throws Exception {
         String blockData = previousHash == null ? index + timestamp + data : index + timestamp + data + previousHash;
         return new BigInteger(1, MessageDigest.getInstance("SHA-256").digest(blockData.getBytes(StandardCharsets.UTF_8))).toString(16);
-    }
-
-    // Converts block’s timestamp to readable datetime
-    public String getDatetimeFromTimestamp() {
-        SimpleDateFormat dateFormat = (System.getProperty("user.language").equals("en") && System.getProperty("user.country").equals("US")) ?
-                new SimpleDateFormat("MMMM d, yyyy - H:mm:ss") :
-                new SimpleDateFormat("d MMMM yyyy - H:mm:ss");
-        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-
-        return dateFormat.format(new Date(timestamp));
     }
 }

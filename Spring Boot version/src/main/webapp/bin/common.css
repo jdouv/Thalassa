@@ -119,7 +119,7 @@ footer {
     display: none;
 }
 
-.positionsParent .dropdown-toggle .caret {
+.positionsWrapper .dropdown-toggle .caret {
     position: relative;
     top: 3px;
     font-weight: bold;
@@ -746,7 +746,7 @@ input ~ label {
     padding-top: 4px;
 }
 
-.positionsParent {
+.positionsWrapper {
     text-align: center;
 }
 
@@ -1107,7 +1107,7 @@ svg path {
 
 .pushNotification {
     position: fixed;
-    z-index: 1;
+    z-index: 999;
     display: flex;
     align-items: center;
     padding: 20px;
@@ -1148,40 +1148,16 @@ svg path {
     font-size: 16px;
 }
 
-.pushNotification[data-notification-status="error"] {
-    background-color: rgba(239, 83, 80, .8);
-}
-
-.pushNotification[data-notification-status="success"] {
-    background-color: rgba(102, 187, 106, .8);
-}
-
-.pushNotification[data-notification-status="success"]:before {
+.pushNotification[data-notification-status="success"]:before, .pushNotification[data-notification-status="error"]:before {
     font-family: Segoe MDL2 Assets, sans serif;
     font-size: 38px;
     top: -8px;
     position: relative;
-    content: '\e930';
     display: block;
     width: 30px;
     height: 30px;
     min-width: 30px;
     margin-right: 24px;
-    color: rgba(0, 100, 0, .8);
-}
-
-.pushNotification[data-notification-status="error"]:before {
-    font-family: Segoe MDL2 Assets, sans serif;
-    font-size: 38px;
-    top: -8px;
-    position: relative;
-    content: '\ea39';
-    display: block;
-    width: 30px;
-    height: 30px;
-    min-width: 30px;
-    margin-right: 24px;
-    color: rgba(170, 0, 0, .8);
 }
 
 .pushNotification[data-notification-status="neutral"]:before {
@@ -1195,6 +1171,24 @@ svg path {
     height: 30px;
     min-width: 30px;
     margin-right: 24px;
+}
+
+.pushNotification[data-notification-status="success"]:before {
+    content: '\e930';
+    color: rgba(0, 100, 0, .8);
+}
+
+.pushNotification[data-notification-status="error"]:before {
+    content: '\ea39';
+    color: rgba(170, 0, 0, .8);
+}
+
+.pushNotification[data-notification-status="success"] {
+    background-color: rgba(102, 187, 106, .8);
+}
+
+.pushNotification[data-notification-status="error"] {
+    background-color: rgba(239, 83, 80, .8);
 }
 
 .pushNotification[data-notification-status="success"]:after,  .pushNotification[data-notification-status="error"]:after {

@@ -1,13 +1,11 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using Business;
-using CaseExtensions;
 using Common;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using Thalassa.App_GlobalResources;
 
 namespace Thalassa.Controllers
@@ -40,20 +38,6 @@ namespace Thalassa.Controllers
             return HttpContext.Session.GetString("loggedInPrivateKey") != null;
         }
 
-        // Adjusts service’s language based on user’s selection
-        [HttpPost]
-        public void SetLanguage()
-        {
-            using (var reader = new StreamReader(Request.Body, Encoding.UTF8))
-            {
-                Response.Cookies.Append(
-                    CookieRequestCultureProvider.DefaultCookieName,
-                    CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(reader.ReadToEnd())),
-                    new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
-                );
-            }
-        }
-        
         // Checks if the e-mail provided by the user during registration already exists and returns boolean
         [HttpPost]
         public bool EmailExists()
@@ -85,8 +69,8 @@ namespace Thalassa.Controllers
         }
 
         // Validates registration form before final registration
-        [HttpPost]
-        public bool RegisterIsValid()
+        [HttpGet]
+        public bool RegisterIsValid(User user)
         {
             ModelState.Remove("PublicKey");
             ModelState.Remove("PrivateKey");
@@ -98,17 +82,15 @@ namespace Thalassa.Controllers
         {
             // Check if e-mail is already in use
             if (user.Email != null)
-            {
                 if (_userService.FindByEmail(user.Email) != null)
                     ModelState.AddModelError(user.Email, Messages.Error_EmailAlreadyInUse);
-            }
 
             if (ModelState.IsValid)
             {
                 HttpContext.Session.SetString("loggedInPrivateKey", user.PrivateKey);
-                HttpContext.Session.SetString("position", user.Position.ToPascalCase());
-                ViewData["status"] = "success";
+                HttpContext.Session.SetString("position", Utils.ToPascalCase(user.Position));
                 _userService.Insert(user);
+                ViewData["status"] = "success";
                 return RedirectToAction("Dashboard", "User");
             }
 
@@ -146,7 +128,7 @@ namespace Thalassa.Controllers
             {
                 HttpContext.Session.SetString("loggedInPrivateKey", user.PrivateKey);
                 var position = _userService.FindByPublicKey(CryptographyService.GetPublicKeyFromPrivate(user.PrivateKey)).Position;
-                HttpContext.Session.SetString("position", position.ToPascalCase());
+                HttpContext.Session.SetString("position", Utils.ToPascalCase(position));
                 ViewData["status"] = "success";
                 return RedirectToAction("Dashboard", "User");
             }
@@ -155,15 +137,22 @@ namespace Thalassa.Controllers
             return PartialView("~/Views/Home/Login.cshtml", user);
         }
         
+        // Returns localized messages
+        [HttpGet]
+        public string Localization()
+        {
+            var json = JObject.Parse(new StreamReader("wwwroot/locales.json").ReadToEnd());
+            return json[HttpContext.Request.Cookies["Locale"]].ToString();
+        }
+        
         [HttpGet]
         public IActionResult Dashboard()
         {
             var privateKey = HttpContext.Session.GetString("loggedInPrivateKey");
             var user = _userService.FindByPublicKey(CryptographyService.GetPublicKeyFromPrivate(privateKey));
-            var firstName = user.FirstName;
-            var position = user.Position.ToPascalCase();
+            var position = Utils.ToPascalCase(user.Position);
             ViewData["status"] = "success";
-            ViewData["FirstName"] = firstName;
+            ViewData["FirstName"] = user.FirstName;
             return PartialView("~/Views/Dashboards/" + position + "/Dashboard" + position + ".cshtml");
         }
         
@@ -209,8 +198,7 @@ namespace Thalassa.Controllers
                 return PartialView("~/Views/Navbar/NavbarRegisterLogin.cshtml");
 
             var user = _userService.FindByPublicKey(CryptographyService.GetPublicKeyFromPrivate(privateKey));
-            var position = user.Position.ToPascalCase();
-            return PartialView("~/Views/Navbar/Navbar" + position + ".cshtml");
+            return PartialView("~/Views/Navbar/Navbar" + Utils.ToPascalCase(user.Position) + ".cshtml");
         }
     }
 }

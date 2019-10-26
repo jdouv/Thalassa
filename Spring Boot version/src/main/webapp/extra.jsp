@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -32,44 +31,44 @@
                 <div class="row">
                     <section class="col settingsLeftPane">
                         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                            <a draggable="false" class="settingsButtonLeftPane nav-link active" id="settings-appearance-tab" data-toggle="pill" href="#settings-appearance" role="tab" aria-controls="settings-appearance" aria-selected="true"><span class="settingsButtonSymbol"></span> <span><spring:message code="settings.appearance"/></span></a>
-                            <a draggable="false" class="settingsButtonLeftPane nav-link" id="settings-about-tab" data-toggle="pill" href="#settings-about" role="tab" aria-controls="settings-about" aria-selected="false"><span class="settingsButtonSymbol"></span> <span><spring:message code="settings.about"/></span></a>
+                            <a draggable="false" class="settingsButtonLeftPane nav-link active" id="settings-appearance-tab" data-toggle="pill" href="#settings-appearance" role="tab" aria-controls="settings-appearance" aria-selected="true"><span class="settingsButtonSymbol"></span> <span data-localization="settingsAppearance"></span></a>
+                            <a draggable="false" class="settingsButtonLeftPane nav-link" id="settings-about-tab" data-toggle="pill" href="#settings-about" role="tab" aria-controls="settings-about" aria-selected="false"><span class="settingsButtonSymbol"></span> <span data-localization="settingsAbout"></span></a>
                         </div>
                     </section>
                     <section class="col settingsRightPane tab-content" id="settings-right-pane-content">
-                        <div class="settingsAppearanceParent settingsGeneralSectionParent tab-pane fade show active" id="settings-appearance" role="tabpanel" aria-labelledby="settings-appearance-tab">
+                        <div class="settingsAppearanceWrapper settingsGeneralSectionWrapper tab-pane fade show active" id="settings-appearance" role="tabpanel" aria-labelledby="settings-appearance-tab">
                             <section class="themeSection">
-                                <div class="settingsSectionTitle"><spring:message code="settings.theme"/></div>
+                                <div class="settingsSectionTitle" data-localization="settingsTheme"></div>
                                 <section class="settingsTitleSubsection">
-                                    <button class="lightSymbol settingsSectionButton" name="light"><span class="settingsButtonSymbol"></span> <span><spring:message code="settings.light"/></span></button>
-                                    <button class="settingsSectionButton" name="dark"><span class="settingsButtonSymbol"></span> <span><spring:message code="settings.dark"/></span></button>
+                                    <button class="lightSymbol settingsSectionButton" name="light"><span class="settingsButtonSymbol"></span> <span data-localization="settingsLight"></span></button>
+                                    <button class="settingsSectionButton" name="dark"><span class="settingsButtonSymbol"></span> <span data-localization="settingsDark"></span></button>
                                 </section>
                             </section>
                             <br/>
                             <section class="languageSection">
-                                <div class="settingsSectionTitle"><spring:message code="settings.language"/></div>
+                                <div class="settingsSectionTitle" data-localization="settingsLanguage"></div>
                                 <section class="settingsTitleSubsection">
                                     <div class="dropdown">
-                                        <button class="btn btn-secondary dropdown-toggle dropdownButton" type="button" id="locales" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="<spring:message code="settings.changeLanguage"/>"><spring:message code="settings.changeLanguage"/>
-                                            <span class="caret symbol"></span>
+                                        <button class="btn btn-secondary dropdown-toggle dropdownButton" data-localization-title="settingsChangeLanguage" type="button" id="locales" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span data-localization="settingsChangeLanguage"></span>
+                                            <span class="caret symbol"> </span>
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="locales">
-                                            <button class="dropdown-item locale dropdownItem" type="button" value="en"><spring:message code="basics.lang.en"/></button>
-                                            <button class="dropdown-item locale dropdownItem" type="button" value="el"><spring:message code="basics.lang.el"/></button>
+                                            <button class="dropdown-item locale dropdownItem" data-localization="basicsLangEn" type="button" value="en"></button>
+                                            <button class="dropdown-item locale dropdownItem" data-localization="basicsLangEl" type="button" value="el"></button>
                                         </div>
                                     </div>
-                                    <div class="effectAfterRestart" style="display:none;"><span class="settingsSmallWarning"></span> <span><spring:message code="settings.effectAfterRestart"/></span></div>
                                 </section>
                             </section>
                         </div>
-                        <div class="settingsAboutParent settingsGeneralSectionParent tab-pane fade" id="settings-about" role="tabpanel" aria-labelledby="settings-about-tab">
+                        <div class="settingsAboutWrapper settingsGeneralSectionWrapper tab-pane fade" id="settings-about" role="tabpanel" aria-labelledby="settings-about-tab">
                             <div class="aboutHeader">
-                                <h1 class="aboutH1"><spring:message code="basics.home"/></h1>
-                                <p><spring:message code="about.subtitle"/></p>
+                                <h1 class="aboutH1" data-localization="basicsHome"></h1>
+                                <p data-localization="aboutSubtitle"></p>
                             </div>
                             <div class="aboutContent">
-                                <p><spring:message code="about.attention"/></p>
-                                <p><spring:message code="about.experimental"/></p>
+                                <p data-localization="aboutAttention"></p>
+                                <p data-localization="aboutExperimental"></p>
                             </div>
                         </div>
                     </section>
@@ -93,32 +92,11 @@
 
 <%--Messages--%>
 <div style="display:none;">
-    <div class="errorBlockchainNotValidated"><spring:message code="error.blockchainNotValidated"/></div>
-    <div class="errorContractNotFetched"><spring:message code="error.contractNotFetched"/></div>
-    <div class="errorContractsNotFetched"><spring:message code="error.contractsNotFetched"/></div>
-    <div class="errorCode"><spring:message code="error.code"/></div>
-    <div class="errorLoginFailed"><spring:message code="error.loginFailed"/></div>
-    <div class="errorEmailNotChecked"><spring:message code="error.emailNotChecked"/></div>
-    <div class="errorMessage"><spring:message code="error.message"/></div>
-    <div class="errorKeysNotGenerated"><spring:message code="error.keysNotGenerated"/></div>
-    <div class="errorLoginPageNotFetched"><spring:message code="error.loginPageNotFetched"/></div>
-    <div class="errorLoginFormNotValidated"><spring:message code="error.loginFormNotValidated"/></div>
-    <div class="errorNavbarLoadingFailed"><spring:message code="error.navbarLoadingFailed"/></div>
-    <div class="errorRegisterPageNotFetched"><spring:message code="error.registerPageNotFetched"/></div>
-    <div class="errorRegisterFailed"><spring:message code="error.registerFailed"/></div>
-    <div class="errorRegisterFormNotValidated"><spring:message code="error.registerFormNotValidated"/></div>
-    <div class="errorWelcomePageNotFetched"><spring:message code="error.welcomePageNotFetched"/></div>
-    <div class="legalContracts"><spring:message code="legal.contracts"/></div>
-    <div class="messageDetailsText"><spring:message code="basics.details"/></div>
-    <div class="messageErrorDetailsText"><spring:message code="basics.errorDetails"/></div>
-    <div class="pageTitleLogin"><spring:message code="users.login"/></div>
-    <div class="pageTitleHome"><spring:message code="basics.home"/></div>
-    <div class="pageTitleRegister"><spring:message code="users.register"/></div>
-    <div class="pageTitleReloadForEffect"><spring:message code="settings.effectAfterRestart"/></div>
-    <div class="usersHome"><spring:message code="users.home"/></div>
-    <div class="usersPosition"><spring:message code="users.position"/></div>
-    <div class="usersPrivateKey"><spring:message code="users.privateKey"/></div>
-    <div class="usersPublicKey"><spring:message code="users.publicKey"/></div>
+    <div class="errorChangeLanguageFailed" data-localization="errorChangeLanguageFailed"></div>
+    <div class="errorChangePageTitleFailed" data-localization="errorChangePageTitleFailed"></div>
+    <div class="usersPosition" data-localization="usersPosition"></div>
+    <div class="usersPrivateKey" data-localization="usersPrivateKey"></div>
+    <div class="usersPublicKey" data-localization="usersPublicKey"></div>
 </div>
 
 <%--Logo languages--%>

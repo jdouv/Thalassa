@@ -1,10 +1,8 @@
-﻿@using Thalassa.App_GlobalResources
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html style="display: none;" lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>@Messages.Basics_Home</title>
+    <title data-localization-page-title="basicsHome"></title>
     <link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/latest/normalize.css" />
     <link rel="stylesheet" type="text/css" href="~/css/reset.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -23,13 +21,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto navbarUsers">
-            @{ await Html.RenderPartialAsync("~/Views/Navbar/NavbarRegisterLogin.cshtml"); }
+                @{ await Html.RenderPartialAsync("~/Views/Navbar/NavbarRegisterLogin.cshtml"); }
             </ul>
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav rightNavButtons navButBackground transition">
-                <li class="nav-item">
-                    <button type="button" class="nav-item navButSymbol lightSymbol navButSettings" title="@Messages.Basics_Settings"></button>
-                </li>
+                @{ await Html.RenderPartialAsync("~/Views/Navbar/MainRightNav.cshtml"); }
             </ul>
         </div>
     </nav>
@@ -42,6 +38,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script type="text/javascript" src="~/js/qrcodegen.js"></script>
+<script type="text/javascript" src="https://momentjs.com/downloads/moment-with-locales.js"></script>
 <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
 <script type="text/javascript" src="~/js/site.js"></script>
 </body>

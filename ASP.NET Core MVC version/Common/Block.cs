@@ -51,15 +51,5 @@ namespace Common
 
             return sb.ToString();
         }
-        
-        // Converts block’s timestamp to readable datetime
-        public string GetDatetimeFromTimestamp()
-        {
-            var timestampToDatetime = DateTimeOffset.FromUnixTimeMilliseconds(Timestamp).DateTime;
-            return System.Threading.Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName.Equals("en") &&
-                   RegionInfo.CurrentRegion.Name.Equals("US") ?
-                $@"{timestampToDatetime:MMMM d, yyyy - H:mm:ss}" :
-                $@"{timestampToDatetime:d MMMM yyyy - H:mm:ss}";
-        }
     }
 }

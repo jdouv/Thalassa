@@ -1,16 +1,16 @@
 package Thalassa.Configuration;
 
-import Thalassa.Accessories.Repositories.BlockRepository;
-import Thalassa.Accessories.Repositories.UserRepository;
-import Thalassa.Accessories.Services.BlockchainService;
-import Thalassa.Accessories.Services.UserService;
-import Thalassa.Accessories.Services.VesselService;
+import Thalassa.DataManagement.Repositories.BlockRepository;
+import Thalassa.DataManagement.Repositories.UserRepository;
+import Thalassa.DataManagement.Services.BlockchainService;
+import Thalassa.DataManagement.Services.UserService;
+import Thalassa.DataManagement.Services.VesselService;
 import Thalassa.Models.LegalEngineering.Clauses.Clause;
 import Thalassa.Models.LegalEngineering.Clauses.FixedClauses.FixedClausesFactory;
 import Thalassa.Models.LegalEngineering.Contract;
 import Thalassa.Models.User;
 import Thalassa.Models.Block;
-import Thalassa.Accessories.Services.CryptographyService;
+import Thalassa.DataManagement.Services.CryptographyService;
 import Thalassa.Models.Vessel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.muquit.libsodiumjna.SodiumLibrary;
@@ -77,26 +77,28 @@ public class Initializer {
 
         // Set admin for demo purposes
         if (userService.findByPosition("Admin") == null) {
-            User admin = new User();
-            admin.setPublicKey("efa3036945807cc349ae55b2b503d8832c0250bb8782d32b74af6a63850fedaa");
-            admin.setFirstName("Admin");
-            admin.setLastName("Admin");
-            admin.setEmail("admin@example.com");
-            admin.setPosition("Admin");
-            admin.setEnabled(true);
-            admin.setCorrespondingIndices(new HashMap<>());
+            User admin = new User() {{
+                setPublicKey("efa3036945807cc349ae55b2b503d8832c0250bb8782d32b74af6a63850fedaa");
+                setFirstName("Admin");
+                setLastName("Admin");
+                setEmail("admin@example.com");
+                setPosition("Admin");
+                setEnabled(true);
+                setCorrespondingIndices(new HashMap<>());
+            }};
             userService.save(admin);
         }
 
         // Set plain user for demo purposes
-        User testUser = new User();
-        testUser.setPublicKey("d083057717d54238428da204ba14ddb3ef287a7aa0e3abe1f9ad6c7874bfc446");
-        testUser.setFirstName("John");
-        testUser.setLastName("Doe");
-        testUser.setEmail("john@example.com");
-        testUser.setPosition("Legal engineer");
-        testUser.setEnabled(true);
-        testUser.setCorrespondingIndices(new HashMap<>());
+        User testUser = new User() {{
+            setPublicKey("d083057717d54238428da204ba14ddb3ef287a7aa0e3abe1f9ad6c7874bfc446");
+            setFirstName("John");
+            setLastName("Doe");
+            setEmail("john@example.com");
+            setPosition("Legal engineer");
+            setEnabled(true);
+            setCorrespondingIndices(new HashMap<>());
+        }};
 
         User dbUser = userRepository.findByPublicKey("d083057717d54238428da204ba14ddb3ef287a7aa0e3abe1f9ad6c7874bfc446");
         // If there is already a user with this public key
@@ -134,10 +136,10 @@ public class Initializer {
         essentials.put("signatures", new ArrayList<>(Arrays.asList(signature1, signature2)));
         String[] encryptedData = CryptographyService.encrypt(new ObjectMapper().writeValueAsString(new Contract("Contract", "timeCharter", essentials, clauses)));
         Block newLastBlock = blockRepository.findLastBlock();
-        blockRepository.save(new Block(String.valueOf(Long.valueOf(newLastBlock.getIndex()) + 1), encryptedData[0], newLastBlock.getHash()));
+        blockRepository.save(new Block(String.valueOf(Long.parseLong(newLastBlock.getIndex()) + 1), encryptedData[0], newLastBlock.getHash()));
         String encryptedSecret = CryptographyService.encryptWithPublicKey(encryptedData[1], testUser.getPublicKey());
         HashMap<String, String> userCorrespondingIndices = testUser.getCorrespondingIndices();
-        userCorrespondingIndices.put(String.valueOf(Long.valueOf(newLastBlock.getIndex()) + 1), encryptedSecret);
+        userCorrespondingIndices.put(String.valueOf(Long.parseLong(newLastBlock.getIndex()) + 1), encryptedSecret);
         testUser.setCorrespondingIndices(userCorrespondingIndices);
         userRepository.save(testUser);
     }

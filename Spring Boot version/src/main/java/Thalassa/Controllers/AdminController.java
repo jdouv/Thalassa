@@ -1,6 +1,6 @@
 package Thalassa.Controllers;
 
-import Thalassa.Accessories.Services.BlockchainService;
+import Thalassa.DataManagement.Services.BlockchainService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;

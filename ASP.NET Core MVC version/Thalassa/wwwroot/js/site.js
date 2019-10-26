@@ -5,8 +5,8 @@
     let navLogoSpiral = $('.navLogoSpiral');
     let navLogoName = $('.navLogoName');
     let bgimage = $('.bg-image');
-    let submitButtonParent = $('.submitButtonParent');
-    let resetButtonParent = $('.resetButtonParent');
+    let submitButtonWrapper = $('.submitButtonWrapper');
+    let resetButtonWrapper = $('.resetButtonWrapper');
     let light = $('[name="light"]');
     let dark = $('[name="dark"]');
     let lightCSS = $('.lightStyle');
@@ -21,6 +21,79 @@
     let validFormAjax;
     let keysHaveBeenGenerated;
 
+    // Sets locale cookie
+    function setLocaleCookie() {
+        if (getCookie('Locale') == null) {
+            navigator.languages[0].substr(0, 2).length > 0 ?
+                setCookie('Locale', navigator.languages[0].substr(0, 2)) :
+                setCookie('Locale', 'en');
+        }
+    }
+
+    setLocaleCookie();
+    
+    // Localizes given element
+    function changeLanguage(element) {
+        setLocaleCookie();
+        
+        $.get({
+            url: '/User/Localization',
+            success: function(response) {
+                moment.locale(getCookie('Locale'));
+                let data = JSON.parse(response);
+                element.find('[data-localization-page-title]').text(data[$('[data-localization-page-title]').attr('data-localization-page-title')]);
+                element.find('[data-localization]').each(function() {
+                    $(this).text(data[$(this).attr('data-localization')]);
+                    if ($(this).text().includes('\\'))
+                        $(this).html($(this).text().replace(/[\\]/g,''));
+                    if (/<(br|basefont|hr|input|source|frame|param|area|meta|!--|col|link|option|base|img|wbr|!DOCTYPE).*?>|<(a|abbr|acronym|address|applet|article|aside|audio|b|bdi|bdo|big|blockquote|body|button|canvas|caption|center|cite|code|colgroup|command|datalist|dd|del|details|dfn|dialog|dir|div|dl|dt|em|embed|fieldset|figcaption|figure|font|footer|form|frameset|head|header|hgroup|h1|h2|h3|h4|h5|h6|html|i|iframe|ins|kbd|keygen|label|legend|li|map|mark|menu|meter|nav|noframes|noscript|object|ol|optgroup|output|p|pre|progress|q|rp|rt|ruby|s|samp|script|section|select|small|span|strike|strong|style|sub|summary|sup|table|tbody|td|textarea|tfoot|th|thead|time|title|tr|track|tt|u|ul|var|video).*?<\/\2>/i.test($(this).text()))
+                        $(this).html($(this).text());
+                });
+                element.find('[data-localization-title]').each(function() {
+                    $(this).attr('title', data[$(this).attr('data-localization-title')]);
+                });
+                element.find('[data-timestamp]').each(function() {
+                    $(this).text(datetimeFromTimestamp($(this).attr('data-timestamp')));
+                });
+                element.find('[data-localization-error]').each(function() {
+                    $(this).text(data[$(this).attr('data-localization-error')]);
+                });
+                element.find('[data-user-position]').each(function() {
+                    let text;
+                    $(this).attr('data-user-position') === 'usersPosition' ?
+                        text = data['usersPosition'] :
+                        text = data['usersPositions' + $(this).attr('data-user-position')];
+                    $('[data-user-position]').html(text);
+                });
+            },
+            error: function(jqXHR) {
+                notifyError($('.errorChangeLanguageFailed').text(), jqXHR);
+            }
+        });
+
+        return element;
+    }
+
+    // Converts block’s timestamp to readable datetime
+    function datetimeFromTimestamp(timestamp) {
+        timestamp = parseInt(timestamp);
+        let day = moment.utc(timestamp).format('D');
+        let month = moment.utc(timestamp).format('MMMM');
+        let year = moment.utc(timestamp).format('YYYY');
+        let time = moment.utc(timestamp).format('H:mm:ss');
+
+        if (getCookie('Locale') === 'en') {
+            if (window.navigator.language.substr(3) === 'US')
+                return month + ' ' + day +  ', ' + year +  ' - ' + time;
+            else
+                return day + ' ' + month + ' ' + year +  ' - ' + time;
+        }
+        else
+            return moment.utc(timestamp).format('LL') + ' - ' + time;
+    }
+
+    changeLanguage($('html'));
+
     // Checks if anyone is logged in by calling the appropriate controller
     $.get({
         url: '/User/IsLoggedIn',
@@ -28,14 +101,14 @@
             if (response === true) {
                 setNavbarToggler();
                 toggleUsers('login');
-                doAjax('/User/Dashboard', 'GET', main, main, $('.errorWelcomePageNotFetched').text());
+                doAjax('/User/Dashboard', 'GET', main, main, 'errorWelcomePageNotFetched');
                 navbar_brand.show();
                 if (!bgimage.hasClass('bg-image-blurred'))
                     bgimage.addClass('bg-image-blurred');
             }
         },
         error: function(jqXHR) {
-            notifyError($('.errorWelcomePageNotFetched').text(), jqXHR);
+            notifyError('errorWelcomePageNotFetched', jqXHR);
         }
     });
 
@@ -44,8 +117,16 @@
     $('.navLogoSpiral svg').attr('width', '41px');
     $('html').fadeIn(1000);
 
-    function changePageTitle(title) {
-        document.title = title;
+    function changeTitle(title) {
+        $.get({
+            url: '/User/Localization',
+            success: function(response) {
+                $('[data-localization-page-title]').attr('data-localization-page-title', title).text(JSON.parse(response)[title]);
+            },
+            error: function(jqXHR) {
+                notifyError($('.errorChangePageTitleFailed').text(), jqXHR);
+            }
+        });
     }
 
     function adjustWelcomeLogo() {
@@ -53,33 +134,40 @@
         adjustLogoLocale();
     }
 
+    function setCookie(name, value) {
+        document.cookie = name + '=' + value + ';';
+    }
+
+    function getCookie(name) {
+        let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        if (match) return match[2];
+    }
+
     // Sets locale depending on current system or user language
     $('.locale').each(function() {
-        if ($(this).val() === localStorage.getItem('Locale'))
-            $('#locales').html($(this).html() + '<span class="caret"></span>');
+        if ($(this).val() === getCookie('Locale'))
+            $('[data-user-position]').html($(this).html());
         adjustLogoLocale();
     });
 
     // Because the service is bilingual (for now), adjusts the logo width based on the given translated name of the service
     function adjustLogoWidthByLocalStorage() {
-        if (localStorage.getItem('Locale') === 'el')
-            $('.navLogoName svg').attr('width', '110px');
-        else
+        getCookie('Locale') === 'el' ?
+            $('.navLogoName svg').attr('width', '110px') :
             $('.navLogoName svg').attr('width', '105px');
     }
 
     // Same as above
     function adjustLogoWidthByNavigator() {
-        if (navigator.languages[0].substr(0,2) === 'el')
-            $('.navLogoName svg').attr('width', '110px');
-        else
+        navigator.languages[0].substr(0, 2) === 'el' ?
+            $('.navLogoName svg').attr('width', '110px') :
             $('.navLogoName svg').attr('width', '105px');
     }
 
     // Adjusts logo locale based on given criteria
     function adjustLogoLocale() {
-        if (localStorage.getItem('Locale') != null) {
-            setLogoLanguage(localStorage.getItem('Locale').substr(0,1).toUpperCase() + localStorage.getItem('Locale').substr(1,1).toLowerCase());
+        if (getCookie('Locale') != null) {
+            setLogoLanguage(getCookie('Locale').substr(0, 1).toUpperCase() + getCookie('Locale').substr(1, 1).toLowerCase());
             adjustLogoWidthByLocalStorage();
         } else
             logoLangBasedOnNavigator();
@@ -92,7 +180,7 @@
     }
 
     function logoLangBasedOnNavigator() {
-        let lang = navigator.languages[0].substr(0,2);
+        let lang = navigator.languages[0].substr(0, 2);
         setLogoLanguage(lang.substr(0, 1).toUpperCase() + lang.substr(1, 1).toLowerCase());
         adjustLogoWidthByNavigator();
     }
@@ -109,46 +197,52 @@
 
     // Shows a push notification with green background (success)
     function notifySuccess(text) {
+        let finalText = $(changeLanguage($.parseHTML(`<span data-localization="${text}"></span>`)));
+        changeLanguage(finalText);
         $('[data-notification-status="success"]')
             .css('transition', '.3s')
             .show()
             .removeClass()
+            .empty().append(finalText)
             .attr('data-notification-status', 'success')
             .addClass('pushNotification' + ' notify')
-            .addClass('do-show')
-            .empty().append(text);
+            .addClass('do-show');
     }
 
     // Shows a push notification with red background (error)
     function notifyError(text, jqXHR) {
+        let pushText = `
+            <div class="notificationResponseText">
+            <div class="notificationMessageTextInline" data-localization-error="${text}"></div>
+            <div class="notificationDetails" data-localization="basicsDetails"></div></div>`;
+        let details = `
+            <div class="messageTitle" data-localization="basicsErrorDetails"></div>
+            <div class="messageErrorStatus" style="font-size:16px;"><span data-localization="errorCode"></span> ${JSON.parse(jqXHR.responseText).status}</div>
+            <div class="messageErrorMessage" style="font-size:16px;"><span data-localization="errorMessage"></span><br/>${JSON.parse(jqXHR.responseText).message}</div>`;
+        let textModified = changeLanguage($($.parseHTML(pushText)));
+        let detailsModified = changeLanguage($($.parseHTML(details)));
         $('[data-notification-status="error"]')
             .css('transition', '.3s')
             .show()
             .removeClass()
+            .empty().append(textModified)
             .attr('data-notification-status', 'error')
             .addClass('pushNotification' + ' notify')
-            .addClass('do-show')
-            .empty().append(`
-            <div class="notificationResponseText">
-            <div class="notificationMessageTextInline">${text}</div>
-            <div class="notificationDetails">${$('.messageDetailsText').text()}
-            </div></div>`);
-        $('.modal-overlay-message .modal-content').empty().append(`
-            <div class="messageTitle">${$('.messageErrorDetailsText').text()}</div>
-            <div class="messageErrorStatus" style="font-size:16px;">${$('.errorCode').text()} ${jqXHR.status}</div>
-            <div class="messageErrorMessage" style="font-size:16px;">${$('.errorMessage').text()}<br/>${jqXHR.responseText}</div>`);
+            .addClass('do-show');
+        $('.modal-overlay-message .modal-content').empty().append(detailsModified);
     }
 
     // Shows a neutral (with transparent background color) push notification
     function notifyNeutral(text) {
+        let finalText = $(changeLanguage($.parseHTML(`<span data-localization="${text}"></span>`)));
         $('[data-notification-status="neutral"]')
             .css('transition', '.3s')
             .show()
             .removeClass()
+            .empty().append(finalText)
             .attr('data-notification-status', 'neutral')
             .addClass('pushNotification' + ' notify')
-            .addClass('do-show')
-            .empty().append(text);
+            .addClass('do-show');
     }
 
     // Closes push notification
@@ -162,12 +256,9 @@
     // Changes site’s language
     $(document).on('click', '.locale', function(e) {
         e.preventDefault();
-        localStorage.setItem('Locale', $(this).val());
-        $.post({
-            url: '/User/SetLanguage',
-            data: $(this).val()
-        });
-        $(this).parents('section').find('.effectAfterRestart').show(300).delay(5000).hide(300);
+        setCookie('Locale', $(this).val());
+        changeLanguage($('html'));
+        adjustLogoLocale();
     });
 
     // Opens Settings
@@ -242,11 +333,9 @@
         darkCSS.prop('disabled', false);
         light.show();
         navbar.removeClass('navbar-light').addClass('navbar-dark');
-        if (navbar.hasClass('navbarColored')) {
-            $('.navbar-toggler-icon').removeClass('navbarTogglerColored');
-        } else {
+        navbar.hasClass('navbarColored') ?
+            $('.navbar-toggler-icon').removeClass('navbarTogglerColored') :
             $('.navbar-toggler-icon').addClass('navbarTogglerColored');
-        }
         $('svg path').not('.welcomeSpiral svg path, #gears svg path').attr('fill', '#fff');
         $('.generatedKeys svg rect, .contract svg rect').attr('fill', '#fff');
         $('.generatedKeys svg path, .contract svg path').not('.contractIcon svg path').attr('fill', '#000');
@@ -258,44 +347,33 @@
         lightCSS.prop('disabled', false);
         dark.show();
         navbar.removeClass('navbar-dark').addClass('navbar-light');
-        if (navbar.hasClass('navbarColored')) {
-            $('.navbar-toggler-icon').removeClass('navbarTogglerColored');
-        } else {
+        navbar.hasClass('navbarColored') ?
+            $('.navbar-toggler-icon').removeClass('navbarTogglerColored') :
             $('.navbar-toggler-icon').addClass('navbarTogglerColored');
-        }
         $('svg path').not('.welcomeSpiral svg path, #gears svg path').attr('fill', '#001755');
         $('.generatedKeys svg rect, .contract svg rect').attr('fill', 'none');
         $('.generatedKeys svg path, .contract svg path').attr('fill', '#001755');
     }
 
     function autoAdjustThemes() {
-        if (localStorage.getItem('Theme') === 'light') {
+        if (getCookie('Theme') === 'light')
             enableLight();
-        } else if (localStorage.getItem('Theme') === 'dark' || localStorage.getItem('Theme') === 'dark') {
+        else if (getCookie('Theme') === 'dark')
             enableDark();
-        } else {
+        else
             adjustThemeBasedOnNow();
-        }
     }
 
     autoAdjustThemes();
-    
+
     // Auto-adjusts theme based on current month and hour
     function adjustThemeBasedOnNow() {
         let now = new Date().getHours();
         let month = new Date().getMonth() + 1;
 
-        if (month >= 4 && month <= 10) {
-            if (now >= 6 && now <= 19)
-                enableLight();
-            else
-                enableDark();
-        } else {
-            if (now >= 7 && now <= 17)
-                enableLight();
-            else
-                enableDark();
-        }
+        month >= 4 && month <= 10 ?
+            now >= 6 && now <= 19 ? enableLight() : enableDark() :
+            now >= 7 && now <= 17 ? enableLight() : enableDark();
     }
 
     $(document).on('mouseover', '.navbar-brand', function() {
@@ -307,14 +385,14 @@
         if (darkCSS.prop('disabled') === false)
             $(this).find('svg path').attr('fill', '#fff');
     });
-    
+
     // Renders all functions below when user inputs something in a form
     $(document).on('input', 'form input', function() {
         if ($(this).parents('form').hasClass('registerForm')) {
             if ($(this).attr('id') === 'email' && validEmail($(this))) {
                 emailExists($(this));
                 if ($(this).hasClass('validInput')) {
-                    $(this).parents('form').find('.submitButtonParent, .resetButtonParent').show(300);
+                    $(this).parents('form').find('.submitButtonWrapper, .resetButtonWrapper').show(300);
                     $(this).parents('form').find('.submitButton').prop('disabled', false);
                 }
             }
@@ -325,55 +403,47 @@
     });
 
     function toggleFormButtons(element) {
-        if (element.val().length !== 0) {
-            if (isValidForm(element))
-                enableFormButtons(element);
-            else
-                disableOnlySubmit(element);
-        } else {
+        element.val().length !== 0 ?
+            isValidForm(element) ? enableFormButtons(element) : disableOnlySubmit(element) :
             element.parents('form').find('input').each(function() {
-                if ($(this).val().length === 0)
-                    disableFormButtons(element);
-                else
-                    disableOnlySubmit(element);
+                $(this).val().length === 0 ? disableFormButtons(element) : disableOnlySubmit(element);
             });
-        }
     }
 
     function enableFormButtons(element) {
-        element.parents('form').find('.submitButtonParent, .resetButtonParent').show(300);
+        element.parents('form').find('.submitButtonWrapper, .resetButtonWrapper').show(300);
         element.parents('form').find('.submitButton').prop('disabled', false);
     }
 
     function disableFormButtons(element) {
-        element.parents('form').find('.submitButtonParent, .resetButtonParent').hide(300);
+        element.parents('form').find('.submitButtonWrapper, .resetButtonWrapper').hide(300);
         element.parents('form').find('.submitButton').prop('disabled', false);
     }
 
     function disableOnlySubmit(element) {
-        element.parents('form').find('.submitButtonParent').hide(300);
-        element.parents('form').find('.resetButtonParent').show(300);
-        element.parents('form').find('.submitButton').prop('disabled', true);
+        element.parents('form').find('.submitButtonWrapper').hide(300);
+        element.parents('form').find('.resetButtonWrapper').show(300);
+        element.parents('focorm').find('.submitButton').prop('disabled', true);
     }
 
     // Toggles green or red color to the input (border-bottom) based on whether it is valid or not
     function toggleValidationColors(element) {
         if (element.val().length === 0)
             element.removeClass('validInput invalidInput');
-        else {
-            if (element.parents('form').hasClass('registerForm') && element.attr('id') === 'email') {
-                if (isValidInput(element)) {
-                    element.removeClass('invalidInput');
-                    element.addClass('validInput');
-                } else {
-                    element.removeClass('validInput');
-                    element.addClass('invalidInput');
-                }
+        if (element.val().length > 0)
+            element.removeClass('invalidInput').addClass('validInput');
+        if (element.parents('form').hasClass('registerForm') && element.attr('id') === 'email') {
+            if (isValidInput(element)) {
+                element.removeClass('invalidInput');
+                element.addClass('validInput');
+            } else {
+                element.removeClass('validInput');
+                element.addClass('invalidInput');
             }
         }
     }
 
-    // Similar as when user inputs something in a form
+    // Similar as above when user inputs something in a form (change event)
     $(document).on('change', 'input', function() {
         if ($(this).val().length === 0) {
             $(this).parent().find('label').css({'top': '4px', 'font-size': '18px'});
@@ -390,11 +460,9 @@
     });
 
     $(document).on('blur', 'input', function() {
-        if ($(this).val().length === 0) {
-            $(this).parent().find('label').css({'top': '4px', 'font-size': '18px'});
-        } else {
+        $(this).val().length === 0 ?
+            $(this).parent().find('label').css({'top': '4px', 'font-size': '18px'}) :
             $(this).parent().find('label').css({'top': '-12px', 'font-size': '14px'});
-        }
     });
 
     function isValidInput(element) {
@@ -422,14 +490,14 @@
     }
 
     function validateRegister(element) {
-        $.post({
+        $.get({
             url: '/User/RegisterIsValid',
             data: $('.registerForm').serialize(),
             success: function(response) {
                 responseBoolean(response, element);
             },
             error: function(jqXHR) {
-                notifyError($('.errorRegisterFormNotValidated').text(), jqXHR);
+                notifyError('errorRegisterFormNotValidated', jqXHR);
             }
         });
     }
@@ -442,8 +510,9 @@
             data: $('.registerForm').serialize(),
             success: function(response) {
                 $('.generatedKeys').empty().append(response);
+                changeLanguage($('.generatedKeys'));
                 keysHaveBeenGenerated = true;
-                $('.registerForm .submitButtonParent').show(300);
+                $('.registerForm .submitButtonWrapper').show(300);
                 $('.registerForm .submitButton').prop('disabled', false);
 
                 // Generate relevant QR code
@@ -464,7 +533,7 @@
             },
             error: function(jqXHR) {
                 $('.generatedKeys').delay(450).show(300);
-                notifyError($('.errorKeysNotGenerated').text(), jqXHR);
+                notifyError('errorKeysNotGenerated', jqXHR);
                 keysHaveBeenGenerated = false;
             }
         });
@@ -499,9 +568,9 @@
     // Sets the selected position as the value of the user’s position’s input of the registration form and validates the latter
     $(document).on('click', '.position', function() {
         $('.positionInput').val($(this).val());
-        $('#userPosition').html($(this).html() + '<span class="caret"></span>');
-        $(this).parent().find('.formWarningServer').hide(300);
-        $(this).parents('form').find('.resetButtonParent').show(300);
+        $('[data-user-position]').html($(this).html()).attr('data-user-position', $(this).val());
+        $(this).parents('.positionsWrapper').find('.formWarningServer').hide(300);
+        $(this).parents('form').find('.resetButtonWrapper').show(300);
         validateRegister($(this));
     });
 
@@ -555,34 +624,30 @@
     function setNavbarToggler() {
         setTimeout(()=> {
             if (!navbar.hasClass('navbarColored')) {
-                if (rightNavButtons.hasClass('navButBackground')) {
-                    rightNavButtons.removeClass('navButBackground');
-                } else {
+                rightNavButtons.hasClass('navButBackground') ?
+                    rightNavButtons.removeClass('navButBackground') :
                     rightNavButtons.addClass('navButBackground');
-                }
             }
             $('.navbar-toggler-icon').removeClass('navbarTogglerColored');
             navbar.addClass('navbarColored');
         }, 450);
         setTimeout(()=> {
-            if (lightCSS.prop('disabled') === false) {
-                navbar.removeClass('navbar-dark').addClass('navbar-light');
-            } else {
+            lightCSS.prop('disabled') === false ?
+                navbar.removeClass('navbar-dark').addClass('navbar-light') :
                 navbar.removeClass('navbar-light').addClass('navbar-dark');
-            }
         }, 450);
     }
 
     // Determines what happens when user clicks on “Dark” button in Settings
     $(document).on('click', '[name="dark"]', ()=> {
         enableDark();
-        localStorage.setItem('Theme', 'dark');
+        setCookie('Theme', 'dark');
     });
 
     // Determines what happens when user clicks on “Light” button in Settings
     $(document).on('click', '[name="light"]', ()=> {
         enableLight();
-        localStorage.setItem('Theme', 'light');
+        setCookie('Theme', 'light');
     });
 
     // Changes the border-bottom attribute of a navbar button when clicked
@@ -603,12 +668,14 @@
     function emailExists(element) {
         $.post({
             url: '/User/EmailExists',
+            contentType: 'application/json;charset=utf-8',
+            dataType: 'json',
             data: element.val(),
             success: function(response) {
                 toggleRegisterFormElementExistsWarning(element, response);
             },
             error: function(jqXHR) {
-                notifyError($('.errorEmailNotChecked').text(), jqXHR);
+                notifyError('errorEmailNotChecked', jqXHR);
             }
         });
     }
@@ -637,6 +704,7 @@
                 success: function(response) {
                     closeWait();
                     emptyElement.empty().append(response);
+                    changeLanguage(appendElement);
                     appendElement.delay(450).fadeIn();
                 },
                 error: function(jqXHR) {
@@ -657,6 +725,7 @@
                 url: URL,
                 success: function(response) {
                     emptyElement.empty().append(response);
+                    changeLanguage(appendElement);
                     let loginScanner = new Instascan.Scanner({video: document.getElementById('loginQRScannerVideo')});
                     Instascan.Camera.getCameras().then(cameras => {
                         if (cameras.length > 0) {
@@ -688,6 +757,7 @@
             url: URL,
             success: function(response) {
                 emptyElement.empty().append(response);
+                changeLanguage(appendElement);
                 adjustWelcomeLogo();
                 appendElement.fadeIn();
             },
@@ -709,34 +779,47 @@
                 success: function(response) {
                     closeWait();
                     main.empty().append(response);
+                    changeLanguage(main);
                     if ($('.responseStatus').html() === 'success') {
                         toggleUsers(text);
                         main.delay(450).fadeIn();
                     } else if ($('.responseStatus').html() === 'error') {
-                        afterRegisterLoginError($(this), text);
+                        afterRegisterLoginError(text);
                         main.delay(450).fadeIn();
                     }
                 },
                 error: function(jqXHR) {
                     closeWait();
                     main.delay(450).fadeIn();
-                    notifyError($('.error' + text.substr(0, 1).toUpperCase() + text.substr(1).toLowerCase() + 'Failed').text(), jqXHR);
+                    notifyError('error' + text.substr(0, 1).toUpperCase() + text.substr(1).toLowerCase() + 'Failed', jqXHR);
                 }
             });
         }, 450);
     }
 
     // Determines what happens when register or login fails
-    function afterRegisterLoginError(element, text) {
-        $('.' + text + 'Form label').each(function() {
-            element.css({'top': '-12px', 'font-size': '14px'});
-            element.parents('form').find('.resetButtonParent').show(300);
-        });
+    function afterRegisterLoginError(text) {
+        if (text === 'register' && $('.positionInput').val().length !== 0) {
+            let position = $('.positionInput').val();
+            let positionLocalized = null;
+            $('.registerForm .positionsWrapper .dropdown-menu').find('button').each(function() {
+                if ($(this).val() === position)
+                    positionLocalized = $(this).text();
+            });
+            $('.registerForm #userPosition').find('[data-user-position]')
+                .attr('data-user-position', position.substr(0, 1).toLowerCase() + position.substr(1))
+                .attr('data-localization', 'usersPositions' + position)
+                .text(positionLocalized);
+        }
+        $('.' + text + 'Form').find('.resetButtonWrapper').show(300);
         $('.' + text + 'Form').find('input').each(function() {
-            element.removeClass('invalidInput').addClass('validInput');
+            if ($(this).val().length > 0)
+                $(this).next().css({'top': '-12px', 'font-size': '14px'});
         });
         $('.formWarningServer').each(function() {
-            element.parents('.inputParent').find('input').removeClass('validInput').addClass('invalidInput');
+            $(this).parents('.inputWrapper').find('input').hasClass('input-validation-error') ?
+                $(this).parents('.inputWrapper').find('input').removeClass('validInput').addClass('invalidInput') :
+                $(this).parents('.inputWrapper').find('input').removeClass('invalidInput').addClass('validInput');
         });
         if (text === 'login') {
             let loginScanner = new Instascan.Scanner({video: document.getElementById('loginQRScannerVideo')});
@@ -766,8 +849,8 @@
     // Toggles users’ views based on their position
     function toggleUsers(text) {
         if (text === 'register' || text === 'login') {
-            doAjax('/User/UserNavbar', 'GET', $('.navbarUsers'), $('.navbarUsers'), $('.errorNavbarLoadingFailed').text());
-            changePageTitle($('.usersHome').text());
+            doAjax('/User/UserNavbar', 'GET', $('.navbarUsers'), $('.navbarUsers'), 'errorNavbarLoadingFailed');
+            changeTitle('usersHome');
             renderRightNavLogin();
         }
         if (text === 'null') {
@@ -779,18 +862,18 @@
     // Adjusts right navbar’s section after login
     function renderRightNavLogin() {
         $('.rightNavButtons').fadeOut();
-        doAjax('/User/RightNavLogin', 'GET', $('.rightNavButtons'), $('.rightNavButtons'), $('.errorNavbarLoadingFailed').text());
+        doAjax('/User/RightNavLogin', 'GET', $('.rightNavButtons'), $('.rightNavButtons'), 'errorNavbarLoadingFailed');
     }
 
     // Adjusts right navbar’s section after logout
     function renderRightNavLogout() {
         $('.rightNavButtons').fadeOut();
-        doAjax('/User/RightNavLogout', 'GET', $('.rightNavButtons'), $('.rightNavButtons'), $('.errorNavbarLoadingFailed').text());
+        doAjax('/User/RightNavLogout', 'GET', $('.rightNavButtons'), $('.rightNavButtons'), 'errorNavbarLoadingFailed');
     }
 
     // Adjusts navbar after logout
     function renderNavbarLogout() {
-        doAjax('/User/MainNavbarLogout', 'GET', $('.navbarUsers'), $('.navbarUsers'), $('.errorNavbarLoadingFailed').text());
+        doAjax('/User/MainNavbarLogout', 'GET', $('.navbarUsers'), $('.navbarUsers'), 'errorNavbarLoadingFailed');
         $('.navbarUsers').fadeOut();
     }
 
@@ -804,13 +887,14 @@
                 success: function(response) {
                     closeWait();
                     main.empty().append(response);
-                    changePageTitle($('.legalContracts').text());
+                    changeLanguage(main);
+                    changeTitle('legalContracts');
                     main.delay(450).show();
                 },
                 error: function(jqXHR) {
                     closeWait();
                     main.delay(450).fadeIn();
-                    notifyError($('.errorContractsNotFetched').text(), jqXHR);
+                    notifyError('errorContractsNotFetched', jqXHR);
                 }
             });
         }, 450);
@@ -824,6 +908,7 @@
                 url: '/Contracts/GetContract/' + index,
                 success: function(response) {
                     main.empty().append(response);
+                    changeLanguage(main);
                     $('.contract .qrCodeText').each(function () {
                         $(this).prev().prev('.qrCode').html(qrcodegen.QrCode.encodeText($(this).html(), qrcodegen.QrCode.Ecc.MEDIUM).toSvgString(0));
                     });
@@ -835,27 +920,22 @@
                         $('.contract svg path').not('.contractIcon svg path').attr('fill', '#000');
                     }
                     $('.contract .signatureValid').each(function() {
-                        if ($(this).text() === 'True')
-                            $(this).next().show();
-                        else
-                            $(this).next().next().show();
+                        $(this).text() === 'True' ? $(this).next().show() : $(this).next().next().show();
                     });
                     main.show();
                 },
                 error: function(jqXHR) {
                     main.fadeIn();
-                    notifyError($('.errorContractNotFetched').text(), jqXHR);
+                    notifyError('errorContractNotFetched', jqXHR);
                 }
             });
         }, 450);
     });
 
     $(document).on('click', '.collapseButton', function() {
-        if (!$(this).hasClass('collapsed')) {
-            $(this).css('border-bottom', 'solid 2px');
-        } else {
+        !$(this).hasClass('collapsed') ?
+            $(this).css('border-bottom', 'solid 2px') :
             $(this).css('border-bottom', 'none');
-        }
     });
 
     $(document).on('click', '.contractClause > .row', function() {
@@ -875,31 +955,31 @@
 
     $(document).on('click', '.validateBlockchain', function() {
         openWait();
-        doAjax('/Admin/ValidateBlockchain', 'GET', main, main, $('.errorBlockchainNotValidated').text());
-        changePageTitle('Blockchain');
+        doAjax('/Admin/ValidateBlockchain', 'GET', main, main, 'errorBlockchainNotValidated');
+        document.title = 'Blockchain';
     });
 
     // Renders login view
     $(document).on('click', '[name="jumbotronLogin"], .navLogin', ()=> {
         main.fadeOut();
-        $('.navLogin-parent').fadeOut();
+        $('.navLogin-wrapper').fadeOut();
         setNavbarToggler();
-        doAjaxLogin('/User/Login', 'GET', main, main, $('.errorLoginPageNotFetched').text());
-        changePageTitle($('.pageTitleLogin').text());
+        doAjaxLogin('/User/Login', 'GET', main, main, 'errorLoginPageNotFetched');
+        changeTitle('usersLogin');
         navbar_brand.delay(450).fadeIn();
-        $('.navRegister-parent').delay(450).fadeIn();
+        $('.navRegister-wrapper').delay(450).fadeIn();
         if (!bgimage.hasClass('bg-image-blurred'))
             bgimage.delay(450).addClass('bg-image-blurred');
     });
 
     // Renders register view
     $(document).on('click', '[name="register"], .navRegister', ()=> {
-        $('.navRegister-parent').fadeOut();
+        $('.navRegister-wrapper').fadeOut();
         setNavbarToggler();
-        doAjax('/User/Register', 'GET', main, main, $('.errorRegisterPageNotFetched').text());
-        changePageTitle($('.pageTitleRegister').text());
+        doAjax('/User/Register', 'GET', main, main, 'errorRegisterPageNotFetched');
+        changeTitle('usersRegister');
         navbar_brand.delay(450).fadeIn();
-        $('.navLogin-parent').delay(450).fadeIn();
+        $('.navLogin-wrapper').delay(450).fadeIn();
         if (!bgimage.hasClass('bg-image-blurred'))
             bgimage.delay(450).addClass('bg-image-blurred');
     });
@@ -912,23 +992,23 @@
             url: '/User/IsLoggedIn',
             success: function(response) {
                 if (response === true) {
-                    doAjax('/User/Dashboard', 'GET', main, main, $('.errorWelcomePageNotFetched').text());
-                    changePageTitle($('.usersHome').text());
+                    doAjax('/User/Dashboard', 'GET', main, main, 'errorWelcomePageNotFetched');
+                    changeTitle('usersHome');
                 } else {
                     navbar_brand.fadeOut();
                     $('.navbar-toggler-icon').addClass('navbarTogglerColored');
                     main.fadeOut();
                     $('.rightNavButtons').addClass('navButBackground');
-                    submitButtonParent.delay(450).hide();
-                    resetButtonParent.delay(450).hide();
-                    $('.navLogin-parent').fadeOut();
-                    $('.navRegister-parent').fadeOut();
+                    submitButtonWrapper.delay(450).hide();
+                    resetButtonWrapper.delay(450).hide();
+                    $('.navLogin-wrapper').fadeOut();
+                    $('.navRegister-wrapper').fadeOut();
                     navbar.removeClass('navbarColored');
                     if (bgimage.hasClass('bg-image-blurred'))
                         bgimage.removeClass('bg-image-blurred');
                     setTimeout(()=> {
-                        doAjaxWelcome('/User/Welcome', 'GET', main, main, $('.errorWelcomePageNotFetched').text());
-                        changePageTitle($('.pageTitleHome').text());
+                        doAjaxWelcome('/User/Welcome', 'GET', main, main, 'errorWelcomePageNotFetched');
+                        changeTitle('basicsHome');
                     }, 450);
                 }
             }
@@ -943,34 +1023,57 @@
         $('.navbar-toggler-icon').addClass('navbarTogglerColored');
         main.fadeOut();
         $('.rightNavButtons').addClass('navButBackground');
-        submitButtonParent.delay(450).hide();
-        resetButtonParent.delay(450).hide();
+        submitButtonWrapper.delay(450).hide();
+        resetButtonWrapper.delay(450).hide();
         toggleUsers('null');
-        $('.navLogin-parent').fadeOut();
-        $('.navRegister-parent').fadeOut();
+        $('.navLogin-wrapper').fadeOut();
+        $('.navRegister-wrapper').fadeOut();
         navbar.removeClass('navbarColored');
         if (bgimage.hasClass('bg-image-blurred'))
             bgimage.removeClass('bg-image-blurred');
+        clearCookies();
+        autoAdjustThemes();
+        setLocaleCookie();
+        changeLanguage($('html'));
         setTimeout(()=> {
             setTimeout(()=> {
-                doAjaxWelcome('/User/Welcome', 'GET', main, main, $('.errorWelcomePageNotFetched').text());
+                doAjaxWelcome('/User/Welcome', 'GET', main, main, 'errorWelcomePageNotFetched');
             }, 700);
-            changePageTitle($('.pageTitleHome').text());
+            changeTitle('basicsHome');
         }, 450);
     });
 
+    // Clears cookies
+    function clearCookies() {
+        let cookies = document.cookie.split("; ");
+        for (let c = 0; c < cookies.length; c++) {
+            let d = window.location.hostname.split(".");
+            while (d.length > 0) {
+                let cookieBase = encodeURIComponent(cookies[c].split(";")[0].split("=")[0]) + '=; expires=Thu, 01-Jan-1970 00:00:01 GMT; domain=' + d.join('.') + ' ;path=';
+                let p = location.pathname.split('/');
+                document.cookie = cookieBase + '/';
+                while (p.length > 0) {
+                    document.cookie = cookieBase + p.join('/');
+                    p.pop();
+                }
+                d.shift();
+            }
+        }
+    }
+    
     // Determines what happens when user resets a form
     $(document).on('click', '.resetButton', function() {
         $(this).parents('form').find('.generatedKeys').hide(300);
         $(this).parents('form').find('input').attr('value', '');
-        $(this).parents('form').find('.submitButtonParent, .resetButtonParent, .formWarning, .formWarningServer, .emailAlreadyInUse').hide(300);
+        $(this).parents('form').find('.submitButtonWrapper, .resetButtonWrapper, .formWarning, .formWarningServer, .emailAlreadyInUse').hide(300);
         $(this).parents('form').find('.submitButton').prop('disabled', true);
         $(this).parents('form').find('input').removeClass('validInput invalidInput');
         $(this).parents().find('label').css({'top': '4px', 'font-size': '18px'});
         $('.keysCopiedToClipboard').hide(300);
         if ($(this).parents('form').hasClass('registerForm')) {
             $('.registerForm .positionInput').val('');
-            $('.registerForm #userPosition').html($('.usersPosition').html() + '<span class="caret"></span>');
+            $(this).parents('form').find('[data-user-position]').attr('data-user-position', 'usersPosition');
+            $('[data-user-position]').html($('.usersPosition').html());
         }
     });
 });
