@@ -69,9 +69,9 @@ In ASP.NET Core MVC version, due to some problems with ASP.NET Core’s validati
 # © 2019 jdouv Some rights reserved
 ## Copyright notice
 
-The project in this repository utilizes third party software and sources, as described in the next paragraph. Apart from all these, the specific implementation of the ideas and initiatives described above, including the name “Thalassa” when refering to an electronic service unifying the marine industry, the spiral of the logo, the “Legen” syntax, the structure of this web application (code files and the database’s structure related to importing and exporting data relevant to the scope of this service), the elements’ position and the way they appear, are intellectual property rights of jdouv, hereby declared.
+The project in this repository utilizes third party software and sources, as described in the next paragraph. Apart from all these, the specific implementation of the ideas and initiatives described above, including the name “Thalassa” when refering to an electronic service unifying the marine industry, the spiral of the logo as depicted in this page and the project’s internal files, the “Legen” syntax, the structure of this web application (code files and the database’s structure related to importing and exporting data relevant to the scope of this service), the elements’ position and the way they appear, are intellectual property rights of jdouv, hereby declared.
 
-You may obtain copies of this project **strictly** provided that you refer to the aforementioned copyright notice along with a link to this repository.
+You may obtain copies of this project **STRICTLY** provided that you refer to the aforementioned copyright notice along with a link to this repository.
 
 #### Third-party software:
 * Cryptography: [Bouncy Castle](https://www.bouncycastle.org) and [Libsodium](https://libsodium.gitbook.io/doc)
