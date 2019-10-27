@@ -93,7 +93,7 @@ namespace Common.LegalEngineering.Clauses.FixedClauses
                     text.Append(elements[i]).Append(", ");
                 var textTemp = text.ToString();
                 text = new StringBuilder(textTemp.Substring(0, textTemp.LastIndexOf(",", StringComparison.Ordinal)));
-                text.Append(" and ").Append(elements[elements.Count - 1]);
+                text.Append(" and ").Append(elements[^1]);
             }
 
             return text;

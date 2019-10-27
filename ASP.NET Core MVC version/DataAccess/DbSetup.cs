@@ -18,6 +18,9 @@ namespace DataAccess
 
         private static readonly Lazy<DatabaseSharedSetting> SharedSetting = new Lazy<DatabaseSharedSetting>(() =>
         {
+            // Used in case of proxy server presence
+            ArangoDatabase.ClientSetting.Proxy = new WebProxy("http://localhost:11027", true);
+            
             var sharedSetting = new DatabaseSharedSetting {Database = "Thalassa", Url = "http://localhost.:8529"};
             var credential = GetCredential();
             sharedSetting.SystemDatabaseCredential = new NetworkCredential(credential.UserName, credential.Password);
@@ -52,8 +55,7 @@ namespace DataAccess
 
         protected DbSetup()
         {
-            var sharedSetting = SharedSetting.Value;
-            Db = new ArangoDatabase(sharedSetting);
+            Db = new ArangoDatabase(SharedSetting.Value);
         }
     }
 }

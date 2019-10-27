@@ -42,10 +42,8 @@ namespace Thalassa.Controllers
         [HttpPost]
         public bool EmailExists()
         {
-            using (var reader = new StreamReader(Request.Body, Encoding.UTF8))
-            {
-                return _userService.FindByEmail(reader.ReadToEnd()) != null;
-            }
+            using var reader = new StreamReader(Request.Body, Encoding.UTF8);
+            return _userService.FindByEmail(reader.ReadToEnd()) != null;
         }
 
         // Generates user’s public and private keys
