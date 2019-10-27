@@ -6,19 +6,19 @@ import Thalassa.Models.User;
 import Thalassa.DataManagement.Services.CryptographyService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.File;
@@ -137,19 +137,9 @@ public class UserController {
     }
 
     // Returns localized messages
-    @GetMapping("/localization")
-    public @ResponseBody String json(HttpServletRequest request) throws IOException {
-        String locale = null;
-        for (Cookie cookie : request.getCookies()) {
-            if (cookie.getName().equals("Locale")) {
-                locale = cookie.getValue();
-                break;
-            }
-        }
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode jsonFile = mapper.readTree(new File("src/main/webapp/bin/locales.json"));
-
-        return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonFile.get(locale));
+    @GetMapping(value = "/localization", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody JsonNode json(@CookieValue("Locale") String locale) throws IOException {
+        return new ObjectMapper().readTree(new File("src/main/webapp/bin/locales.json")).get(locale);
     }
 
     @GetMapping("/dashboard")

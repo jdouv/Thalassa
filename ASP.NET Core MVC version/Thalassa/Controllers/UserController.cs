@@ -137,10 +137,10 @@ namespace Thalassa.Controllers
         
         // Returns localized messages
         [HttpGet]
-        public string Localization()
+        public IActionResult Localization()
         {
             var json = JObject.Parse(new StreamReader("wwwroot/locales.json").ReadToEnd());
-            return json[HttpContext.Request.Cookies["Locale"]].ToString();
+            return Json(json[HttpContext.Request.Cookies["Locale"]]);
         }
         
         [HttpGet]

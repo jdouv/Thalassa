@@ -40,29 +40,28 @@
             url: '/User/Localization',
             success: function(response) {
                 moment.locale(getCookie('Locale'));
-                let data = JSON.parse(response);
-                element.find('[data-localization-page-title]').text(data[$('[data-localization-page-title]').attr('data-localization-page-title')]);
+                element.find('[data-localization-page-title]').text(response[$('[data-localization-page-title]').attr('data-localization-page-title')]);
                 element.find('[data-localization]').each(function() {
-                    $(this).text(data[$(this).attr('data-localization')]);
+                    $(this).text(response[$(this).attr('data-localization')]);
                     if ($(this).text().includes('\\'))
                         $(this).html($(this).text().replace(/[\\]/g,''));
                     if (/<(br|basefont|hr|input|source|frame|param|area|meta|!--|col|link|option|base|img|wbr|!DOCTYPE).*?>|<(a|abbr|acronym|address|applet|article|aside|audio|b|bdi|bdo|big|blockquote|body|button|canvas|caption|center|cite|code|colgroup|command|datalist|dd|del|details|dfn|dialog|dir|div|dl|dt|em|embed|fieldset|figcaption|figure|font|footer|form|frameset|head|header|hgroup|h1|h2|h3|h4|h5|h6|html|i|iframe|ins|kbd|keygen|label|legend|li|map|mark|menu|meter|nav|noframes|noscript|object|ol|optgroup|output|p|pre|progress|q|rp|rt|ruby|s|samp|script|section|select|small|span|strike|strong|style|sub|summary|sup|table|tbody|td|textarea|tfoot|th|thead|time|title|tr|track|tt|u|ul|var|video).*?<\/\2>/i.test($(this).text()))
                         $(this).html($(this).text());
                 });
                 element.find('[data-localization-title]').each(function() {
-                    $(this).attr('title', data[$(this).attr('data-localization-title')]);
+                    $(this).attr('title', response[$(this).attr('data-localization-title')]);
                 });
                 element.find('[data-timestamp]').each(function() {
                     $(this).text(datetimeFromTimestamp($(this).attr('data-timestamp')));
                 });
                 element.find('[data-localization-error]').each(function() {
-                    $(this).text(data[$(this).attr('data-localization-error')]);
+                    $(this).text(response[$(this).attr('data-localization-error')]);
                 });
                 element.find('[data-user-position]').each(function() {
                     let text;
                     $(this).attr('data-user-position') === 'usersPosition' ?
-                        text = data['usersPosition'] :
-                        text = data['usersPositions' + $(this).attr('data-user-position')];
+                        text = response['usersPosition'] :
+                        text = response['usersPositions' + $(this).attr('data-user-position')];
                     $('[data-user-position]').html(text);
                 });
             },
