@@ -92,8 +92,6 @@
 
 <%--Messages--%>
 <div style="display:none;">
-    <div class="errorChangeLanguageFailed" data-localization="errorChangeLanguageFailed"></div>
-    <div class="errorChangePageTitleFailed" data-localization="errorChangePageTitleFailed"></div>
     <div class="usersPosition" data-localization="usersPosition"></div>
     <div class="usersPrivateKey" data-localization="usersPrivateKey"></div>
     <div class="usersPublicKey" data-localization="usersPublicKey"></div>

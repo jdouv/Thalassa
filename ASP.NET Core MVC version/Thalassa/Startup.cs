@@ -52,25 +52,24 @@ namespace Thalassa
                 .AddDataAnnotationsLocalization();
             
             services.AddProgressiveWebApp(new PwaOptions
-            {
-                CacheId = "Worker 1.1",
-                Strategy = ServiceWorkerStrategy.NetworkFirst,
-                RoutesToPreCache = "/User/Index",
-                RegisterServiceWorker = true,
-                RegisterWebmanifest = true
-            });
-
-            services.Configure<RequestLocalizationOptions>(options =>
-            {
-                var supportedCultures = new[]
                 {
-                    new CultureInfo("el"),
-                    new CultureInfo("en")
-                };
-                options.DefaultRequestCulture = new RequestCulture("en");
-                options.SupportedCultures = supportedCultures;
-                options.SupportedUICultures = supportedCultures;
-            });
+                    CacheId = "Worker 1.1",
+                    Strategy = ServiceWorkerStrategy.NetworkFirst,
+                    RoutesToPreCache = "/User/Index",
+                    RegisterServiceWorker = true,
+                    RegisterWebmanifest = true
+                })
+                .Configure<RequestLocalizationOptions>(options =>
+                {
+                    var supportedCultures = new[]
+                    {
+                        new CultureInfo("el"),
+                        new CultureInfo("en")
+                    };
+                    options.DefaultRequestCulture = new RequestCulture("en");
+                    options.SupportedCultures = supportedCultures;
+                    options.SupportedUICultures = supportedCultures;
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -83,8 +82,8 @@ namespace Thalassa
                 app.UseDeveloperExceptionPage();
             else
                 app.UseExceptionHandler("/Home/Error")
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                .UseHsts();
+                    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                    .UseHsts();
 
             app
                 .UseSession()

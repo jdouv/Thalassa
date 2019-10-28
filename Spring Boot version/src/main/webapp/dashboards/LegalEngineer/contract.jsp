@@ -9,7 +9,7 @@
     <section class="row contractTitleGroup">
         <div class="col-lg-4 offset-lg-4 mr-auto align-self-center contractTitle"><span data-localization="legalContractsTitlesUpper${composedContract['contract'].title}"></span></div>
         <div class="col-lg-auto contractTitleQRGroup">
-            <div class="contractQR qrCode" data-localization-title="bBasicsCopyQR"></div>
+            <div class="contractQR qrCode" data-localization-title="basicsCopyQR"></div>
             <div class="copiedQR text-center" data-localization="basicsCopiedQR" style="display:none;"></div>
             <div class="contractHash qrCodeText" style="display:none;">${composedContract["hash"]}</div>
             <div class="contractTimestamp" data-timestamp="${composedContract["timestamp"]}"></div>
@@ -25,7 +25,7 @@
                             <div class="col-auto infoBox contractSignature">
                                 <div class="signatureQRGroup">
                                     <div class="contractSignaturesQR qrCode" data-localization-title="basicsCopyQR"></div>
-                                    <div class="copiedQR text-center" data-localization="bBasicsCopiedQR" style="display:none;"></div>
+                                    <div class="copiedQR text-center" data-localization="basicsCopiedQR" style="display:none;"></div>
                                     <div class="qrCodeText contractSignatureToValidate" style="display:none;">${signature["signature"]}</div>
                                     <div class="signatureValid" style="display:none;">${signature["valid"]}</div>
                                     <div class="signatureValidation" style="display:none;">

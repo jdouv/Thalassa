@@ -4,16 +4,12 @@ import Thalassa.DataManagement.Services.UserService;
 import Thalassa.DataManagement.Utils;
 import Thalassa.Models.User;
 import Thalassa.DataManagement.Services.CryptographyService;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.io.File;
-import java.io.IOException;
 
 @Controller
 public class UserController {
@@ -134,12 +128,6 @@ public class UserController {
             model.addAttribute("status", "success");
             return "redirect:/dashboard";
         }
-    }
-
-    // Returns localized messages
-    @GetMapping(value = "/localization", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody JsonNode json(@CookieValue("Locale") String locale) throws IOException {
-        return new ObjectMapper().readTree(new File("src/main/webapp/bin/locales.json")).get(locale);
     }
 
     @GetMapping("/dashboard")

@@ -22,6 +22,7 @@ self.addEventListener('install', e => {
                 `/bin/dark.css`,
                 `/bin/light.css`,
                 `/bin/favicon.ico`,
+                `/bin/locales.json`,
                 `/bin/logo72.png`,
                 `/bin/logo96.png`,
                 `/bin/logo128.png`,

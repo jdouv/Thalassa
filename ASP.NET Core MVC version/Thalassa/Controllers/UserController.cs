@@ -5,7 +5,6 @@ using Business;
 using Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 using Thalassa.App_GlobalResources;
 
 namespace Thalassa.Controllers
@@ -133,14 +132,6 @@ namespace Thalassa.Controllers
 
             ViewData["status"] = "error";
             return PartialView("~/Views/Home/Login.cshtml", user);
-        }
-        
-        // Returns localized messages
-        [HttpGet]
-        public IActionResult Localization()
-        {
-            var json = JObject.Parse(new StreamReader("wwwroot/locales.json").ReadToEnd());
-            return Json(json[HttpContext.Request.Cookies["Locale"]]);
         }
         
         [HttpGet]

@@ -117,200 +117,26 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="About.Attention" xml:space="preserve">
-    <value>ΠΡΟΣΟΧΗ: ΑΥΤΗ Η ΥΠΗΡΕΣΙΑ ΒΡΙΣΚΕΤΑΙ ΣΕ ΣΤΑΔΙΟ ΑΝΑΠΤΥΞΗΣ. ΜΕΧΡΙ ΝΑ ΟΛΟΚΛΗΡΩΘΕΙ, ΔΕΝ ΠΡΟΚΥΠΤΕΙ ΕΥΘΥΝΗ ΛΟΓΩ ΒΛΑΒΗΣ, ΑΠΩΛΕΙΑΣ ΔΕΔΟΜΕΝΩΝ Ή ΟΠΟΙΑΣΔΗΠΟΤΕ ΑΛΛΗΣ ΑΡΝΗΤΙΚΗΣ ΣΥΝΕΠΕΙΑΣ ΠΟΥ ΟΦΕΙΛΕΤΑΙ ΣΤΗ ΧΡΗΣΗ ΤΗΣ.</value>
-  </data>
-    <data name="About.Experimental" xml:space="preserve">
-    <value>Η «Θάλασσα» είναι μια πειραματική υπηρεσία web για τη ναυτιλία που βασίζεται στην τεχνολογία blockchain. Δείτε περισσότερες πληροφορίες &lt;a href="https://github.com/jdouv/Thalassa" target="_blank"&gt;εδώ&lt;/a&gt;.</value>
-  </data>
-    <data name="About.Subtitle" xml:space="preserve">
-    <value>Ηλεκτρονική υπηρεσία για τη ναυτιλία.</value>
-  </data>
-    <data name="Admin.BlockchainInvalidResults" xml:space="preserve">
-    <value>Η εγκυρότητα παραβιάστηκε στα ακόλουθα μπλοκ:</value>
-  </data>
-    <data name="Admin.BlockchainIsEmpty" xml:space="preserve">
-    <value>Το blockchain της υπηρεσίας είναι κενό, συνεπώς περιττεύει ο έλεγχος εγκυρότητας.</value>
-  </data>
-    <data name="Admin.BlockchainIsInvalid" xml:space="preserve">
-    <value>Για κάποιο λόγο, το blockchain της υπηρεσίας δεν είναι έγκυρο.</value>
-  </data>
-    <data name="Admin.BlockchainIsValid" xml:space="preserve">
-    <value>Το blockchain της υπηρεσίας είναι έγκυρο.</value>
-  </data>
-    <data name="Admin.BlockchainResultsCalculationMessage" xml:space="preserve">
-    <value>Στα παρακάτω μπλοκ, η αναμενόμενη τιμή κατατεμαχισμού είναι διαφορετική από αυτήν που βρέθηκε.</value>
-  </data>
-    <data name="Admin.BlockchainResultsReferenceMessage" xml:space="preserve">
-    <value>Στα παρακάτω μπλοκ, η αναφορά του δεύτερου μπλοκ στην τιμή κατατεμαχισμού του πρώτου μπλοκ είναι διαφορετική από την πραγματική τιμή κατατεμαχισμού του πρώτου μπλοκ.</value>
-  </data>
-    <data name="Admin.ValidateBlockchain" xml:space="preserve">
-    <value>Έλεγχος εγκυρότητας blockchain</value>
-  </data>
-    <data name="Basics.CopiedQR" xml:space="preserve">
-    <value>Ο κώδικας QR αντιγράφηκε στο πρόχειρο.</value>
-  </data>
-    <data name="Basics.CopyQR" xml:space="preserve">
-    <value>Αντιγραφή κώδικα QR</value>
-  </data>
     <data name="Error.EmailAlreadyInUse" xml:space="preserve">
     <value>Αυτή η διεύθυνση ηλεκτρονικού ταχυδρομείου χρησιμοποιείται ήδη.</value>
   </data>
     <data name="Error.EmailInvalid" xml:space="preserve">
     <value>Η διεύθυνση ηλεκτρονικού ταχυδρομείου δεν είναι έγκυρη.</value>
   </data>
-    <data name="Error.EmailNotChecked" xml:space="preserve">
-    <value>Κάτι συνέβη και δεν ήταν δυνατός ο έλεγχος της διεύθυνσης ηλεκτρονικού ταχυδρομείου.</value>
-  </data>
-    <data name="Error.KeysNotGenerated" xml:space="preserve">
-    <value>Κάτι συνέβη και δεν ήταν δυνατή η δημιουργία των κλειδιών χρήστη.</value>
-  </data>
-    <data name="Error.LoginFailed" xml:space="preserve">
-    <value>Κάτι συνέβη και δεν ήταν δυνατή η είσοδος.</value>
-  </data>
-    <data name="Error.LoginFormNotValidated" xml:space="preserve">
-    <value>Κάτι συνέβη και δεν ήταν δυνατός ο έλεγχος της φόρμας εισόδου.</value>
-  </data>
-    <data name="Error.LoginPageNotFetched" xml:space="preserve">
-    <value>Κάτι συνέβη και δεν ήταν δυνατή η φόρτωση της φόρμας εισόδου.</value>
-  </data>
-    <data name="Legal.Contracts" xml:space="preserve">
-    <value>Συμβάσεις</value>
-  </data>
-    <data name="Basics.CurrentlyUnavailable" xml:space="preserve">
-    <value>προσωρινά μη διαθέσιμο</value>
-  </data>
-    <data name="Basics.Details" xml:space="preserve">
-    <value>Λεπτομέρειες</value>
-  </data>
-    <data name="Basics.ErrorDetails" xml:space="preserve">
-    <value>Λεπτομέρειες σφάλματος</value>
-  </data>
-    <data name="Basics.Eye" xml:space="preserve">
-    <value></value>
-  </data>
-    <data name="Basics.FormReset" xml:space="preserve">
-    <value>Εκκαθάριση</value>
-  </data>
-    <data name="Error.Code" xml:space="preserve">
-    <value>Κωδικός σφάλματος:</value>
-  </data>
-    <data name="Error.BlockchainNotValidated" xml:space="preserve">
-    <value>Κάτι συνέβη και δεν ήταν δυνατός ο έλεγχος εγκυρότητας του blockchain της υπηρεσίας.</value>
-  </data>
-    <data name="Error.ContractNotFetched" xml:space="preserve">
-    <value>Κάτι συνέβη και δεν ήταν δυνατή η ανάκτηση της σύμβασης.</value>
-  </data>
-    <data name="Error.ContractsNotFetched" xml:space="preserve">
-    <value>Κάτι συνέβη και δεν ήταν δυνατή η ανάκτηση των αποθηκευμένων συμβάσεων.</value>
-  </data>
-    <data name="Legal.Contracts.AllContracts" xml:space="preserve">
-    <value>Όλες οι συμβάσεις</value>
-  </data>
-    <data name="Legal.Contracts.NewContract" xml:space="preserve">
-    <value>Σύνταξη νέας σύμβασης</value>
-  </data>
-    <data name="Users.Home" xml:space="preserve">
-    <value>Αρχική</value>
-  </data>
-    <data name="Users.Logout" xml:space="preserve">
-    <value>Έξοδος</value>
-  </data>
-    <data name="Users.WelcomeSubtitle" xml:space="preserve">
-    <value>Χρησιμοποιήστε τη γραμμή περιήγησης για περισσότερα.</value>
-  </data>
-    <data name="Users.Welcome" xml:space="preserve">
-    <value>Καλώς ορίσατε</value>
-  </data>
-    <data name="Users.SwitchToRegister" xml:space="preserve">
-    <value>Εναλλαγή σε Εγγραφή</value>
-  </data>
-    <data name="Users.SwitchToLogin" xml:space="preserve">
-    <value>Εναλλαγή σε Είσοδο</value>
-  </data>
-    <data name="Users.RevealPrivateKey" xml:space="preserve">
-    <value>Εμφάνιση ιδιωτικού κλειδιού</value>
-  </data>
-    <data name="Users.Register" xml:space="preserve">
-    <value>Εγγραφή</value>
-  </data>
-    <data name="Users.PublicKey" xml:space="preserve">
-    <value>Δημόσιο κλειδί</value>
-  </data>
     <data name="Users.PrivateKey" xml:space="preserve">
     <value>Ιδιωτικό κλειδί</value>
-  </data>
-    <data name="Users.Positions.Shipbroker" xml:space="preserve">
-    <value>Ναυλομεσίτης</value>
-  </data>
-    <data name="Users.Positions.LegalEngineer" xml:space="preserve">
-    <value>Νομικός μηχανικός</value>
   </data>
     <data name="Users.Position" xml:space="preserve">
     <value>Ιδιότητα</value>
   </data>
-    <data name="Users.OrTypeQRCodeLogin" xml:space="preserve">
-    <value>Ή εισαγάγετέ το εδώ:</value>
-  </data>
-    <data name="Users.MessageBeforeRegister" xml:space="preserve">
-    <value>Πατώντας το κουμπί «Εγγραφή» παρακάτω συμφωνείτε ότι έχετε προβεί σε αντιγραφή (πατώντας πάνω σε οποιονδήποτε κωδικό QR ανωτέρω) και ασφαλή αποθήκευση του δημόσιου και του ιδιωτικού κλειδιού σας και ότι φέρετε την αποκλειστική ευθύνη σε περίπτωση απώλειάς τους.</value>
-  </data>
-    <data name="Users.LoginWithQRScan" xml:space="preserve">
-    <value>Σαρώστε το ιδιωτικό κλειδί σας:</value>
-  </data>
-    <data name="Users.Login" xml:space="preserve">
-    <value>Είσοδος</value>
-  </data>
     <data name="Users.LastName" xml:space="preserve">
     <value>Επώνυμο</value>
-  </data>
-    <data name="Users.KeysCopiedToClipboard" xml:space="preserve">
-    <value>Τα κλειδιά αντιγράφηκαν στο πρόχειρο.</value>
-  </data>
-    <data name="Users.InvalidLastName" xml:space="preserve">
-    <value>Το επώνυμο που εισαγάγατε δεν είναι έγκυρο.</value>
-  </data>
-    <data name="Users.InvalidFirstName" xml:space="preserve">
-    <value>Το όνομα που εισαγάγατε δεν είναι έγκυρο.</value>
   </data>
     <data name="Users.FirstName" xml:space="preserve">
     <value>Όνομα</value>
   </data>
     <data name="Users.Email" xml:space="preserve">
     <value>Διεύθυνση ηλεκτρονικού ταχυδρομείου</value>
-  </data>
-    <data name="Users.CopyKeysToClipboard" xml:space="preserve">
-    <value>Αντιγραφή κλειδιών στο πρόχειρο</value>
-  </data>
-    <data name="Settings.Theme" xml:space="preserve">
-    <value>Θέμα</value>
-  </data>
-    <data name="Settings.Light" xml:space="preserve">
-    <value>Φωτεινό</value>
-  </data>
-    <data name="Settings.Language" xml:space="preserve">
-    <value>Γλώσσα</value>
-  </data>
-    <data name="Settings.EffectAfterRestart" xml:space="preserve">
-    <value>Οι αλλαγές θα εφαρμοστούν μετά την ανανέωση της σελίδας.</value>
-  </data>
-    <data name="Settings.Dark" xml:space="preserve">
-    <value>Σκούρο</value>
-  </data>
-    <data name="Settings.ChangeLanguage" xml:space="preserve">
-    <value>Αλλαγή γλώσσας</value>
-  </data>
-    <data name="Settings.Appearance" xml:space="preserve">
-    <value>Εμφάνιση</value>
-  </data>
-    <data name="Settings.About" xml:space="preserve">
-    <value>Πληροφορίες</value>
-  </data>
-    <data name="Other.SectionUnderConstruction" xml:space="preserve">
-    <value>Αυτή η ενότητα βρίσκεται σε στάδιο ανάπτυξης…</value>
-  </data>
-    <data name="Error.WelcomePageNotFetched" xml:space="preserve">
-    <value>Κάτι συνέβη και δεν ήταν δυνατή η φόρτωση της αρχικής σελίδας.</value>
   </data>
     <data name="Error.RequiredPrivateKey" xml:space="preserve">
     <value>Πρέπει να εισαγάγετε το ιδιωτικό κλειδί σας για να εισέλθετε.</value>
@@ -327,107 +153,17 @@
     <data name="Error.RequiredEmail" xml:space="preserve">
     <value>Το πεδίο της διεύθυνσης ηλεκτρονικού ταχυδρομείου είναι υποχρεωτικό.</value>
   </data>
-    <data name="Error.RegisterPageNotFetched" xml:space="preserve">
-    <value>Κάτι συνέβη και δεν ήταν δυνατή η φόρτωση της φόρμας εγγραφής.</value>
-  </data>
-    <data name="Error.RegisterFormNotValidated" xml:space="preserve">
-    <value>Κάτι συνέβη και δεν ήταν δυνατός ο έλεγχος της φόρμας εγγραφής.</value>
-  </data>
-    <data name="Error.RegisterFailed" xml:space="preserve">
-    <value>Κάτι συνέβη και δεν ήταν δυνατή η ολοκλήρωση της εγγραφής.</value>
-  </data>
     <data name="Error.PrivateKeyInvalid" xml:space="preserve">
     <value>Το ιδιωτικό κλειδί που εισαγάγατε δεν είναι έγκυρο.</value>
   </data>
     <data name="Error.NoUserWithSuchCredentials" xml:space="preserve">
     <value>Δεν υπάρχει λογαριασμός με αυτά τα στοιχεία.</value>
   </data>
-    <data name="Error.NavbarLoadingFailed" xml:space="preserve">
-    <value>Κάτι συνέβη και δεν ήταν δυνατή η φόρτωση της γραμμής περιήγησης.</value>
-  </data>
-    <data name="Error.Message" xml:space="preserve">
-    <value>Μήνυμα σφάλματος:</value>
-  </data>
     <data name="Error.MaxLastName" xml:space="preserve">
     <value>Το επώνυμο πρέπει να περιέχει έως 30 χαρακτήρες.</value>
   </data>
     <data name="Error.MaxFirstName" xml:space="preserve">
     <value>Το όνομα πρέπει να περιέχει έως 30 χαρακτήρες.</value>
-  </data>
-    <data name="Blockchain.Timestamp" xml:space="preserve">
-    <value>Χρονοσφραγίδα</value>
-  </data>
-    <data name="Blockchain.Hash" xml:space="preserve">
-    <value>Τιμή κατατεμαχισμού</value>
-  </data>
-    <data name="Blockchain.HashFound" xml:space="preserve">
-    <value>Πραγματική τιμή κατατεμαχισμού</value>
-  </data>
-    <data name="Blockchain.HashExpected" xml:space="preserve">
-    <value>Αναμενόμενη τιμή κατατεμαχισμού</value>
-  </data>
-    <data name="Blockchain.NumberTimestampOfFirst" xml:space="preserve">
-    <value>Αριθμός/Χρονοσφραγίδα πρώτου μπλοκ</value>
-  </data>
-    <data name="Blockchain.NumberTimestampOfSecond" xml:space="preserve">
-    <value>Αριθμός/Χρονοσφραγίδα δεύτερου μπλοκ</value>
-  </data>
-    <data name="Blockchain.BlockNumber" xml:space="preserve">
-    <value>Αριθμός μπλοκ</value>
-  </data>
-  <data name="Blockchain.SignatureInvalid" xml:space="preserve">
-    <value>Μη έγκυρη υπογραφή</value>
-  </data>
-  <data name="Blockchain.SignatureValid" xml:space="preserve">
-    <value>Έγκυρη υπογραφή</value>
-  </data>
-    <data name="Basics.WelcomeUnderConstruction" xml:space="preserve">
-    <value>Η υπηρεσία βρίσκεται σε στάδιο ανάπτυξης.</value>
-  </data>
-    <data name="Basics.Settings" xml:space="preserve">
-    <value>Ρυθμίσεις</value>
-  </data>
-    <data name="Basics.Logo.Title" xml:space="preserve">
-    <value>Λογότυπο</value>
-  </data>
-    <data name="Basics.Lang.En" xml:space="preserve">
-    <value>English</value>
-  </data>
-    <data name="Basics.Lang.El" xml:space="preserve">
-    <value>Ελληνικά</value>
-  </data>
-    <data name="Basics.Home" xml:space="preserve">
-    <value>Θάλασσα</value>
-  </data>
-    <data name="Legal.ContractingParties" xml:space="preserve">
-    <value>Συμβαλλομενα Μερη</value>
-  </data>
-    <data name="Legal.Contracts.Clauses" xml:space="preserve">
-    <value>Ρητρες</value>
-  </data>
-    <data name="Legal.Contracts.Empty" xml:space="preserve">
-    <value>Δεν έχετε συμβάσεις στο αρχείο σας.</value>
-  </data>
-  <data name="Legal.Contracts.OnBehalfOf" xml:space="preserve">
-    <value>στο όνομα και για λογαριασμό του</value>
-  </data>
-    <data name="Legal.Contracts.Readable" xml:space="preserve">
-    <value>Αναγνώσιμη μορφή</value>
-  </data>
-    <data name="Legal.Contracts.Title" xml:space="preserve">
-    <value>Τίτλος</value>
-  </data>
-  <data name="Legal.Contracts.Titles.Lower.TimeCharter" xml:space="preserve">
-    <value>Χρονοναύλωση</value>
-  </data>
-  <data name="Legal.Contracts.Titles.Upper.TimeCharter" xml:space="preserve">
-    <value>Χρονοναυλωση</value>
-  </data>
-    <data name="Legal.Contracts.ToggleLegen" xml:space="preserve">
-    <value>Εμφάνιση/Απόκρυψη ρήτρας Legen</value>
-  </data>
-    <data name="Legal.EnableClause" xml:space="preserve">
-    <value>Ενεργοποίηση ρήτρας</value>
   </data>
     <data name="Error.MaxVesselDwt" xml:space="preserve">
     <value>Η χωρητικότητα εκτοπίσματος του πλοίου πρέπει να περιέχει έως 10 χαρακτήρες.</value>
@@ -459,17 +195,11 @@
     <data name="Error.RequiredVesselYearBuilt" xml:space="preserve">
     <value>Το πεδίο του έτους κατασκευής του πλοίου είναι υποχρεωτικό.</value>
   </data>
-    <data name="Legal.Contracts.Essentials" xml:space="preserve">
-    <value>Ουσιωδη Στοιχεια</value>
-  </data>
     <data name="Vessels.Dwt" xml:space="preserve">
     <value>Χωρητικότητα εκτοπίσματος (DWT)</value>
   </data>
     <data name="Vessels.Flag" xml:space="preserve">
     <value>Σημαία</value>
-  </data>
-    <data name="Vessels.ImoNumber" xml:space="preserve">
-    <value>Αριθμός IMO</value>
   </data>
     <data name="Vessels.Name" xml:space="preserve">
     <value>Όνομα</value>

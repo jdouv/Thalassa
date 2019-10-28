@@ -10,7 +10,6 @@ namespace Common
     {
         [JsonProperty("imoNumber"),
          DocumentProperty(Identifier = IdentifierType.Key),
-         Display(Name = "Vessels_ImoNumber", ResourceType = typeof(Messages)),
          Required(ErrorMessageResourceName = "Error_RequiredVesselImoNumber", ErrorMessageResourceType = typeof(Messages)),
          StringLength(10, ErrorMessageResourceName = "Error_MaxVesselImoNumber", ErrorMessageResourceType = typeof(Messages))]
         public string ImoNumber { get; set; }
