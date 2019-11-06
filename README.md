@@ -63,7 +63,7 @@ Note for Spring Boot version: Because Thalassa uses Libsodium (in addition to Bo
 
 During login and because Thalassa uses camera scanning of the private key (in QR code form), if the user logs in before camera is fully initialized (e.g. when user quickly pastes the private key and logins), the camera may still be on even after login. In this case, click the service’s logo in the upper-left corner or the dropdown menu next to it (navbar) and the camera will be disabled. This issue is under investigation.
 
-In ASP.NET Core MVC version, due to some problems with ASP.NET Core’s validation system, you will face some user experience distraction during register and login. For example, the input fields will instantly bounce during typing for first time. Also, during login, if you just paste the private key, the login button will not appear. In this case, you have to input some characters first, delete them and then paste the private key to make the button appear. These issues are under investigation.
+In ASP.NET Core MVC version, due to some problems with ASP.NET Core’s validation system, you will face some user experience distraction during register and login. For example, the input fields will instantly bounce during typing for first time. This issue is under investigation.
 
 
 # © 2019 jdouv Some rights reserved
