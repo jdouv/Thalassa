@@ -15,12 +15,12 @@
 }
 
 .jumbotron {
-    background-color: rgba(0,0,0, .4);
+    background-color: rgba(0, 0, 0, .4);
     color: rgba(255, 255, 255, .8);
 }
 
 .bg-text {
-    background-color: rgba(0,0,0, .5);
+    background-color: rgba(0, 0, 0, .5);
     color: rgba(255, 255, 255, .8);
 }
 
@@ -199,11 +199,11 @@ input:focus ~ label, input:valid ~ label {
 }
 
 .toggle > div {
-    border: 2px solid rgba(0, 0, 0, .6);
+    border: 2px solid rgba(255, 255, 255, .6);
 }
 
 .toggle > div:before {
-    background: rgba(0, 0, 0, .6);
+    background: rgba(255, 255, 255, .6);
 }
 
 .modal {
@@ -220,5 +220,18 @@ input:focus ~ label, input:valid ~ label {
 }
 
 .top-right[data-notification-status="neutral"]:after {
+    color: rgba(255, 255, 255, .8);
+}
+
+.plus:hover {
+    color: rgba(0, 0, 0, .8);
+}
+
+.plus:active {
+    color: rgba(0, 0, 0, .5);
+}
+
+.pushNotification[data-notification-status="neutral"] {
+    background-color: rgba(0, 0, 0, .8);
     color: rgba(255, 255, 255, .8);
 }

@@ -1,7 +1,6 @@
 package Thalassa.Models;
 
 import com.arangodb.springframework.annotation.Document;
-import com.arangodb.springframework.annotation.Field;
 import org.springframework.data.annotation.Id;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -12,14 +11,8 @@ public class Block {
 
     @Id
     private String index;
-    @Field("Hash")
-    private String hash;
-    @Field("Timestamp")
+    private String hash, data, previousHash;
     private long timestamp;
-    @Field("Data")
-    private String data;
-    @Field("Previous hash")
-    private String previousHash;
 
     public Block() {
     }

@@ -1,37 +1,18 @@
 package Thalassa.Models;
 
 import com.arangodb.springframework.annotation.Document;
-import com.arangodb.springframework.annotation.Field;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.util.HashMap;
 
 @Document("Users")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
 
     @Id
     private String publicKey;
-    @Field("First name")
-    @NotBlank(message =  "{error.requiredFirstName}")
-    @Size(max = 30, message = "{error.maxFirstName}")
-    private String firstName;
-    @Field("Last name")
-    @NotBlank(message =  "{error.requiredLastName}")
-    @Size(max = 30, message = "{error.maxLastName}")
-    private String lastName;
-    @Field("Email")
-    @NotBlank(message =  "{error.requiredEmail}")
-    @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "{error.emailInvalid}")
-    private String email;
-    @Field("Position")
-    @NotBlank(message =  "{error.requiredPosition}")
-    private String position;
-    private String privateKey;
-    @Field("Corresponding indices")
+    private String firstName, lastName, email, company, position, privateKey;
     private HashMap<String, String> correspondingIndices;
-    @Field("Enabled")
     private boolean enabled;
 
     public String getPublicKey() {
@@ -64,6 +45,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
     }
 
     public String getPosition() {

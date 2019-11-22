@@ -1,48 +1,24 @@
 package Thalassa.Models;
 
 import com.arangodb.springframework.annotation.Document;
-import com.arangodb.springframework.annotation.Field;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 @Document("Vessels")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Vessel {
 
     @Id
-    @NotBlank(message =  "{error.requiredVesselImoNumber}")
-    @Size(max = 10, message = "{error.maxVesselImoNumber}")
-    private String imoNumber;
-    @Field("Name")
-    @NotBlank(message =  "{error.requiredVesselName}")
-    @Size(max = 30, message = "{error.maxVesselName}")
-    private String name;
-    @Field("Flag")
-    @NotBlank(message =  "{error.requiredVesselFlag}")
-    @Size(min = 2, max = 2, message = "{error.sizeVesselFlag}")
-    private String flag;
-    @Field("Year built")
-    @NotBlank(message =  "{error.requiredVesselYearBuilt}")
-    @Size(min = 4, max = 4, message = "{error.sizeVesselYearBuilt}")
-    private String yearBuilt;
-    @Field("DWT")
-    @NotBlank(message =  "{error.requiredVesselDwt}")
-    @Size(max = 10, message = "{error.maxVesselDwt}")
-    private String dwt;
+    private String id;
+    private String imoNumber, name, flag, company, yearBuilt, dwt;
+    private boolean underConstruction;
 
-    @JsonCreator
-    public Vessel(@JsonProperty("imoNumber")String imoNumber,
-                  @JsonProperty("name") String name,
-                  @JsonProperty("flag") String flag,
-                  @JsonProperty("yearBuilt") String yearBuilt,
-                  @JsonProperty("dwt") String dwt) {
-        this.imoNumber = imoNumber;
-        this.name = name;
-        this.flag = flag;
-        this.yearBuilt = yearBuilt;
-        this.dwt = dwt;
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getImoNumber() {
@@ -69,6 +45,14 @@ public class Vessel {
         this.flag = flag;
     }
 
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
     public String getYearBuilt() {
         return yearBuilt;
     }
@@ -83,5 +67,13 @@ public class Vessel {
 
     public void setDwt(String dwt) {
         this.dwt = dwt;
+    }
+
+    public boolean isUnderConstruction() {
+        return underConstruction;
+    }
+
+    public void setUnderConstruction(boolean underConstruction) {
+        this.underConstruction = underConstruction;
     }
 }

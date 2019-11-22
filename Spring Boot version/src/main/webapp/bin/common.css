@@ -50,6 +50,9 @@ header {
 }
 
 main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: relative;
     margin: 60px 20px 20px;
 }
@@ -91,6 +94,14 @@ footer {
     color: rgba(255, 255, 255, .8);
     text-shadow: 0 0 34px black, 0 0 34px black;
     margin-bottom: .2em;
+    text-align: center;
+}
+
+.innerFormTitle {
+    font-size: 2rem;
+    color: rgba(255, 255, 255, .8);
+    text-shadow: 0 0 20px black, 0 0 20px black;
+    margin-bottom: 1rem;
     text-align: center;
 }
 
@@ -217,7 +228,7 @@ footer {
 }
 
 .successTextColorSmall {
-    color: rgba(41, 158, 47, 0.8);
+    color: rgba(41, 158, 47, .8);
 }
 
 .errorTextColor {
@@ -301,7 +312,7 @@ footer {
     width: 90px;
 }
 
-.signatureValidation {
+.signatureValidationValid, .signatureValidationInvalid, .changesNotSavedWrapper {
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -309,9 +320,10 @@ footer {
     line-height: 1;
 }
 
-.signatureValidationSymbol {
+.validationSymbolSmall {
     line-height: .85;
     font-size: 25px;
+    text-align: center;
 }
 
 .signatureNameHighlight {
@@ -459,8 +471,14 @@ input:focus {
     margin-bottom: -13px;
 }
 
-.formWarning, .formWarningServer, .emailAlreadyInUse {
+.formWarning, .formWarningServer, .emailAlreadyInUse, .changesNotSavedText {
     font-size: 13px;
+}
+
+.tableRowForm .errorDetailsLink {
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
 }
 
 .formErrors {
@@ -532,6 +550,12 @@ input ~ label {
 .generatedKeys .col {
     text-align: center;
     margin-bottom: 10px;
+}
+
+.generatingKeysMessage {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 14px;
 }
 
 .copyKeysToClipboard {
@@ -736,7 +760,7 @@ input ~ label {
     filter: drop-shadow(0 0 3px rgba(0, 0, 0, .6));
 }
 
-#locales, #userPosition {
+#locales, #userPosition, #newVesselVesselsFlag {
     font-family: Segoe UI, sans serif !important;
     height: 55px;
     background-color: transparent;
@@ -750,7 +774,7 @@ input ~ label {
     text-align: center;
 }
 
-#userPosition {
+#userPosition, #newVesselVesselsFlag {
     font-size: 17px;
     font-weight: bold;
     font-family: Segoe UI Light, sans serif !important;
@@ -844,6 +868,10 @@ input ~ label {
     color: rgba(0, 120, 215, .8);
     transform: translateX(30px);
     background: rgba(255, 255, 255, .8);
+}
+
+.toggle {
+    pointer-events: auto;
 }
 
 .display-4 span {
@@ -958,7 +986,6 @@ svg path {
     width: auto;
     max-height: 53rem;
     align-items: normal;
-    height: inherit;
 }
 
 .modal-settings {
@@ -1035,15 +1062,22 @@ svg path {
     }
     .modal {
         position: fixed;
+        width: 100% !important;
         top: 0;
         left: 0;
         -webkit-overflow-scrolling: touch;
         border-radius: 0;
         transform: scale(1.1);
-        padding: 0 !important;
+        max-height: 100%;
     }
     .close-modal {
         right: 20px !important;
+    }
+    .modal-settings {
+        width: auto;
+    }
+    .settingsRightPane {
+        min-width: auto;
     }
 }
 
@@ -1295,4 +1329,191 @@ svg path {
 
 .slideInLogo {
     animation-name: slideInLogo;
+}
+
+.addButton {
+    text-align: center;
+}
+
+.plus {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: .3s;
+    margin-top: 16px;
+    border: 2px solid rgba(255, 255, 255, .8) !important;
+    color: rgba(255, 255, 255, .8);
+}
+
+.plus span {
+    font-size: 46px;
+    line-height: .7;
+}
+
+.plus:hover {
+    background-color: rgba(255, 255, 255, .8) !important;
+    border: 2px rgba(255, 255, 255, .8) !important;
+}
+
+.plus:active {
+    background-color: rgba(255, 255, 255, .4) !important;
+    border: 2px rgba(255, 255, 255, .4) !important;
+}
+
+.newVesselWrapper {
+    margin-top: 20px;
+}
+
+.newVesselWrapper .vesselFlagsWrapper {
+    text-align: center;
+}
+
+.checkboxField {
+    display: flex;
+    text-align: center;
+}
+
+.formCloseButton {
+    align-self: flex-end;
+    width: 2rem;
+    text-align: right;
+    opacity: .8;
+    cursor: pointer;
+}
+
+.formWithCloseButton {
+    display: flex;
+    flex-direction: column;
+}
+
+.waitDots {
+    text-align: center;
+    z-index: 5;
+    line-height: 0;
+}
+
+.waitDots .dot {
+    display: inline;
+    margin-left: 2px;
+    margin-right: 2px;
+    position: relative;
+    top: -.21em;
+    font-size: 70px;
+    animation: showHideDot .5s ease-in-out infinite;
+    line-height: 0;
+}
+
+.waitDots .dot.one {
+    animation-delay: .1s;
+}
+
+.waitDots .dot.two {
+    animation-delay: .2s;
+}
+
+.waitDots .dot.three {
+    animation-delay: .3s;
+}
+
+@keyframes showHideDot {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    60% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.afterSubmitNotSaved {
+    background-color: rgba(255, 0, 0, .3);
+    border-radius: 2px;
+    padding: 5px;
+    text-align: center;
+    font-size: 15px;
+    margin: 20px 0;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, .35);
+}
+
+.marginTop20 {
+    margin-top: 20px;
+}
+
+.marginBottom15 {
+    margin-bottom: 15px;
+}
+
+.tableRowForm .inputWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.tableRowForm input {
+    border-bottom: none;
+    font-weight: normal;
+    text-align: center;
+    padding: 0;
+}
+
+.tableRowForm .checkboxField label {
+    position: relative;
+}
+
+.tableRowForm .btn-secondary {
+    background-color: transparent;
+    border: none;
+}
+
+.borderBottomSolid {
+    border-bottom: solid 1px rgba(255, 0, 0, .3) !important;
+}
+
+.tableRowTitle {
+    margin-bottom: 10px;
+}
+
+.tableRowTitle .col {
+    text-align: center;
+}
+
+.tableRowForm .checkboxField, .tableSimpleRow .col-lg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.vesselAddedSuccessfully {
+    background-color: rgba(102, 187, 106, .8);
+    border-radius: 2px;
+    padding: 5px;
+    text-align: center;
+    margin: 0 0 15px 0;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, .35);
+}
+
+.tableRowForm .dropdownButton {
+    border-radius: 100px;
+}
+
+.tableRowForm .dropdown, .tableRowForm .formErrors {
+    text-align: center;
+}
+
+.tableSimpleRow .smallTitle {
+    text-align: center;
+    font-size: 14px;
+    opacity: .8;
+}
+
+main #vesselsRegistry {
+    width: auto;
 }

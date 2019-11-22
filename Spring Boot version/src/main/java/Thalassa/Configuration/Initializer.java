@@ -3,14 +3,16 @@ package Thalassa.Configuration;
 import Thalassa.DataManagement.Repositories.BlockRepository;
 import Thalassa.DataManagement.Repositories.UserRepository;
 import Thalassa.DataManagement.Services.BlockchainService;
+import Thalassa.DataManagement.Services.CompanyService;
+import Thalassa.DataManagement.Services.CryptographyService;
 import Thalassa.DataManagement.Services.UserService;
 import Thalassa.DataManagement.Services.VesselService;
+import Thalassa.Models.Company;
 import Thalassa.Models.LegalEngineering.Clauses.Clause;
 import Thalassa.Models.LegalEngineering.Clauses.FixedClauses.FixedClausesFactory;
 import Thalassa.Models.LegalEngineering.Contract;
 import Thalassa.Models.User;
 import Thalassa.Models.Block;
-import Thalassa.DataManagement.Services.CryptographyService;
 import Thalassa.Models.Vessel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.muquit.libsodiumjna.SodiumLibrary;
@@ -35,16 +37,19 @@ public class Initializer {
     private final BlockRepository blockRepository;
     private final UserRepository userRepository;
     private final BlockchainService blockchainService;
+    private final CompanyService companyService;
     private final UserService userService;
     private final VesselService vesselService;
 
     public Initializer(BlockRepository blockRepository,
                        UserRepository userRepository,
                        BlockchainService blockchainService,
+                       CompanyService companyService,
                        UserService userService,
                        VesselService vesselService) {
         this.blockRepository = blockRepository;
         this.userRepository = userRepository;
+        this.companyService = companyService;
         this.blockchainService = blockchainService;
         this.userService = userService;
         this.vesselService = vesselService;
@@ -76,18 +81,52 @@ public class Initializer {
             SodiumLibrary.setLibraryPath(new File("libs/libsodium_" + arch + ".so").getAbsolutePath());
 
         // Set admin for demo purposes
-        if (userService.findByPosition("Admin") == null) {
-            User admin = new User() {{
+        if (userService.findByPosition("admin") == null)
+            userService.save(new User() {{
                 setPublicKey("efa3036945807cc349ae55b2b503d8832c0250bb8782d32b74af6a63850fedaa");
                 setFirstName("Admin");
                 setLastName("Admin");
                 setEmail("admin@example.com");
-                setPosition("Admin");
+                setPosition("admin");
                 setEnabled(true);
                 setCorrespondingIndices(new HashMap<>());
-            }};
-            userService.save(admin);
-        }
+            }});
+
+        // Set company vessels registry manager for demo purposes
+        if (userService.findByPosition("companyVesselsRegistryManager") == null)
+            userService.save(new User() {{
+                setPublicKey("0783582ff507282b0ae01d2e1551530f347acb59180aabbbcc5ff359a7c3c323");
+                setFirstName("Bernard");
+                setLastName("Johnson");
+                setEmail("bernard@example.com");
+                setCompany("1234567890");
+                setPosition("companyVesselsRegistryManager");
+                setEnabled(true);
+                setCorrespondingIndices(new HashMap<>());
+            }});
+
+        // Insert dummy data (vessel) for demo purposes
+        if (vesselService.findByIMONumber("1234567890") == null)
+            vesselService.save(new Vessel() {{
+                setImoNumber("1234567890");
+                setName("e-Harmony");
+                setFlag("US");
+                setCompany("1234567890");
+                setYearBuilt("2019");
+                setDwt("300000");
+                setUnderConstruction(false);
+            }});
+
+        //Set company for demo purposes
+        if (companyService.findByName("Maran Tankers Management Inc.") == null)
+            companyService.save(new Company() {{
+                setRegistryNumber("1234567890");
+                setName("Maran Tankers Management Inc.");
+                setType("tankerManagementServices");
+                setEmail("maran@example.com");
+                setAddress("Maran Avenue 123, New York 133 00, NY, United States");
+                setVessels(new LinkedList<>() {{add(vesselService.findByName("e-Harmony").getId());}});
+            }});
 
         // Set plain user for demo purposes
         User testUser = new User() {{
@@ -95,12 +134,15 @@ public class Initializer {
             setFirstName("John");
             setLastName("Doe");
             setEmail("john@example.com");
-            setPosition("Legal engineer");
+            setCompany("1234567890");
+            setPosition("legalEngineer");
             setEnabled(true);
             setCorrespondingIndices(new HashMap<>());
         }};
 
-        User dbUser = userRepository.findByPublicKey("d083057717d54238428da204ba14ddb3ef287a7aa0e3abe1f9ad6c7874bfc446");
+        ObjectMapper mapper = new ObjectMapper();
+
+        User dbUser = userService.findByPublicKey("d083057717d54238428da204ba14ddb3ef287a7aa0e3abe1f9ad6c7874bfc446");
         // If there is already a user with this public key
         if (dbUser != null)
             testUser = dbUser;
@@ -108,10 +150,6 @@ public class Initializer {
             userService.save(testUser);
 
         blockchainService.initializeBlockchain();
-
-        // Insert dummy data (vessel) for demo purposes
-        if (vesselService.findByIMONumber("1234567890") == null)
-            vesselService.save(new Vessel("1234567890", "e-Harmony", "US", "2019", "300000"));
 
         // Insert dummy data (contract) for demo purposes
         if (!blockRepository.findLastBlock().getIndex().equals("0")) return;
@@ -122,7 +160,7 @@ public class Initializer {
         }};
         LinkedList<Clause> clauses = new LinkedList<>(Collections.singletonList(FixedClausesFactory.getOffHireClause()));
         Contract contractNoSignatures = new Contract("Contract", "timeCharter", essentials, clauses);
-        String contractToString = new ObjectMapper().writeValueAsString(contractNoSignatures);
+        String contractToString = mapper.writeValueAsString(contractNoSignatures);
         HashMap<String, Object> signature1 = new HashMap<>() {{
             put("signature", CryptographyService.sign(contractToString, "d0b2df0582f262e50dccc9f3586ded1d0560ff4b46db82806a74b2493e9b92ad"));
             put("signer", "d083057717d54238428da204ba14ddb3ef287a7aa0e3abe1f9ad6c7874bfc446");
@@ -134,7 +172,7 @@ public class Initializer {
             put("signer", "d083057717d54238428da204ba14ddb3ef287a7aa0e3abe1f9ad6c7874bfc446");
         }};
         essentials.put("signatures", new ArrayList<>(Arrays.asList(signature1, signature2)));
-        String[] encryptedData = CryptographyService.encrypt(new ObjectMapper().writeValueAsString(new Contract("Contract", "timeCharter", essentials, clauses)));
+        String[] encryptedData = CryptographyService.encrypt(mapper.writeValueAsString(new Contract("Contract", "timeCharter", essentials, clauses)));
         Block newLastBlock = blockRepository.findLastBlock();
         blockRepository.save(new Block(String.valueOf(Long.parseLong(newLastBlock.getIndex()) + 1), encryptedData[0], newLastBlock.getHash()));
         String encryptedSecret = CryptographyService.encryptWithPublicKey(encryptedData[1], testUser.getPublicKey());

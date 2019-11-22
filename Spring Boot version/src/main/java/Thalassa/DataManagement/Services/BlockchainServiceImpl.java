@@ -27,19 +27,21 @@ public class BlockchainServiceImpl implements BlockchainService {
     // Validates service’s blockchain
     @Override
     public List<HashMap<String, List<String>>> validateBlockchain() throws Exception {
+        List<HashMap<String, List<String>>> result = new ArrayList<>(Arrays.asList(new HashMap<>(), new HashMap<>()));
+
         initializeBlockchain();
         List<Block> blockchain = blockRepository.findAll();
 
-        if (blockchain.size() == 1) // If blockchain has only one (genesis) block, there is no need for validation
-            return null;
+        if (blockchain.size() == 1) { // If blockchain has only one (genesis) block, there is no need for validation
+            result.get(0).put("emptyBlockchain", new ArrayList<>() {{add("y");}});
+            return result;
+        }
         else {
-            HashMap<String, List<String>> calculationResults = new HashMap<>(), referenceResults = new HashMap<>();
-
             // Genesis block validation
             Block genesisBlock = blockchain.get(0);
             if (!genesisBlock.getHash().equals(genesisBlock.calculateHash())) {
                 List<String> hashes = new ArrayList<>(Arrays.asList(String.valueOf(genesisBlock.getTimestamp()), genesisBlock.calculateHash(), genesisBlock.getHash()));
-                calculationResults.put(genesisBlock.getIndex(), hashes);
+                result.get(0).put(genesisBlock.getIndex(), hashes);
             }
 
             // Rest blocks validation
@@ -53,16 +55,16 @@ public class BlockchainServiceImpl implements BlockchainService {
                 // If current block’s hash field is not equal to its hash expected after recalculation
                 if (!currentBlock.getHash().equals(currentBlockExpectedHash)) {
                     List<String> hashes = new ArrayList<>(Arrays.asList(currentBlockDatetime, currentBlockExpectedHash, currentBlock.getHash()));
-                    calculationResults.put(currentBlock.getIndex(), hashes);
+                    result.get(0).put(currentBlock.getIndex(), hashes);
                 }
 
                 // If current block’s reference to previous block’s hash is not equal to previous block’s hash field
                 if (currentBlock.getPreviousHash().equals(previousBlock.getHash())) continue;
                 List<String> hashes = new ArrayList<>(Arrays.asList(previousBlockDatetime, currentBlockDatetime, previousBlock.getHash(), currentBlock.getPreviousHash()));
-                referenceResults.put(previousBlock.getIndex(), hashes);
+                result.get(1).put(previousBlock.getIndex(), hashes);
             }
 
-            return new ArrayList<>(Arrays.asList(calculationResults, referenceResults));
+            return result;
         }
     }
 }

@@ -11,8 +11,8 @@ import Thalassa.Models.Block;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -45,7 +45,7 @@ public class ContractServiceImpl implements ContractService {
         Block lastBlock = blockRepository.findLastBlock();
         String lastBlockIndex = lastBlock.getIndex();
         String lastBlockHash = lastBlock.getHash();
-        String newBlockIndex = String.valueOf(Long.valueOf(lastBlockIndex) + 1);
+        String newBlockIndex = String.valueOf(Long.parseLong(lastBlockIndex) + 1);
         blockRepository.save(new Block(newBlockIndex, encryptedContract, lastBlockHash));
 
         // Encrypt and send the secret key to all users included in the contract
@@ -102,11 +102,13 @@ public class ContractServiceImpl implements ContractService {
         String decryptedSecretKey = CryptographyService.decryptWithPrivateKey(encryptedSecretKey, privateKey);
         String decryptedData = CryptographyService.decrypt(block.getData(), decryptedSecretKey);
 
+        ObjectMapper mapper = new ObjectMapper();
+
         // If decrypted data is a contract indeed
-        ObjectNode node = new ObjectMapper().readValue(decryptedData, ObjectNode.class);
+        ObjectNode node = mapper.readValue(decryptedData, ObjectNode.class);
         if (!node.has("type") || !node.get("type").textValue().equals("Contract")) return null;
-        Contract contract = new ObjectMapper().readValue(decryptedData, Contract.class);
-        ObjectNode contractNoSignatures = new ObjectMapper().readValue(decryptedData, ObjectNode.class);
+        Contract contract = mapper.readValue(decryptedData, Contract.class);
+        ObjectNode contractNoSignatures = mapper.readValue(decryptedData, ObjectNode.class);
         // Delete all signatures, since the signature will be validated on a “clean” contract
         ((ObjectNode) contractNoSignatures.get("essentials")).remove("signatures");
         if (contract.getEssentials().get("type").equals("timeCharter"))

@@ -151,6 +151,10 @@ input:focus ~ label, input:valid ~ label {
     color: rgba(0, 23, 85, .8);
 }
 
+.dropdownButton, .dropdownButton:hover {
+    color: rgba(0, 23, 85, .8);
+}
+
 .dropdownButton:hover {
     background-color: rgba(255, 255, 255, .9) !important;
 }
@@ -233,11 +237,19 @@ input:focus ~ label, input:valid ~ label {
 }
 
 .toggle > div {
-    border: 2px solid rgba(255, 255, 255, .6);
+    border: 2px solid rgba(0, 23, 85, .6);
 }
 
 .toggle > div:before {
-    background: rgba(255, 255, 255, .6);
+    border: 2px solid rgba(0, 23, 85, .6);
+}
+
+.toggleEnabled > div:before {
+    border: none;
+}
+
+.toggleDisabled > div:before {
+    border: 2px solid rgba(0, 23, 85, .6);
 }
 
 .modal {
@@ -254,5 +266,18 @@ input:focus ~ label, input:valid ~ label {
 }
 
 .top-right[data-notification-status="neutral"]:after {
+    color: rgba(0, 23, 85, .8);
+}
+
+.plus:hover {
+    color: rgba(0, 23, 85, .8);
+}
+
+.plus:active {
+    color: rgba(0, 23, 85, .5);
+}
+
+.pushNotification[data-notification-status="neutral"] {
+    background-color: rgba(255, 255, 255, .8);
     color: rgba(0, 23, 85, .8);
 }

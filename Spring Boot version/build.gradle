@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'idea'
     id 'eclipse'
-    id 'org.springframework.boot' version '2.2.0.RELEASE'
+    id 'org.springframework.boot' version '2.2.1.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 }
 
@@ -17,19 +17,19 @@ springBoot {
 }
 
 bootJar {
-    launchScript()
+    archiveBaseName = 'Thalassa'
 }
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-//    implementation 'org.springframework.boot:spring-boot-starter-security' -- To be subsequently implemented
+    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-tomcat'
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
     implementation 'com.arangodb:arangodb-spring-data:3.2.3'
     implementation 'org.apache.tomcat:tomcat-jasper:9.0.27'
-    implementation 'javax.servlet:jstl:1.2'
-    implementation 'com.fasterxml.jackson.core:jackson-core:2.10.0'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.10.1'
     implementation 'org.bouncycastle:bcprov-jdk15on:1.64'
     implementation 'com.muquit.libsodiumjna:libsodium-jna:1.0.4'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
