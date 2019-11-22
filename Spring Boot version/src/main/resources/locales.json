@@ -290,7 +290,7 @@
     "vesselsInvalidImoNumber": "The IMO number is invalid.",
     "vesselsInvalidName": "The vessel name is invalid.",
     "vesselsName": "Name",
-    "vesselsRegistryIsEmpty": "You have not added vessels in the registry yet.",
+    "vesselsRegistryIsEmpty": "You have not added vessels to the registry yet.",
     "vesselsUnderConstruction": "Under construction",
     "vesselsVesselSuccessfullyAdded": "The vessel has been added successfully.",
     "vesselsYearBuilt": "Year built"
