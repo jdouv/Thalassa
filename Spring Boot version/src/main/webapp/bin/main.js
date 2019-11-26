@@ -997,7 +997,7 @@ $(document).ready(()=> {
         // Renders login view
         $(document).on('click', '[name="jumbotronLogin"], .navLogin', () => {
             main.fadeOut();
-            $('.navLogin-parent').fadeOut();
+            $('.navLogin-wrapper').fadeOut();
             setNavbarToggler();
             renderLogin();
             changeTitle('usersLogin');
