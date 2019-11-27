@@ -1884,8 +1884,8 @@ $(document).ready(()=> {
             });
 
             $(document).on('click', '.submitNewVesselButton', function(e) {
-                let submitVesselButton = $(this);
                 e.preventDefault();
+                let submitVesselButton = $(this);
                 let vesselsRegistry = $('main #vesselsRegistry');
                 let form = $(this).parents('form');
                 openWaitDots(form);
