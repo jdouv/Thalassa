@@ -1525,3 +1525,7 @@ svg path {
 main #vesselsRegistry {
     width: auto;
 }
+
+.formClass .formErrors {
+    text-align: initial;
+}
