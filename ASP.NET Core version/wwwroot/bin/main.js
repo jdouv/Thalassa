@@ -499,7 +499,7 @@ $(document).ready(() => {
             if ($(this).parents('form').find('.afterSubmitNotSaved').is(':visible'))
                 $(this).parents('form').find('.afterSubmitNotSaved').slideUp(400);
             if ($(this).parents('form').hasClass('registerForm')) {
-                if ($(this).attr('id') === 'email' && validEmail($(this))) {
+                if ($(this).attr('name') === 'email' && validEmail($(this))) {
                     emailExists($(this));
                     if ($(this).hasClass('validInput')) {
                         $(this).parents('form').find('.submitButtonWrapper, .resetButtonWrapper').slideDown(300);
@@ -541,7 +541,7 @@ $(document).ready(() => {
         function toggleValidationColors(element) {
             if (element.val().length > 0)
                 element.removeClass('invalidInput').addClass('validInput');
-            if ((element.parents('form').hasClass('registerForm') && element.attr('id') === 'email') ||
+            if ((element.parents('form').hasClass('registerForm') && element.attr('name') === 'email') ||
                 element.parents('form').hasClass('newVesselForm') || element.parents('form').hasClass('vesselUpdateForm')) {
                 isValidInput(element) ?
                     element.removeClass('invalidInput borderBottomSolid').addClass('validInput') :
@@ -577,13 +577,13 @@ $(document).ready(() => {
 
         function isValidInput(element) {
             if (element.parents('form').hasClass('registerForm')) {
-                if (element.attr('id') === 'firstName')
+                if (element.attr('name') === 'firstName')
                     return validFirstName(element);
-                else if (element.attr('id') === 'lastName')
+                else if (element.attr('name') === 'lastName')
                     return validLastName(element);
-                else if (element.attr('id') === 'email')
+                else if (element.attr('name') === 'email')
                     return validEmail(element);
-                else if (element.attr('id') === 'position')
+                else if (element.attr('name') === 'position')
                     return validPosition(element);
             } else if (element.parents('form').hasClass('newVesselForm') || element.parents('form').hasClass('vesselUpdateForm')) {
                 if (element.attr('name') === 'name')
