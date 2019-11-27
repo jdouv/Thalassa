@@ -126,7 +126,7 @@ namespace Thalassa.Business.Services
                 case "flag":
                     if (value.Length < 1)
                         dictionary[key] = "errorRequiredVesselFlag";
-                    else if (!Regex.IsMatch(value, "^[a-zA-Z]+$"))
+                    else if (!Regex.IsMatch(value, "\\p{L}+"))
                         dictionary[key] = "errorInputNotLetters";
                     else if (value.Length > 2)
                         dictionary[key] = "errorSizeVesselFlag";

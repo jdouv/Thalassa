@@ -138,7 +138,7 @@ public class VesselServiceImpl implements VesselService {
             case "flag":
                 if (value.length() < 1)
                     map.put(key, "errorRequiredVesselFlag");
-                else if (!value.matches("^[a-zA-Z]+$"))
+                else if (!value.matches("\\p{L}+"))
                     map.put(key, "errorInputNotLetters");
                 else if (value.length() > 2)
                     map.put(key, "errorSizeVesselFlag");

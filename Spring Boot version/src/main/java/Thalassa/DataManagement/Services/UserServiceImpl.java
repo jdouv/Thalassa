@@ -159,7 +159,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             case "firstName":
                 if (value.length() < 1)
                     map.put(key, "errorRequiredFirstName");
-                else if (!value.matches("^[a-zA-Z]+$"))
+                else if (!value.matches("\\p{L}+"))
                     map.put(key, "errorInputNotLetters");
                 else if (value.length() > 100)
                     map.put(key, "errorMaxFirstName");
@@ -167,7 +167,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             case "lastName":
                 if (value.length() < 1)
                     map.put(key, "errorRequiredLastName");
-                else if (!value.matches("^[a-zA-Z]+$"))
+                else if (!value.matches("\\p{L}+"))
                     map.put(key, "errorInputNotLetters");
                 else if (value.length() > 100)
                     map.put(key, "errorMaxLastName");
@@ -183,7 +183,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             case "position":
                 if (value.length() < 1)
                     map.put(key, "errorRequiredPosition");
-                else if (!value.matches("^[a-zA-Z]+$"))
+                else if (!value.matches("\\p{L}+"))
                     map.put(key, "errorInputNotLetters");
                 break;
             case "privateKey":

@@ -149,7 +149,7 @@ namespace Thalassa.Business.Services
                 case "firstName":
                     if (value.Length < 1)
                         dictionary[key] = "errorRequiredFirstName";
-                    else if (!Regex.IsMatch(value, "^[a-zA-Z]+$"))
+                    else if (!Regex.IsMatch(value, "\\p{L}+"))
                         dictionary[key] = "errorInputNotLetters";
                     else if (value.Length > 100)
                         dictionary[key] = "errorMaxFirstName";
@@ -157,7 +157,7 @@ namespace Thalassa.Business.Services
                 case "lastName":
                     if (value.Length < 1)
                         dictionary[key] = "errorRequiredLastName";
-                    else if (!Regex.IsMatch(value, "^[a-zA-Z]+$"))
+                    else if (!Regex.IsMatch(value, "\\p{L}+"))
                         dictionary[key] = "errorInputNotLetters";
                     else if (value.Length > 100)
                         dictionary[key] = "errorMaxLastName";
@@ -173,7 +173,7 @@ namespace Thalassa.Business.Services
                 case "position":
                     if (value.Length < 1)
                         dictionary[key] = "errorRequiredPosition";
-                    else if (!Regex.IsMatch(value, "^[a-zA-Z]+$"))
+                    else if (!Regex.IsMatch(value, "\\p{L}+"))
                         dictionary[key] = "errorInputNotLetters";
                     break;
                 case "privateKey":
