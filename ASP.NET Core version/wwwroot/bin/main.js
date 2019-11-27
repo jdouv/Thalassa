@@ -164,7 +164,7 @@ $(document).ready(() => {
             adjustLogoLocale();
         });
 
-        // Because the service is bilingual (for now), adjusts the logo width based on the given translated name of the service
+        // Because the service is bilingual (for now), adjusts the logo width based on the provided translated name of the service
         function adjustLogoWidthByCookie() {
             getCookie('Locale') === 'el' ?
                 adjustLogoWidthLong() : adjustLogoWidthShort();
@@ -852,7 +852,7 @@ $(document).ready(() => {
             $(this).css('border-left', 'solid 3px');
         });
 
-        // Checks if the e-mail given by the user already exists by calling the appropriate controller
+        // Checks if the e-mail provided by the user already exists by calling the appropriate controller
         function emailExists(element) {
             $.post({
                 url: 'User/EmailExists',
