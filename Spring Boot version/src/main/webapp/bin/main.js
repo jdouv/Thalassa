@@ -1923,7 +1923,8 @@ $(document).ready(()=> {
                 });
             });
 
-            $(document).on('change', '.vesselUpdateForm input', function() {
+            $(document).on('change', '.vesselUpdateForm input', function(e) {
+                e.stopImmediatePropagation();
                 if (isValidInput($(this)))
                     updateVessel($(this));
             });
