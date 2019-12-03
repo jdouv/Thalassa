@@ -30,8 +30,8 @@ self.addEventListener('install', e => {
                 `/bin/reset.css`,
                 `https://code.jquery.com/jquery-3.4.1.min.js`,
                 `https://necolas.github.io/normalize.css/latest/normalize.css`,
-                `https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css`,
-                `https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js`
+                `https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/js/bootstrap.min.js`,
+                `https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js`
             ])
                 .then(() => self.skipWaiting());
         })
@@ -48,7 +48,7 @@ self.addEventListener('fetch', function(event) {
             return cache.match(event.request).then(function (response) {
                 return response || fetch(event.request).then(function(response) {
                     if (event.request.method.toUpperCase() === 'GET')
-                        cache.put(event.request, response.clone());
+                        cache.put(event.request, response.clone()).then(() => {void(0);});
                     return response;
                 });
             });

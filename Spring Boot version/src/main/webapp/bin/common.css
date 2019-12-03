@@ -195,10 +195,6 @@ footer {
     margin-bottom: 30px;
 }
 
-.blockchainValidationResults .col {
-    text-align: center;
-}
-
 .invalidBlockchainResultsHead {
     margin: 30px 0 20px 0;
 }
@@ -245,7 +241,7 @@ footer {
     transition: .3s;
     margin-top: 10px;
     margin-bottom: 10px;
-    max-width: 1000px;
+    max-width: 1000px !important;
 }
 
 .testEnabledClause {
@@ -287,10 +283,6 @@ footer {
 .qrCode {
     cursor: pointer;
     margin: auto;
-}
-
-.qrCodeText {
-    text-align: center;
 }
 
 .contractQR {
@@ -707,13 +699,6 @@ input ~ label {
     border-radius: 0 !important;
 }
 
-.effectAfterRestart {
-    font-size: 14px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-}
-
 .settingsSmallWarning {
     font-family: Segoe MDL2 Assets, sans serif !important;
     margin-right: 5px;
@@ -770,7 +755,7 @@ input ~ label {
     padding-top: 4px;
 }
 
-.positionsWrapper {
+.positionsWrapper, .dropdownWrapper, .addButton, .rowFormTextElement, .tableRowForm .dropdown, .tableRowForm .formErrors, .blockchainValidationResults .col, .qrCodeText, .newVesselWrapper .vesselFlagsWrapper, .tableRowTitle .col {
     text-align: center;
 }
 
@@ -1331,10 +1316,6 @@ svg path {
     animation-name: slideInLogo;
 }
 
-.addButton {
-    text-align: center;
-}
-
 .plus {
     height: 50px;
     width: 50px;
@@ -1365,13 +1346,13 @@ svg path {
     margin-top: 20px;
 }
 
-.newVesselWrapper .vesselFlagsWrapper {
-    text-align: center;
-}
-
 .checkboxField {
     display: flex;
     text-align: center;
+}
+
+.checkboxField label {
+    margin-bottom: auto;
 }
 
 .formCloseButton {
@@ -1480,10 +1461,6 @@ svg path {
     margin-bottom: 10px;
 }
 
-.tableRowTitle .col {
-    text-align: center;
-}
-
 .tableRowForm .checkboxField, .tableSimpleRow .col-lg {
     display: flex;
     justify-content: center;
@@ -1504,10 +1481,6 @@ svg path {
     border-radius: 100px;
 }
 
-.tableRowForm .dropdown, .tableRowForm .formErrors {
-    text-align: center;
-}
-
 .tableSimpleRow .smallTitle {
     text-align: center;
     font-size: 14px;
@@ -1520,4 +1493,37 @@ main #vesselsRegistry {
 
 .formClass .formErrors {
     text-align: initial;
+}
+
+.sticky-top {
+    top: 56px;
+}
+
+.responsiveTable {
+    display: table;
+    border-collapse: collapse;
+}
+
+.responsiveTable .row {
+    display: table-row !important;
+}
+
+.responsiveTable .row .col-auto, .responsiveTable .row .col-lg-auto {
+    display: table-cell;
+    text-align: center;
+    white-space: nowrap;
+    padding: 7px 15px 7px 15px;
+    vertical-align: middle;
+}
+
+.container {
+    max-width: none;
+}
+
+.table {
+    margin-bottom: auto;
+}
+
+.rightNavButtons .dropdown-item {
+    font-size: unset;
 }

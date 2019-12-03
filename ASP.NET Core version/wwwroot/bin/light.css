@@ -24,17 +24,13 @@
     color: rgba(0, 23, 85, .8);
 }
 
-table {
+table, .table, label {
     color: rgba(0, 23, 85, .8);
 }
 
 input {
     color: rgba(0, 23, 85, .8);
     border-bottom: 1px solid rgba(0, 23, 85, .8);
-}
-
-label {
-    color: rgba(0, 23, 85, .8);
 }
 
 input:focus ~ label, input:valid ~ label {
@@ -75,10 +71,6 @@ input:focus ~ label, input:valid ~ label {
 .settingsSectionButton {
     color: rgba(0, 23, 85, .8);
     background-color: transparent;
-}
-
-.dropdownButton, .dropdownButton:hover {
-    color: rgba(0, 23, 85, .8);
 }
 
 .settingsSectionTitle {
@@ -152,6 +144,10 @@ input:focus ~ label, input:valid ~ label {
 
 .settingsSectionButton:hover {
     background-color: rgba(255, 255, 255, .9) !important;
+    color: rgba(0, 23, 85, .8);
+}
+
+.dropdownButton, .dropdownButton:hover {
     color: rgba(0, 23, 85, .8);
 }
 
@@ -280,4 +276,8 @@ input:focus ~ label, input:valid ~ label {
 .pushNotification[data-notification-status="neutral"] {
     background-color: rgba(255, 255, 255, .8);
     color: rgba(0, 23, 85, .8);
+}
+
+.stickyTopEnabled {
+    background-color: rgba(255, 255, 255, .75);
 }

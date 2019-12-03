@@ -496,6 +496,7 @@ $(document).ready(()=> {
 
         // Renders all functions below when user inputs something in a form
         $(document).on('input', 'form input', function() {
+            $(this).parents('.inputWrapper').find('.emailAlreadyInUse, .formWarning, .formWarningServer, .changesNotSavedWrapper').slideUp(300);
             if ($(this).parents('form').find('.afterSubmitNotSaved').is(':visible'))
                 $(this).parents('form').find('.afterSubmitNotSaved').slideUp(400);
             if ($(this).parents('form').hasClass('registerForm')) {
@@ -509,16 +510,65 @@ $(document).ready(()=> {
                 toggleValidationColors($(this));
             } else if ($(this).parents('form').hasClass('newVesselForm') || $(this).parents('form').hasClass('vesselUpdateForm'))
                 toggleValidationColors($(this));
-            $(this).parent().find('.formWarning, .formWarningServer, .changesNotSavedWrapper').slideUp(300);
             toggleFormButtons($(this));
+        });
+
+        // Returns the width of the given element’s text
+        function getTextWidth(element) {
+            let canvas = getTextWidth.canvas || (getTextWidth.canvas = document.createElement('canvas'));
+            let context = canvas.getContext('2d');
+            context.font = window.getComputedStyle(element, null).getPropertyValue('font');
+            return Math.floor(context.measureText(element.value).width) + 10;
+        }
+
+        // Calls the getTextWidth function
+        function adjustElementWidth(element) {
+            element.width(getTextWidth(element[0]));
+        }
+
+        // Adjusts a general table’s appearance after rendering
+        function adjustGeneralTableAppearance(element) {
+            element.find('.tableRowForm').each(function() {
+                $(this).find('.rowFormTextElement').each(function() {
+                    adjustElementWidth($(this));
+                });
+                $(this).find('input[type="checkbox"]').each(function() {
+                    adjustCheckboxColor($(this));
+                });
+            });
+            adjustTableAppearance();
+        }
+
+        // Adjusts the tables’ appearance when called
+        function adjustTableAppearance() {
+            let table = $('.table');
+            if (table.is(':visible'))
+                if (!$('.smallTitle').is(':visible')) {
+                    if (window.outerWidth > $('main').width())
+                        if (!table.hasClass('responsiveTable'))
+                            table.addClass('responsiveTable');
+                } else {
+                    if (table.hasClass('responsiveTable'))
+                        table.removeClass('responsiveTable')
+                }
+        }
+
+        window.onresize = adjustTableAppearance;
+
+        // Adjusts the appearance of sticky-top elements when scrolling
+        $(document).scroll(function () {
+            $('.sticky-top').toggleClass('stickyTopEnabled', $(this).scrollTop() > 200);
+        });
+
+        // Determines what happens when user inputs something in a row form
+        $(document).on('input', '.tableRowForm input', function() {
+            adjustElementWidth($(this));
+            adjustTableAppearance();
         });
 
         function toggleFormButtons(element) {
             element.val().length !== 0 ?
-                isValidForm(element) ? enableFormButtons(element) : disableOnlySubmit(element) :
-                element.parents('form').find('input').each(function() {
-                    $(this).val().length === 0 ? disableFormButtons(element) : disableOnlySubmit(element);
-                });
+                isValidForm(element) ? enableFormButtons(element) : disableOnlySubmit(element) : void(0);
         }
 
         function enableFormButtons(element) {
@@ -1166,8 +1216,14 @@ $(document).ready(()=> {
                                     h("span", {class: "symbol navButSymbolUser"}, "\uE13D")
                                 ),
                                 h("div", {class: "dropdown-menu dropdown-menu-right", "aria-labelledby": "userOptions"},
-                                    h("button", {class: "dropdown-item dropdownItem navButSettings", "data-localization": "basicsSettings", type: "button"}),
-                                    h("button", {class: "dropdown-item dropdownItem logoutButton", "data-localization": "usersLogout", type: "button"})
+                                    h("button", {class: "dropdown-item dropdownItem navButSettings", type: "button"},
+                                        h("span", {class: "symbol navButSymbolInline"}, "\uE713" + "  "),
+                                        h("span", {"data-localization": "basicsSettings"})
+                                    ),
+                                    h("button", {class: "dropdown-item dropdownItem logoutButton", type: "button"},
+                                        h("span", {class: "symbol navButSymbolInline"}, "\uf3b1" + "  "),
+                                        h("span", {"data-localization": "usersLogout"})
+                                    )
                                 )
                             )
                         )
@@ -1516,79 +1572,80 @@ $(document).ready(()=> {
                                             h("div", {"data-localization": "adminBlockchainIsInvalid"}),
                                             h(Fragment, null,
                                                 !$.isEmptyObject(array[0]) ?
-                                                    h("div", null,
-                                                        h(Fragment, null,
-                                                            h("div", {class: "invalidBlockchainResultsHead text-center", "data-localization": "adminBlockchainResultsCalculationMessage"}),
+                                                    h(Fragment, null,
+                                                        h("div", {class: "invalidBlockchainResultsHead text-center", "data-localization": "adminBlockchainResultsCalculationMessage"}),
+                                                        h("div", {class: "table responsiveTable"},
                                                             h("div", {class: "row d-none d-lg-flex tableRowTitle"},
-                                                                h("div", {class: "col align-self-center text-center wordBreak", "data-localization": "blockchainBlockNumber"}),
-                                                                h("div", {class: "col align-self-center text-center wordBreak", "data-localization": "blockchainTimestamp"}),
-                                                                h("div", {class: "col align-self-center text-center wordBreak", "data-localization": "blockchainHashExpected"}),
-                                                                h("div", {class: "col align-self-center text-center wordBreak", "data-localization": "blockchainHashFound"})
-                                                            )
-                                                        ),
-                                                        $.map(array[0], (element, index) => {
-                                                            return (
-                                                                h("div", {class: "row tableSimpleRow blockchainValidationResultRow"},
-                                                                    h("div", {class: "col-lg col-md-4 col-sm-6"},
-                                                                        h("div", {class: "smallTitle d-lg-none", "data-localization": "blockchainBlockNumber"}),
-                                                                        h("div", {class: " resultsBlockNumber"}, index)
-                                                                    ),
-                                                                    h("div", {class: "col-lg col-md-4 col-sm-6"},
-                                                                        h("div", {class: "smallTitle d-lg-none", "data-localization": "blockchainTimestamp"}),
-                                                                        h("div", {"data-timestamp": element[0]})
-                                                                    ),
-                                                                    h("div", {class: "col-lg col-md-4 col-sm-6"},
-                                                                        h("div", {class: "smallTitle d-lg-none", "data-localization": "blockchainHashExpected"}),
-                                                                        h("div", {class: "validationResultsHash"}, element[1])
-                                                                    ),
-                                                                    h("div", {class: "col-lg col-md-4 col-sm-6"},
-                                                                        h("div", {class: "smallTitle d-lg-none", "data-localization": "blockchainHashFound"}),
-                                                                        h("div", {class: "validationResultsHash"}, element[2]))
-                                                                )
-                                                            )
-                                                        })
-                                                    )
-                                                    :
-                                                    h("div", {style: "display:none;"}),
-                                                h(Fragment, null,
-                                                    !$.isEmptyObject(array[1]) ?
-                                                        h("div", null,
-                                                            h(Fragment, null, h("div", {class: "invalidBlockchainResultsHead text-center", "data-localization": "adminBlockchainResultsReferenceMessage"}),
-                                                                h("div", {class: "row d-none d-lg-flex tableRowTitle"},
-                                                                    h("div", {class: "col align-self-center text-center wordBreak", "data-localization": "blockchainNumberTimestampOfFirst"}),
-                                                                    h("div", {class: "col align-self-center text-center wordBreak", "data-localization": "blockchainNumberTimestampOfSecond"}),
-                                                                    h("div", {class: "col align-self-center text-center wordBreak", "data-localization": "blockchainHashExpected"}),
-                                                                    h("div", {class: "col align-self-center text-center wordBreak", "data-localization": "blockchainHashFound"})
-                                                                )
+                                                                h("div", {class: "col-auto align-self-center text-center wordBreak", "data-localization": "blockchainBlockNumber"}),
+                                                                h("div", {class: "col-auto align-self-center text-center wordBreak", "data-localization": "blockchainTimestamp"}),
+                                                                h("div", {class: "col-auto align-self-center text-center wordBreak", "data-localization": "blockchainHashExpected"}),
+                                                                h("div", {class: "col-auto align-self-center text-center wordBreak", "data-localization": "blockchainHashFound"})
                                                             ),
-                                                            $.map(array[1], (element, index) => {
+                                                            $.map(array[0], (element, index) => {
                                                                 return (
                                                                     h("div", {class: "row tableSimpleRow blockchainValidationResultRow"},
-                                                                        h("div", {class: "col-lg col-md-4 col-sm-6"},
-                                                                            h("div", {class: "smallTitle d-lg-none", "data-localization": "blockchainNumberTimestampOfFirst"}),
-                                                                            h("div", null, index, " / ",
-                                                                                h("span", {"data-timestamp": element[0]})
-                                                                            )
+                                                                        h("div", {class: "col-lg-auto col-md-4 col-sm-6"},
+                                                                            h("div", {class: "smallTitle d-lg-none", "data-localization": "blockchainBlockNumber"}),
+                                                                            h("div", {class: " resultsBlockNumber"}, index)
                                                                         ),
-                                                                        h("div", {class: "col-lg col-md-4 col-sm-6"},
-                                                                            h("div", {class: "smallTitle d-lg-none", "data-localization": "blockchainNumberTimestampOfSecond"}),
-                                                                            h("div", null, parseInt(index) + 1, " / ",
-                                                                                h("span", {"data-timestamp": element[1]})
-                                                                            )
+                                                                        h("div", {class: "col-lg-auto col-md-4 col-sm-6"},
+                                                                            h("div", {class: "smallTitle d-lg-none", "data-localization": "blockchainTimestamp"}),
+                                                                            h("div", {"data-timestamp": element[0]})
                                                                         ),
-                                                                        h("div", {class: "col-lg col-md-4 col-sm-6"},
+                                                                        h("div", {class: "col-lg-auto col-md-4 col-sm-6"},
                                                                             h("div", {class: "smallTitle d-lg-none", "data-localization": "blockchainHashExpected"}),
-                                                                            h("div", {class: "validationResultsHash"}, element[2]),
+                                                                            h("div", {class: "validationResultsHash"}, element[1])
                                                                         ),
-                                                                        h("div", {class: "col-lg col-md-4 col-sm-6"},
+                                                                        h("div", {class: "col-lg-auto col-md-4 col-sm-6"},
                                                                             h("div", {class: "smallTitle d-lg-none", "data-localization": "blockchainHashFound"}),
-                                                                            h("div", {class: "validationResultsHash"}, element[3]))
+                                                                            h("div", {class: "validationResultsHash"}, element[2]))
                                                                     )
                                                                 )
                                                             })
                                                         )
+                                                    )
+                                                    :
+                                                    void(0),
+                                                h(Fragment, null,
+                                                    !$.isEmptyObject(array[1]) ?
+                                                        h(Fragment, null,
+                                                            h("div", {class: "invalidBlockchainResultsHead text-center", "data-localization": "adminBlockchainResultsReferenceMessage"}),
+                                                            h("div", {class: "table responsiveTable"},
+                                                                h("div", {class: "row d-none d-lg-flex tableRowTitle"},
+                                                                    h("div", {class: "col-auto align-self-center text-center wordBreak", "data-localization": "blockchainNumberTimestampOfFirst"}),
+                                                                    h("div", {class: "col-auto align-self-center text-center wordBreak", "data-localization": "blockchainNumberTimestampOfSecond"}),
+                                                                    h("div", {class: "col-auto align-self-center text-center wordBreak", "data-localization": "blockchainHashExpected"}),
+                                                                    h("div", {class: "col-auto align-self-center text-center wordBreak", "data-localization": "blockchainHashFound"})
+                                                                ),
+                                                                $.map(array[1], (element, index) => {
+                                                                    return (
+                                                                        h("div", {class: "row tableSimpleRow blockchainValidationResultRow"},
+                                                                            h("div", {class: "col-lg-auto col-md-4 col-sm-6"},
+                                                                                h("div", {class: "smallTitle d-lg-none", "data-localization": "blockchainNumberTimestampOfFirst"}),
+                                                                                h("div", null, index + " / ",
+                                                                                    h("span", {"data-timestamp": element[0]})
+                                                                                )
+                                                                            ),
+                                                                            h("div", {class: "col-lg-auto col-md-4 col-sm-6"},
+                                                                                h("div", {class: "smallTitle d-lg-none", "data-localization": "blockchainNumberTimestampOfSecond"}),
+                                                                                h("div", null, parseInt(index) + 1 + " / ",
+                                                                                    h("span", {"data-timestamp": element[1]})
+                                                                                )
+                                                                            ),
+                                                                            h("div", {class: "col-lg-auto col-md-4 col-sm-6"},
+                                                                                h("div", {class: "smallTitle d-lg-none", "data-localization": "blockchainHashExpected"}),
+                                                                                h("div", {class: "validationResultsHash"}, element[2]),
+                                                                            ),
+                                                                            h("div", {class: "col-lg-auto col-md-4 col-sm-6"},
+                                                                                h("div", {class: "smallTitle d-lg-none", "data-localization": "blockchainHashFound"}),
+                                                                                h("div", {class: "validationResultsHash"}, element[3]))
+                                                                        )
+                                                                    )
+                                                                })
+                                                            )
+                                                        )
                                                         :
-                                                        h("div", {style: "display:none;"})
+                                                        void(0)
                                                 )
                                             )
                                         )
@@ -1597,6 +1654,8 @@ $(document).ready(()=> {
                     )
                 }), mainSelector);
             }
+
+            adjustGeneralTableAppearance($('main .blockchainValidationResults'));
         }
 
         function companyVesselsRegistryManagerView(responseJson) {
@@ -1788,30 +1847,28 @@ $(document).ready(()=> {
                                         h("div", {class: "bgTextTitleText text-center", "data-localization": "vesselsRegistry"})
                                     )
                                 ),
-                                h("div", null,
-                                    h("div", {class: "row d-none d-lg-flex tableRowTitle"},
-                                        h("div", {class: "col align-self-center text-center wordBreak", "data-localization": "vesselsName"}),
-                                        h("div", {class: "col align-self-center text-center wordBreak", "data-localization": "vesselsFlag"}),
-                                        h("div", {class: "col align-self-center text-center wordBreak", "data-localization": "vesselsImoNumber"}),
-                                        h("div", {class: "col align-self-center text-center wordBreak", "data-localization": "vesselsDwt"}),
-                                        h("div", {class: "col align-self-center text-center wordBreak", "data-localization": "vesselsYearBuilt"}),
-                                        h("div", {class: "col align-self-center text-center wordBreak", "data-localization": "vesselsUnderConstruction"})
+                                h("div", {class: "table responsiveTable"},
+                                    h("div", {class: "row d-none d-lg-flex tableRowTitle marginBottom15 sticky-top transition"},
+                                        h("div", {class: "col-auto align-self-center text-center wordBreak", "data-localization": "vesselsName"}),
+                                        h("div", {class: "col-auto align-self-center text-center wordBreak", "data-localization": "vesselsFlag"}),
+                                        h("div", {class: "col-auto align-self-center text-center wordBreak", "data-localization": "vesselsImoNumber"}),
+                                        h("div", {class: "col-auto align-self-center text-center wordBreak", "data-localization": "vesselsDwt"}),
+                                        h("div", {class: "col-auto align-self-center text-center wordBreak", "data-localization": "vesselsYearBuilt"}),
+                                        h("div", {class: "col-auto align-self-center text-center wordBreak", "data-localization": "vesselsUnderConstruction"})
                                     ),
                                     json.map(vessel => {
                                         return (
                                             h("form", {class: "row vesselUpdateForm tableRowForm tableSimpleRow vesselRow"},
-                                                h("input", {name: "id", value: vessel['id'], type: "hidden", hidden: true, style: "display:none;"}),
-                                                h("input", {name: "company", value: vessel['company'], type: "hidden", hidden: true, style: "display:none;"}),
-                                                h("div", {class: "col-lg col-md-4 col-sm-6 inputWrapper"},
+                                                h("div", {class: "col-lg-auto col-md-4 col-sm-6 inputWrapper"},
                                                     h("div", {class: "smallTitle d-lg-none", "data-localization": "vesselsName"}),
-                                                    h("input", {name: "name", type: "text", maxlength: "100", value: vessel['name']}),
+                                                    h("input", {class: "rowFormTextElement", name: "name", type: "text", maxlength: "100", value: vessel['name']}),
                                                     h("div", {class: "formErrors formErrorsFull"},
                                                         h("div", {class: "formWarning", "data-localization": "vesselsInvalidName", style: "display:none;"}),
                                                         h("div", {class: "formWarningServer", style: "display:none;"})
                                                     ),
                                                     h(AfterUpdatedValidation)
                                                 ),
-                                                h("div", {class: "col-lg col-md-4 col-sm-6 inputWrapper vesselFlagsWrapper dropdownItemsWrapper"},
+                                                h("div", {class: "col-lg-auto col-md-4 col-sm-6 inputWrapper vesselFlagsWrapper dropdownItemsWrapper"},
                                                     h("div", {class: "smallTitle d-lg-none", "data-localization": "vesselsFlag"}),
                                                     h("div", {class: "dropdown"},
                                                         h("button", {class: "btn btn-secondary dropdown-toggle dropdownButton", "data-localization-title": "vesselsFlag", id: "updateVesselVesselsFlag" + vessel['id'], "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"},
@@ -1829,41 +1886,43 @@ $(document).ready(()=> {
                                                     ),
                                                     h(AfterUpdatedValidation)
                                                 ),
-                                                h("div", {class: "col-lg col-md-4 col-sm-6 inputWrapper"},
+                                                h("div", {class: "col-lg-auto col-md-4 col-sm-6 inputWrapper"},
                                                     h("div", {class: "smallTitle d-lg-none", "data-localization": "vesselsImoNumber"}),
-                                                    h("input", {name: "imoNumber", type: "text", maxlength: "100", value: vessel['imoNumber']}),
+                                                    h("input", {class: "rowFormTextElement", name: "imoNumber", type: "text", maxlength: "100", value: vessel['imoNumber']}),
                                                     h("div", {class: "formErrors formErrorsFull"},
                                                         h("div", {class: "formWarning", "data-localization": "vesselsInvalidImoNumber", style: "display:none;"}),
                                                         h("div", {class: "formWarningServer", style: "display:none;"})
                                                     ),
                                                     h(AfterUpdatedValidation)
                                                 ),
-                                                h("div", {class: "col-lg col-md-4 col-sm-6 inputWrapper"},
+                                                h("div", {class: "col-lg-auto col-md-4 col-sm-6 inputWrapper"},
                                                     h("div", {class: "smallTitle d-lg-none", "data-localization": "vesselsDwt"}),
-                                                    h("input", {name: "dwt", type: "text", maxlength: "10", value: vessel['dwt']}),
+                                                    h("input", {class: "rowFormTextElement", name: "dwt", type: "text", maxlength: "10", value: vessel['dwt']}),
                                                     h("div", {class: "formErrors formErrorsFull"},
                                                         h("div", {class: "formWarning", "data-localization": "errorRequiredVesselDwt", style: "display:none;"}),
                                                         h("div", {class: "formWarningServer", style: "display:none;"})
                                                     ),
                                                     h(AfterUpdatedValidation)
                                                 ),
-                                                h("div", {class: "col-lg col-md-4 col-sm-6 inputWrapper"},
+                                                h("div", {class: "col-lg-auto col-md-4 col-sm-6 inputWrapper"},
                                                     h("div", {class: "smallTitle d-lg-none", "data-localization": "vesselsYearBuilt"}),
-                                                    h("input", {name: "yearBuilt", type: "text", minlength: "4", maxlength: "4", value: vessel['yearBuilt']}),
+                                                    h("input", {class: "rowFormTextElement", name: "yearBuilt", type: "text", minlength: "4", maxlength: "4", value: vessel['yearBuilt']}),
                                                     h("div", {class: "formErrors formErrorsFull"},
                                                         h("div", {class: "formWarning", "data-localization": "errorSizeVesselYearBuilt", style: "display:none;"}),
                                                         h("div", {class: "formWarningServer", style: "display:none;"})
                                                     ),
                                                     h(AfterUpdatedValidation)
                                                 ),
-                                                h("div", {class: "col-lg col-md-4 col-sm-6 inputWrapper checkboxField"},
+                                                h("div", {class: "col-lg-auto col-md-4 col-sm-6 inputWrapper checkboxField"},
                                                     h("div", {class: "smallTitle d-lg-none", "data-localization": "vesselsUnderConstruction"}),
                                                     h("label", {class: "toggle"},
                                                         h("input", {class: "vesselUnderConstructionInput", name: "underConstruction", "data-value-type": "boolean", type: "checkbox", checked: vessel['underConstruction'], value: vessel['underConstruction']}),
                                                         h("div", null)
                                                     ),
                                                     h(AfterUpdatedValidation)
-                                                )
+                                                ),
+                                                h("input", {name: "id", value: vessel['id'], type: "hidden", hidden: true, style: "display:none;"}),
+                                                h("input", {name: "company", value: vessel['company'], type: "hidden", hidden: true, style: "display:none;"})
                                             )
                                         )
                                     })
@@ -1872,9 +1931,7 @@ $(document).ready(()=> {
                     )
                 }), document.getElementById('vesselsRegistry'));
 
-                $('main #vesselsRegistry .tableRowForm input[type="checkbox"]').each(function() {
-                    adjustCheckboxColor($(this));
-                });
+                adjustGeneralTableAppearance($('main #vesselsRegistry'));
             }
 
             // Determines what happens when user clicks on “Add vessel” button
@@ -1940,22 +1997,21 @@ $(document).ready(()=> {
                 });
 
                 $.post({
-                        url: '/updateVessel',
-                        contentType: 'application/json;charset=utf-8',
-                        dataType: 'json',
-                        data: JSON.stringify(form.serializeJSON({checkboxUncheckedValue: 'false'}))},
-                    response => {
-                        if (response.hasOwnProperty('invalidFields'))
-                            afterFormFailed(form, response);
-                        else if (response.hasOwnProperty('updated')) {
-                            if (response['updated'] === true)
-                                element.parents('.inputWrapper').find('.successTextColorSmall').slideDown(400).delay(3000).slideUp(400);
-                            else {
-                                setErrorMessageModal(response['errorDetails']);
-                                element.parents('.inputWrapper').find('.changesNotSavedWrapper').slideDown(400);
-                            }
+                    url: '/updateVessel',
+                    contentType: 'application/json;charset=utf-8',
+                    dataType: 'json',
+                    data: JSON.stringify(form.serializeJSON({checkboxUncheckedValue: 'false'}))}, response => {
+                    if (response.hasOwnProperty('invalidFields'))
+                        afterFormFailed(form, response);
+                    else if (response.hasOwnProperty('updated')) {
+                        if (response['updated'] === true)
+                            element.parents('.inputWrapper').find('.successTextColorSmall').slideDown(400).delay(3000).slideUp(400);
+                        else {
+                            setErrorMessageModal(response['errorDetails']);
+                            element.parents('.inputWrapper').find('.changesNotSavedWrapper').slideDown(400);
                         }
-                    }).fail(jqXHR => {
+                    }
+                }).fail(jqXHR => {
                     notifyError('errorVesselNotUpdated', jqXHR);
                 });
             }
@@ -2055,29 +2111,29 @@ $(document).ready(()=> {
                                             h("div", {class: "bgTextTitleText text-center", "data-localization": "legalContracts"})
                                         )
                                     ),
-                                    h("div", null,
+                                    h("div", {class: "table responsiveTable"},
                                         h("div", {class: "row d-none d-lg-flex tableRowTitle"},
-                                            h("div", {class: "col align-self-center text-center wordBreak", "data-localization": "legalContractsTitle"}),
-                                            h("div", {class: "col align-self-center text-center wordBreak", "data-localization": "blockchainTimestamp"}),
-                                            h("div", {class: "col align-self-center text-center wordBreak", "data-localization": "blockchainHash"})
+                                            h("div", {class: "col-auto align-self-center text-center wordBreak", "data-localization": "legalContractsTitle"}),
+                                            h("div", {class: "col-auto align-self-center text-center wordBreak", "data-localization": "blockchainTimestamp"}),
+                                            h("div", {class: "col-auto align-self-center text-center wordBreak", "data-localization": "blockchainHash"})
                                         ),
                                         json.map(contract => {
                                             return (
                                                 h("div", {class: "row tableSimpleRow contractRow"},
                                                     h("div", {class: "blockIndex", style: "display:none;"}, contract['index']),
-                                                    h("div", {class: "col-lg col-md-4 col-sm-6"},
+                                                    h("div", {class: "col-lg-auto col-md-4 col-sm-6"},
                                                         h("div", {class: "smallTitle d-lg-none", "data-localization": "legalContractsTitle"}),
-                                                        h("div", {class: "col-lg col-md-4 col-sm-6 align-self-center text-center resultsBlockNumber"},
+                                                        h("div", {class: "align-self-center text-center resultsBlockNumber"},
                                                             h("span", {"data-localization": "legalContractsTitlesLower" + contract['title']})
                                                         )
                                                     ),
-                                                    h("div", {class: "col-lg col-md-4 col-sm-6"},
+                                                    h("div", {class: "col-lg-auto col-md-4 col-sm-6"},
                                                         h("div", {class: "smallTitle d-lg-none", "data-localization": "blockchainTimestamp"}),
-                                                        h("div", {class: "col-lg col-md-4 col-sm-6 align-self-center text-center", "data-timestamp": contract['timestamp']})
+                                                        h("div", {class: "align-self-center text-center", "data-timestamp": contract['timestamp']})
                                                     ),
-                                                    h("div", {class: "col-lg col-md-4 col-sm-6"},
+                                                    h("div", {class: "col-lg-auto col-md-4 col-sm-6"},
                                                         h("div", {class: "smallTitle d-lg-none", "data-localization": "blockchainHash"}),
-                                                        h("div", {class: "col-lg col-md-4 col-sm-6 align-self-center text-center validationResultsHash"}, contract['hash'])
+                                                        h("div", {class: "align-self-center text-center validationResultsHash"}, contract['hash'])
                                                     )
                                                 )
                                             )
@@ -2087,6 +2143,8 @@ $(document).ready(()=> {
                         )
                     )
                 }), mainSelector);
+
+                adjustGeneralTableAppearance($('main .userContracts'));
             }
 
             // Determines what happens when user clicks on “All contracts” button
@@ -2193,7 +2251,7 @@ $(document).ready(()=> {
                                                                         )
                                                                     )
                                                                     :
-                                                                    h("div", {style: "display:none;"})
+                                                                    void(0)
                                                             )
                                                         )
                                                     )
@@ -2236,7 +2294,7 @@ $(document).ready(()=> {
                                                     )
                                                 )
                                                 :
-                                                h("div", {style: "display:none;"})
+                                                void(0)
                                         )
                                     )
                                 )
@@ -2287,7 +2345,7 @@ $(document).ready(()=> {
                                             )
                                         )
                                         :
-                                        h("div", {style: "display:none;"})
+                                        void(0)
                                 )
                             )
                         )
