@@ -53,7 +53,7 @@ Regarding privacy rules, like GDPR, speculation is complicated. Due to the estab
 
 ## Usage
 
-Thalassa is available in two versions, ASP.NET Core and Spring Boot. To use it, you need an IDE and [ArangoDB](https://www.arangodb.com/download-major) installed.
+Thalassa is available in two versions, ASP.NET Core and Spring Boot. To use it, you need an IDE and [ArangoDB](https://www.arangodb.com/download-major) installed. Also, in order to display some symbols, you need to have the Segoe UI MDL2 Assets font installed.
 
 For demo purposes, during initialization of the service, two users are automatically created, a legal engineer and an administrator. To use the service, you can login by using private key “d0b2df0582f262e50dccc9f3586ded1d0560ff4b46db82806a74b2493e9b92ad” for legal engineer and “f628a227cbd50ad8d7f88b39b7ed544d9fc9032bc77fd8160a2018abab4d3531” for administrator. You can also create your own demo accounts, but their functionality is limited for now.
 
