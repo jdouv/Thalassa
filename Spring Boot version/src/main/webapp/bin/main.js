@@ -410,8 +410,8 @@ $(document).ready(()=> {
                 $(this).parents('.dropdown').find('.navBut').not('.userIconButton').css('border-bottom', 'solid 3px');
         });
 
-        // Determines what happens when user presses Esc button
-        $(document).keyup((e) => {
+        // Determines what happens when user presses the Esc button
+        $(document).keyup(e => {
             if (e.keyCode === 27) {
                 // Close Settings
                 if (settingsModalElements.hasClass('active')) {
