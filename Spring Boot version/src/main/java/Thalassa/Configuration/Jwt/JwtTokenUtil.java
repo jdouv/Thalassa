@@ -48,7 +48,7 @@ public class JwtTokenUtil implements Serializable {
 
     boolean validateToken(String token, UserDetails userDetails) {
         return (getClaimFromToken(token, Claims::getSubject).equals(userDetails.getUsername()) && // subject equals user’s public key
-                !getClaimFromToken(token, Claims::getExpiration).before(new Date()) && // token is expired
+                !getClaimFromToken(token, Claims::getExpiration).before(new Date()) && // token has expired
                 getClaimFromToken(token, Claims::getIssuer).equals(issuer) && // issuer is valid
                 getClaimFromToken(token, Claims::getAudience).equals(audience)); // audience is valid
     }
