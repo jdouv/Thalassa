@@ -34,7 +34,7 @@ public class AuthenticationController {
     }
 
     @PostMapping(path = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Object login(@RequestBody ObjectNode json, HttpSession session) throws Exception {
+    public Object login(@RequestBody ObjectNode json, HttpSession session) throws JsonProcessingException {
         return authenticate(json, session, userService.login(json));
     }
 
