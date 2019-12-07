@@ -66,7 +66,7 @@ namespace Thalassa
                     config.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey( Encoding.ASCII.GetBytes("demoSecretForJwtGeneration")),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("demoSecretForJwtGeneration")),
                         ValidateIssuer = true,
                         ValidIssuer = "https://localhost:5001",
                         ValidateAudience = true,

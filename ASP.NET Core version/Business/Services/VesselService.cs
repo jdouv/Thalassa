@@ -55,6 +55,7 @@ namespace Thalassa.Business.Services
             }
             catch (Exception e)
             {
+                Console.WriteLine(e);
                 json["saved"] = false;
                 json["errorDetails"] = e.Message;
                 return json;
@@ -75,6 +76,7 @@ namespace Thalassa.Business.Services
             }
             catch (Exception e)
             {
+                Console.WriteLine(e);
                 newJson["updated"] = false;
                 newJson["errorDetails"] = e.Message;
                 return newJson;
