@@ -1,0 +1,1535 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Segoe UI Light, sans serif;
+    font-size: 17px;
+}
+
+::-webkit-scrollbar {
+    width: 17px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+.transition {
+    transition: .3s;
+}
+
+.hidden {
+    display: none;
+}
+
+header {
+    z-index: 1;
+}
+
+body {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.vw-100 {
+    max-width: 100%;
+}
+
+header {
+    position: relative;
+    width: 100%;
+    align-self: flex-start;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    margin: 60px 20px 20px;
+}
+
+footer {
+    position: relative;
+    width: 100%;
+    align-self: flex-end;
+}
+
+.symbol {
+    font-family: Segoe MDL2 Assets, sans serif !important;
+}
+
+.lightSymbol {
+    line-height: 3;
+}
+
+.bg-image {
+    background: url("../img/background.jpg") center center;
+    position: fixed;
+    min-width: 100%;
+    min-height: 100%;
+    background-size: cover;
+    transition: .3s;
+}
+
+.bg-image-blurred {
+    background: url("../img/background-blurred.jpg") center center;
+    position: fixed;
+    min-width: 100%;
+    min-height: 100%;
+    background-size: cover;
+    transition: .3s;
+}
+
+.title {
+    font-size: 3.5em;
+    color: rgba(255, 255, 255, .8);
+    text-shadow: 0 0 34px black, 0 0 34px black;
+    margin-bottom: .2em;
+    text-align: center;
+}
+
+.innerFormTitle {
+    font-size: 2rem;
+    color: rgba(255, 255, 255, .8);
+    text-shadow: 0 0 20px black, 0 0 20px black;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.navbar-light .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 23, 85, .7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+    transition: .3s;
+}
+
+.navbar-dark .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, .7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+    transition: .3s;
+}
+
+.navbar-toggler-icon {
+    border-radius: 1px;
+}
+
+.dropdown-toggle .caret {
+    position: relative;
+    top: 2px;
+    margin-left: 4px;
+    font-weight: bold;
+}
+
+.dropdown-toggle:after {
+    display: none;
+}
+
+.positionsWrapper .dropdown-toggle .caret {
+    position: relative;
+    top: 3px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.caret {
+    font-family: Segoe MDL2 Assets, sans serif !important;
+}
+
+.jumbotron {
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, .35);
+    transition: .3s;
+}
+
+.lead {
+    font-weight: bold;
+}
+
+.jumbotron-buttons {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.jumbotron-button {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.copiedQR {
+    font-family: Segoe UI Light, sans serif;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1;
+    margin-top: 2px;
+}
+
+.bg-text, .contract {
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, .35);
+}
+
+.bgTextSymbolCenter {
+    font-size: 50px;
+    text-align: center;
+    line-height: 1;
+    font-weight: normal;
+}
+
+.wordBreak {
+    word-break: break-word;
+}
+
+.resultsBlockNumber {
+    font-family: Segoe UI Light, sans serif;
+    font-weight: bold;
+}
+
+.userContracts .bgTextTitleText {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.invalidBlockchainResultsHead {
+    margin: 30px 0 20px 0;
+}
+
+.tableTitleRow {
+    margin-bottom: 10px;
+}
+
+.contractRow {
+    cursor: pointer;
+}
+
+.tableSimpleRow {
+    font-family: Segoe UI, sans serif;
+    font-size: 15px;
+    font-weight: normal;
+    transition: .3s;
+    padding: 7px 0 7px 0;
+}
+
+.validationResultsHash {
+    word-break: break-all;
+}
+
+.successTextColor {
+    color: rgba(102, 187, 106, .8);
+}
+
+.successTextColorSmall {
+    color: rgba(41, 158, 47, .8);
+}
+
+.errorTextColor {
+    color: rgba(239, 83, 80, .8);
+}
+
+.contract {
+    font-family: Segoe UI, sans serif;
+    font-size: 14px;
+    font-weight: normal;
+    padding: 50px !important;
+    text-align: justify;
+    border-radius: 2px;
+    transition: .3s;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    max-width: 1000px !important;
+}
+
+.testEnabledClause {
+    background-color: rgba(255, 0, 0, .3);
+    border-radius: 2px;
+    padding: 5px;
+    text-align: center;
+    font-size: 17px;
+    margin: 20px 0;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, .35);
+}
+
+.collapseButton {
+    width: 100%;
+    font-family: Segoe UI Light, sans serif !important;
+    font-size: 20px;
+    font-variant: small-caps;
+    padding: 10px 23px 10px 23px;
+    border: none;
+    font-weight: bold;
+    height: auto !important;
+    text-align: center;
+    transition: .3s;
+}
+
+.contract .card {
+    background: transparent;
+    border: none;
+}
+
+.contractTimestamp {
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+    font-family: Segoe UI Light, sans serif;
+    font-size: 16px;
+}
+
+.qrCode {
+    cursor: pointer;
+    margin: auto;
+}
+
+.contractQR {
+    width: 150px;
+}
+
+.contractSignaturesQR {
+    width: 90px;
+}
+
+.contractTitleGroup, .contractSignature {
+    opacity: .85;
+}
+
+.signatureQRGroup {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 90px;
+}
+
+.signatureValidationValid, .signatureValidationInvalid, .changesNotSavedWrapper {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 2px;
+    line-height: 1;
+}
+
+.validationSymbolSmall {
+    line-height: .85;
+    font-size: 25px;
+    text-align: center;
+}
+
+.signatureNameHighlight {
+    border-bottom: solid 1px;
+    font-size: 16px;
+}
+
+.infoBox {
+    display: flex;
+}
+
+.contractTitleGroup {
+    margin-bottom: 30px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.vesselIcon {
+    width: 50px;
+}
+
+.rightInfo {
+    margin-left: 15px;
+}
+
+.essentialsData {
+    margin-top: 20px;
+}
+
+.contractTitle {
+    text-align: center;
+    font-size: 26px;
+    font-variant: small-caps;
+    font-weight: bold;
+    margin-bottom: 40px;
+    font-family: Segoe UI Light, sans serif;
+    line-height: 1.3;
+}
+
+.contract ol {
+    font-weight: normal;
+    list-style-type: decimal;
+}
+
+.contract #contractingParties, .contract #essentials {
+    font-weight: normal;
+}
+
+.contractClause > .row {
+    cursor: pointer;
+}
+
+.clauseTitle {
+    align-self: flex-start;
+    font-size: 18px;
+    margin-bottom: 7px;
+    font-variant: small-caps;
+    font-family: Segoe UI Light, sans serif;
+}
+
+.clauseSubtitle {
+    font-family: Segoe UI, sans serif;
+    font-size: 14px;
+    margin-bottom: 3px;
+}
+
+.paragraphGroup {
+    display: flex;
+    flex-direction: row;
+}
+
+.paragraphLegen {
+    font-family: Consolas, sans serif;
+    font-size: 13px;
+}
+
+.paragraphNumber {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.paragraphText {
+    font-weight: normal;
+}
+
+.bg-text {
+    font-weight: bold;
+    border-radius: 3px;
+    padding: 20px;
+    transition: .3s;
+}
+
+.firstFormRow {
+    margin-top: 5px;
+}
+
+.form-row {
+    margin-bottom: 15px;
+}
+
+input {
+    padding: 8px 10px 4px 5px;
+    border: none;
+    background-color: transparent;
+    font-weight: bold;
+    transition: .3s;
+    width: 100%;
+}
+
+input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
+    -webkit-animation: autofill 0s forwards;
+    animation: autofill 0s forwards;
+}
+
+@keyframes autofill {
+    100% {
+        background: transparent;
+        color: inherit;
+    }
+}
+
+@-webkit-keyframes autofill {
+    100% {
+        background: transparent;
+        color: inherit;
+    }
+}
+
+input:focus {
+    transition: .3s;
+    border-bottom: 2px solid;
+}
+
+.validInput {
+    border-color: rgba(0, 193, 25, .6) !important;
+}
+
+.invalidInput {
+    border-color: rgba(255, 0, 0, .3) !important;
+}
+
+.formRowNormalMargin {
+    margin-bottom: -13px;
+}
+
+.formWarning, .formWarningServer, .emailAlreadyInUse, .changesNotSavedText {
+    font-size: 13px;
+}
+
+.tableRowForm .errorDetailsLink {
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.formErrors {
+    width: 250px;
+}
+
+.formButtons {
+    display: flex;
+    justify-content: center;
+}
+
+.formButton1 {
+    margin-right: 3px;
+}
+
+.formButton2 {
+    margin-left: 3px;
+}
+
+.loginForm .submitButton {
+    margin-right: 5px;
+}
+
+.loginForm .resetButtonButton {
+    margin-left: 5px;
+}
+
+label {
+    font-size: 18px;
+    position: absolute;
+    pointer-events: none;
+    top: 4px;
+    left: 4px;
+    transition: .3s ease all;
+}
+
+input ~ label {
+    left: 9px;
+}
+
+[type="reset"] {
+    padding-left: 1.4rem !important;
+}
+
+.button {
+    font-family: Segoe UI, sans serif !important;
+    padding: 10px 23px 10px 23px;
+    border: none;
+    font-weight: bold;
+    border-radius: 30px;
+    width: auto !important;
+    height: auto !important;
+    text-align: center;
+    transition: .3s;
+}
+
+#publicKeyQR, #privateKeyQR {
+    opacity: .85;
+}
+
+.generatedKeys {
+    margin-bottom: 25px;
+}
+
+.generatedKeysTitle {
+    margin-bottom: 10px;
+}
+
+.generatedKeys .col {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.generatingKeysMessage {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 14px;
+}
+
+.copyKeysToClipboard {
+    cursor: pointer;
+}
+
+.keysCopiedToClipboard {
+    text-align: center;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.messageBeforeRegister {
+    font-size: 14px;
+    max-width: 480px;
+    text-align: justify;
+}
+
+.loginWithQRScan, .orInputQRCodeLogin {
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+#loginQRScannerVideo {
+    margin-bottom: 20px;
+}
+
+.loginForm .formErrors, .formErrorsFull  {
+    width: auto;
+}
+
+.loginForm #privateKey {
+    max-width: 650px;
+}
+
+.dropdown-menu {
+    border-radius: 2px;
+}
+
+.dropdown .btn, .dropdown .btn-secondary {
+    border-radius: 0;
+}
+
+.dropdown .btn:focus, .dropdown .btn-secondary:focus {
+    box-shadow: none !important;
+}
+
+.smallButton {
+    font-family: Segoe UI, sans serif !important;
+    padding: 7px 17px 7px 17px;
+    border: none;
+    font-weight: bold;
+    font-size: 13px;
+    width: auto !important;
+    height: auto !important;
+    text-align: center;
+    transition: .3s;
+}
+
+.userIconButton {
+    border-radius: 100% !important;
+}
+
+.navButSettings {
+    border-radius: 100px !important;
+}
+
+.navBut {
+    font-family: Segoe UI, sans serif !important;
+    padding: 0 10px 0 10px;
+    border: none;
+    font-size: 15px;
+    height: 55px;
+    line-height: 54px;
+    margin: 0 !important;
+    border-radius: 0;
+    transition: .3s;
+    border-bottom: rgba(255, 255, 255, .8);
+}
+
+.nav-pills .nav-link {
+    border-radius: 0;
+    outline: none !important;
+}
+
+.nav-pills .nav-link.active {
+    border-left: solid 3px !important;
+}
+
+.modal-settings .settingsIcon {
+    font-family: Segoe MDL2 Assets, sans serif !important;
+    position: absolute;
+    cursor: default;
+    top: 11px;
+    left: 20px;
+    font-size: 25px;
+    backface-visibility: hidden;
+    transition: .3s;
+}
+
+.navButSymbol, .settingsSectionButton {
+    font-family: Segoe UI Light, sans serif;
+    padding: 0 15px 0 15px;
+    border: none;
+    height: 55px;
+    line-height: 55px;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    transition: .3s;
+    border-bottom: rgba(255, 255, 255, .8);
+}
+
+.navButSymbol {
+    font-family: Segoe MDL2 Assets, sans serif;
+    font-size: 23px;
+    border-radius: 100px !important;
+}
+
+.rightNavButtons {
+    border-radius: 100px;
+}
+
+.settingsRightPane button {
+    border-radius: 100px !important;
+}
+
+.settingsSectionButton {
+    display: flex;
+    font-weight: bold;
+}
+
+.settingsSectionButton .settingsButtonSymbol {
+    font-size: 20px;
+}
+
+.settingsSectionTitle {
+    font-family: Segoe UI Light, sans serif;
+    font-weight: bold;
+    margin-bottom: 5px;
+    padding-bottom: 2px;
+}
+
+.settingsTitleSubsection {
+    margin-left: 10px;
+}
+
+.dropdown-menu .dropdown-item {
+    border-radius: 0 !important;
+}
+
+.settingsSmallWarning {
+    font-family: Segoe MDL2 Assets, sans serif !important;
+    margin-right: 5px;
+    font-weight: normal;
+    font-size: 18px;
+}
+
+.navButSymbolInline {
+    position: relative;
+    font-size: 19px;
+    line-height: 0;
+    top: 4px;
+}
+
+.navButSymbolUser {
+    position: relative;
+    font-size: 23px;
+    line-height: 0;
+    top: 6px;
+    padding: 0 5px 0 5px;
+}
+
+.navBut:not(:hover), .navButSymbol:not(:hover) {
+    background-color: transparent;
+}
+
+.navbarColored {
+    box-shadow: 0 -11px 14px 9px black;
+}
+
+.welcomeMessage {
+    font-size: 3.5em;
+    color: rgba(255, 255, 255, .8);
+    text-shadow: 0 0 34px black, 0 0 34px black;
+    text-align: center;
+}
+
+.welcomeSubtitle {
+    font-size: 21px;
+}
+
+.welcomeSpiral {
+    opacity: .8;
+    filter: drop-shadow(0 0 3px rgba(0, 0, 0, .6));
+}
+
+#locales, #userPosition, #newVesselVesselsFlag {
+    font-family: Segoe UI, sans serif !important;
+    height: 55px;
+    background-color: transparent;
+    border: none;
+    font-size: 15px;
+    transition: .3s;
+    padding-top: 4px;
+}
+
+.positionsWrapper, .dropdownWrapper, .addButton, .rowFormTextElement, .tableRowForm .dropdown, .tableRowForm .formErrors, .blockchainValidationResults .col, .qrCodeText, .newVesselWrapper .vesselFlagsWrapper, .tableRowTitle .col {
+    text-align: center;
+}
+
+#userPosition, #newVesselVesselsFlag {
+    font-size: 17px;
+    font-weight: bold;
+    font-family: Segoe UI Light, sans serif !important;
+    border-radius: 100px;
+}
+
+.dropdown-item {
+    height: 37px;
+    font-family: Segoe UI Light, sans serif !important;
+    font-size: 17px;
+    font-weight: bold;
+    line-height: inherit;
+    transition: .3s;
+}
+
+.navbar-toggler, button:focus, .navBut:focus, .navButSymbol:focus {
+    outline:none !important;
+}
+
+.navbar {
+    transition: .3s;
+    padding: 0 1rem;
+}
+
+.navbar-brand {
+    height: 55px;
+    opacity: .8;
+    border-radius: 200px;
+    margin: auto !important;
+    cursor: pointer;
+    line-height: 51px;
+}
+
+#navbarNav {
+    margin-left: 15px;
+}
+
+.navLogoSpiral {
+    margin-right: 6px;
+}
+
+.display-4 {
+    opacity: .8;
+}
+
+.jumbotron > h1, .jumbotron p {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.navbar-toggler {
+    border: none;
+    padding: 0;
+    font-size: 1.63em;
+    height: 55px;
+}
+
+.toggle input {
+    display: none;
+}
+
+.toggle > div {
+    cursor: pointer;
+    border-radius: 2rem;
+    width: 51px;
+    height: 22px;
+    background: transparent;
+    position: relative;
+    transition: 200ms ease-out;
+}
+
+.toggle > div:before {
+    display: block;
+    position: absolute;
+    top: .22rem;
+    left: .17rem;
+    content: '';
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    transition: 200ms;
+}
+
+.toggle input:checked + div {
+    background: rgba(0, 120, 215, .8);
+    border-color: rgba(0, 120, 215, 0);
+}
+
+.toggle input:checked + div:before {
+    color: rgba(0, 120, 215, .8);
+    transform: translateX(30px);
+    background: rgba(255, 255, 255, .8);
+}
+
+.toggle {
+    pointer-events: auto;
+}
+
+.display-4 span {
+    opacity: .85;
+    display: flex;
+    align-items: center;
+}
+
+svg path {
+    transition: .3s;
+}
+
+.spiral {
+    margin-right: 23px;
+    width: 100px;
+    animation-name: spin;
+    animation-duration: 10000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    transform-origin: 43% 46%;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg) scaleX(-1);
+    }
+    to {
+        transform: rotate(360deg) scaleX(-1);
+    }
+}
+
+.passwordEye {
+    position: absolute;
+    font-weight: lighter;
+    text-align: center;
+    width: 32px;
+    line-height: 40px;
+    font-size: 16px;
+    flex: 0 0 auto;
+    height: calc(2.25rem + 2px);
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    cursor: default;
+    user-select: none;
+    right: 0;
+    top: 2px;
+    transition: .3s;
+}
+
+.passwordEyeLine {
+    top: 0;
+}
+
+.aboutHeader {
+    background-color: rgba(8, 45, 97, .8);
+    min-height: 200px;
+    padding: 3rem 2rem;
+    color: rgba(255, 255, 255, .8);
+    text-align: center;
+}
+
+.aboutH1 {
+    font-family: Segoe UI Light, sans serif;
+    font-size: 3rem;
+    font-weight: 300;
+    margin: 0 0 1rem;
+}
+
+.aboutContent {
+    min-height: 200px;
+    padding: 3rem;
+    margin: 0 auto;
+    font-size: 16px;
+}
+
+.settingsButtonLeftPane {
+    display: flex;
+    font-family: Segoe UI Light, sans-serif;
+    background-color: transparent;
+    border-radius: 0;
+    transition: .3s;
+    padding: 12px 17px 11px 17px;
+    border: none;
+    font-weight: bold;
+    text-align: left;
+}
+
+.settingsLeftPane {
+    display: flex;
+    flex-direction: column;
+    max-width: fit-content;
+    padding-left: 0;
+}
+
+.settingsRightPane {
+    min-width: 600px;
+    transition: .3s;
+}
+
+.settingsButtonSymbol {
+    font-family: Segoe MDL2 Assets, sans serif !important;
+    margin-right: 8px;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.modal-settings .modal-content {
+    margin-top: 15px;
+}
+
+.modal-settings, .modal-message {
+    width: auto;
+    max-height: 53rem;
+    align-items: normal;
+}
+
+.modal-settings {
+    width: 1100px;
+}
+
+.modal-message {
+    height: auto !important;
+    max-width: 50rem !important;
+}
+
+.modal-message .modal-content {
+    font-weight: bold;
+}
+
+.messageTitle {
+    text-align: center;
+    font-size: 21px;
+    margin-bottom: 15px;
+}
+
+.aboutContent p {
+    font-family: Segoe UI, sans serif !important;
+    text-align: justify;
+}
+
+.aboutContent p:first-child {
+    font-weight: bold;
+}
+
+.modal {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin: 0 auto;
+    max-width: 75rem;
+    opacity: 0;
+    visibility: hidden;
+    backface-visibility: hidden;
+    transform: scale(.2);
+    transition: all .6s cubic-bezier(.19, 1, .22, 1) 0s;
+    padding: 2.8rem;
+    border-radius: 2px;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, .35);
+    font-family: Segoe UI Light, sans serif;
+}
+
+@media only screen and (min-width: 40em) {
+    .modal-overlay {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 5;
+        background-color: rgba(0, 0, 0, .6);
+        opacity: 0;
+        visibility: hidden;
+        backface-visibility: hidden;
+        transition: opacity .6s cubic-bezier(.55, 0, .1, 1), visibility .6s cubic-bezier(.55, 0, .1, 1);
+    }
+    .modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+@media only screen and (max-width: 39.9375em) {
+    h1 {
+        font-size: 1.5rem;
+    }
+    .modal {
+        position: fixed;
+        width: 100% !important;
+        top: 0;
+        left: 0;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 0;
+        transform: scale(1.1);
+        max-height: 100%;
+    }
+    .close-modal {
+        right: 20px !important;
+    }
+    .modal-settings {
+        width: auto;
+    }
+    .settingsRightPane {
+        min-width: auto;
+    }
+}
+
+.modal .close-modal {
+    position: absolute;
+    cursor: pointer;
+    top: 5px;
+    right: 15px;
+    opacity: 0;
+    backface-visibility: hidden;
+    transition: opacity .6s cubic-bezier(.55, 0, .1, 1), transform .6s cubic-bezier(.55, 0, .1, 1);
+    transition-delay: .3s;
+}
+
+.modal .close-modal svg {
+    width: 1.75em;
+    height: 1.75em;
+    opacity: .8;
+}
+
+.modal .modal-content {
+    opacity: 0;
+    backface-visibility: hidden;
+    transition: opacity .6s cubic-bezier(.55, 0, .1, 1);
+    background: none !important;
+    border: none !important;
+    overflow-y: auto;
+    border-radius: 0;
+}
+
+.modal.active {
+    visibility: visible;
+    opacity: 1;
+    transform: scale(1);
+}
+
+.modal.active .modal-content {
+    opacity: 1;
+}
+
+.modal.active .close-modal {
+    transform: translateY(10px);
+    opacity: 1;
+}
+
+@keyframes fade-in {
+    from {
+        visibility: hidden;
+        opacity: 0;
+    }
+    to {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+@keyframes slide-show {
+    to {
+        transform: translateY(0);
+    }
+}
+
+.pushNotification {
+    position: fixed;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    color: rgba(255, 255, 255, .8);
+    border-radius: 1000px;
+    line-height: 1.3;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, .35);
+    max-width: 350px;
+    margin: 20px;
+    top: 58px;
+    right: 0;
+    transform: translateX(420px);
+    font-weight: bold;
+    transition: .3s;
+}
+
+.pushNotification:after {
+    font-family: Segoe MDL2 Assets, sans serif;
+    content: '\e8bb';
+    display: block;
+    min-width: 30px;
+    font-size: 23px;
+    margin-left: 9px;
+}
+
+@keyframes slide-in-right {
+    to {
+        transform: translateX(0);
+    }
+}
+
+.pushNotification.do-show {
+    animation: slide-in-right .7s ease-in-out forwards;
+}
+
+.notificationResponseText {
+    font-family: Segoe UI Light, sans serif;
+    font-size: 16px;
+}
+
+.pushNotification[data-notification-status="success"]:before, .pushNotification[data-notification-status="error"]:before {
+    font-family: Segoe MDL2 Assets, sans serif;
+    font-size: 38px;
+    top: -8px;
+    position: relative;
+    display: block;
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    margin-right: 24px;
+}
+
+.pushNotification[data-notification-status="neutral"]:before {
+    font-family: Segoe MDL2 Assets, sans serif;
+    font-size: 40px;
+    top: -9px;
+    position: relative;
+    content: '\e946';
+    display: block;
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    margin-right: 24px;
+}
+
+.pushNotification[data-notification-status="success"]:before {
+    content: '\e930';
+    color: rgba(0, 100, 0, .8);
+}
+
+.pushNotification[data-notification-status="error"]:before {
+    content: '\ea39';
+    color: rgba(170, 0, 0, .8);
+}
+
+.pushNotification[data-notification-status="success"] {
+    background-color: rgba(102, 187, 106, .8);
+}
+
+.pushNotification[data-notification-status="error"] {
+    background-color: rgba(239, 83, 80, .8);
+}
+
+.pushNotification[data-notification-status="success"]:after,  .pushNotification[data-notification-status="error"]:after {
+    color: rgba(255, 255, 255, .8);
+}
+
+.pushNotification:after {
+    transition: .3s;
+}
+
+.notificationDetails {
+    margin-top: 14px;
+    cursor: pointer;
+}
+
+#gears {
+    display: none;
+    position: fixed;
+    top: 45%;
+    left: 46.9%;
+    z-index: 9999;
+    opacity: .85;
+}
+
+#gear1 {
+    animation-name: gear1animation;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    transform-origin: 50% 50%;
+    display: inline-block;
+    animation-timing-function: linear;
+}
+
+#gear2 {
+    position: absolute;
+    animation-name: gear2animation;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    transform-origin: 50% 50%;
+    display: inline-block;
+    animation-timing-function: linear;
+    top: 63px;
+    left: 42px;
+}
+
+@keyframes gear1animation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes gear2animation {
+    0% {
+        transform: rotate(360deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@media (min-width: 992px) {
+    .animate {
+        animation-duration: .3s;
+        animation-fill-mode: both;
+    }
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateY(1rem);
+        opacity: 0;
+    }
+    100% {
+        transform:translateY(0rem);
+        opacity: 1;
+    }
+    0% {
+        transform: translateY(1rem);
+        opacity: 0;
+    }
+}
+
+.slideIn {
+    animation-name: slideIn;
+}
+
+@keyframes slideInLogo {
+    0% {
+        transform: translateY(1rem);
+        opacity: 0;
+    }
+    100% {
+        transform:translateY(0rem);
+        opacity: .8;
+    }
+    0% {
+        transform: translateY(1rem);
+        opacity: 0;
+    }
+}
+
+.slideInLogo {
+    animation-name: slideInLogo;
+}
+
+.plus {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: .3s;
+    margin-top: 16px;
+    border: 2px solid rgba(255, 255, 255, .8) !important;
+    color: rgba(255, 255, 255, .8);
+}
+
+.plus span {
+    font-size: 46px;
+    line-height: .7;
+}
+
+.plus:hover {
+    background-color: rgba(255, 255, 255, .8) !important;
+    border: 2px rgba(255, 255, 255, .8) !important;
+}
+
+.plus:active {
+    background-color: rgba(255, 255, 255, .4) !important;
+    border: 2px rgba(255, 255, 255, .4) !important;
+}
+
+.newVesselWrapper {
+    margin-top: 20px;
+}
+
+.checkboxField {
+    display: flex;
+    text-align: center;
+}
+
+.checkboxField label {
+    margin-bottom: auto;
+}
+
+.formCloseButton {
+    align-self: flex-end;
+    width: 2rem;
+    text-align: right;
+    opacity: .8;
+    cursor: pointer;
+}
+
+.formWithCloseButton {
+    display: flex;
+    flex-direction: column;
+}
+
+.waitDots {
+    text-align: center;
+    z-index: 5;
+    line-height: 0;
+}
+
+.waitDots .dot {
+    display: inline;
+    margin-left: 2px;
+    margin-right: 2px;
+    position: relative;
+    top: -.21em;
+    font-size: 70px;
+    animation: showHideDot .5s ease-in-out infinite;
+    line-height: 0;
+}
+
+.waitDots .dot.one {
+    animation-delay: .1s;
+}
+
+.waitDots .dot.two {
+    animation-delay: .2s;
+}
+
+.waitDots .dot.three {
+    animation-delay: .3s;
+}
+
+@keyframes showHideDot {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    60% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.afterSubmitNotSaved {
+    background-color: rgba(255, 0, 0, .3);
+    border-radius: 2px;
+    padding: 5px;
+    text-align: center;
+    font-size: 15px;
+    margin: 20px 0;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, .35);
+}
+
+.marginTop20 {
+    margin-top: 20px;
+}
+
+.marginBottom15 {
+    margin-bottom: 15px;
+}
+
+.tableRowForm .inputWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.tableRowForm input {
+    border-bottom: none;
+    font-weight: normal;
+    text-align: center;
+    padding: 0;
+}
+
+.tableRowForm .checkboxField label {
+    position: relative;
+}
+
+.tableRowForm .btn-secondary {
+    background-color: transparent;
+    border: none;
+}
+
+.borderBottomSolid {
+    border-bottom: solid 1px rgba(255, 0, 0, .3) !important;
+}
+
+.tableRowTitle {
+    margin-bottom: 10px;
+}
+
+.tableRowForm .checkboxField, .tableSimpleRow .col-lg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.vesselAddedSuccessfully {
+    background-color: rgba(102, 187, 106, .8);
+    border-radius: 2px;
+    padding: 5px;
+    text-align: center;
+    margin: 0 0 15px 0;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, .35);
+}
+
+.tableRowForm .dropdownButton {
+    border-radius: 100px;
+}
+
+.tableSimpleRow .smallTitle {
+    text-align: center;
+    font-size: 14px;
+    opacity: .8;
+}
+
+main #vesselsRegistry {
+    width: auto;
+}
+
+.formClass .formErrors {
+    text-align: initial;
+}
+
+.sticky-top {
+    top: 56px;
+}
+
+.responsiveTable {
+    display: table;
+    border-collapse: collapse;
+}
+
+.responsiveTable .row {
+    display: table-row !important;
+}
+
+.responsiveTable .row .col-auto, .responsiveTable .row .col-lg-auto {
+    display: table-cell;
+    text-align: center;
+    white-space: nowrap;
+    padding: 7px 15px 7px 15px;
+    vertical-align: middle;
+}
+
+.container {
+    max-width: none;
+}
+
+.table {
+    margin-bottom: auto;
+}
+
+.rightNavButtons .dropdown-item {
+    font-size: unset;
+}
+
+.hintEdit {
+    font-size: 13px;
+    text-align: center;
+    margin: 20px 0 5px 0;
+}

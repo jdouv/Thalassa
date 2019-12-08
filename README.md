@@ -14,7 +14,7 @@ For a ship to carry something, we need an agreement. Anything subsequent is the 
   <img src="Contract.png" title="Screenshot of Thalassa with sample contract">
 </p>
 
-In the picture above you can see a conceptual approach of such a marriage. It contains a part of an electronic contract. In the upper-right side there is the hash of this contract (along with its timestamp in UTC time), which is also the hash of the block where the contract is stored. So, in this case, the block is the contract. Below this there is the “Contracting Parties” section. If we expand it, we will see the hashes of the contracting parties’ signatures along with their information, just like in the picture below (an example of what a real contracting parties section would look like):
+In the picture above you can see a conceptual approach of such a marriage. It demonstrates a part of an electronic contract. In the upper-right side there is the hash of this contract (along with its timestamp in UTC time), which is also the hash of the block where the contract is stored. So, in this case, the block is the contract. Below this there is the “Contracting Parties” section. If we expand it, we will see the hashes of the contracting parties’ signatures along with their information, just like in the picture below (an example of what a real contracting parties section would look like):
 
 <p align="center">
   <img src="Signatures.png" title="The “Contracting Parties” section">

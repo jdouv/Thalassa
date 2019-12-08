@@ -188,6 +188,7 @@ function renderVesselsRegistry(json) {
                             h("div", {class: "bgTextTitleText text-center", "data-localization": "vesselsRegistry"})
                         )
                     ),
+                    h("div", {class: "hintEdit", "data-localization": "hintEdit"}),
                     h("div", {class: "table responsiveTable"},
                         h("div", {class: "row d-none d-lg-flex tableRowTitle marginBottom15 sticky-top transition"},
                             h("div", {class: "col-auto align-self-center text-center wordBreak", "data-localization": "vesselsName"}),
