@@ -947,7 +947,7 @@ svg path {
 .settingsLeftPane {
     display: flex;
     flex-direction: column;
-    max-width: fit-content;
+    max-width: max-content;
     padding-left: 0;
 }
 
