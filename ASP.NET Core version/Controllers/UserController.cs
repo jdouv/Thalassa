@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 using Thalassa.Business.Services;
 using Microsoft.AspNetCore.Http;
@@ -45,25 +46,21 @@ namespace Thalassa.Controllers
         }
         
         [HttpPost("Register")]
-        public object Register([FromBody] JObject json)
+        public JObject Register([FromBody] JObject json)
         {
             var result = _userService.Register(json);
-            if (!(result is string s)) return result;
-            
-            HttpContext.Session.SetString("loggedInPrivateKey", json["fields"]["privateKey"].Value<string>());
-            HttpContext.Session.SetString("JWToken", s);
+            if (result.ContainsKey("token"))
+                HttpContext.Session.SetString("loggedInPrivateKey", json["fields"]["privateKey"].Value<string>());
 
             return result;
         }
 
         [HttpPost("Login")]
-        public object Login([FromBody] JObject json)
+        public JObject Login([FromBody] JObject json)
         {
             var result = _userService.Login(json);
-            if (!(result is string resultString)) return result;
-            
-            HttpContext.Session.SetString("loggedInPrivateKey", json["fields"]["privateKey"].Value<string>());
-            HttpContext.Session.SetString("JWToken", resultString);
+            if (!result.ContainsKey("invalidFields") && !result.ContainsKey("noUser"))
+                HttpContext.Session.SetString("loggedInPrivateKey", json["fields"]["privateKey"].Value<string>());
 
             return result;
         }
@@ -72,7 +69,7 @@ namespace Thalassa.Controllers
         [HttpGet("Localization")]
         public JObject Localization()
         {
-            return JObject.Parse(new StreamReader("locales.json").ReadToEnd());
+            return JObject.Parse(new StreamReader("Resources/locales.json").ReadToEnd());
         }
         
         [Route("Logout")]

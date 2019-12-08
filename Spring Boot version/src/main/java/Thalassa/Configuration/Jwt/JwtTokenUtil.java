@@ -41,7 +41,6 @@ public class JwtTokenUtil implements Serializable {
                 .setNotBefore(new Date(System.currentTimeMillis()))
                 .setId(UUID.randomUUID().toString());
         claims.put("firstName", user.getFirstName());
-        claims.put("position", user.getPosition());
 
         return Jwts.builder().setClaims(claims).signWith(SignatureAlgorithm.HS512, secret).compact();
     }

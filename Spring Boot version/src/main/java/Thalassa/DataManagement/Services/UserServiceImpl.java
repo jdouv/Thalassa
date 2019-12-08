@@ -17,6 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -41,7 +45,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public Object register(ObjectNode json) throws JsonProcessingException {
+    public Object register(ObjectNode json) throws IOException {
         User user = mapper.readValue(mapper.writeValueAsString(json.get("fields")), User.class);
         json = validate(json);
         if (json.has("invalidFields")) return json;
@@ -58,17 +62,21 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         json.put("saved", savedUser.getPublicKey() != null);
         if (!json.get("saved").asBoolean()) return json;
 
-        return new JwtResponse(jwtTokenUtil.generateToken(user));
+        return new JwtResponse(jwtTokenUtil.generateToken(user), Files.readString(Paths.get("src/main/resources/views/" + user.getPosition() + ".js")));
     }
 
     @Override
-    public Object login(ObjectNode json) throws JsonProcessingException {
+    public Object login(ObjectNode json) throws IOException {
         String privateKey = json.get("fields").get("privateKey").textValue();
         json = validate(json);
         if (json.has("invalidFields")) return json;
         final User user = userRepository.findByPublicKey(CryptographyService.getPublicKeyFromPrivate(privateKey));
 
-        return new JwtResponse(jwtTokenUtil.generateToken(user));
+        if (user != null)
+            return new JwtResponse(jwtTokenUtil.generateToken(user), Files.readString(Paths.get("src/main/resources/views/" + user.getPosition() + ".js")));
+
+        json.put("noUser", "noSuchCredentials");
+        return json;
     }
 
     @Override
@@ -143,11 +151,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         if (key.equals("privateKey")) {
             if (value.length() > 0) {
-                if (value.matches("^[0-9a-fA-F]+$") && value.length() % 2 == 0) {
-                    if (type.equals("login"))
-                        if (userRepository.findByPublicKey(CryptographyService.getPublicKeyFromPrivate(value)) == null)
-                            map.put(key, "errorNoUserWithSuchCredentials");
-                } else
+                if (!value.matches("^[0-9a-fA-F]+$") && value.length() % 2 != 0)
                     map.put(key, "errorPrivateKeyInvalid");
             } else
                 map.put(key, "errorRequiredPrivateKey");

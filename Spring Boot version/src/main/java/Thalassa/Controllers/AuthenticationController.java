@@ -4,7 +4,6 @@ import Thalassa.Configuration.CustomAuthenticationProvider;
 import Thalassa.Configuration.Jwt.JwtResponse;
 import Thalassa.DataManagement.Services.CryptographyService;
 import Thalassa.DataManagement.Services.UserService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 @RestController
 @CrossOrigin
@@ -29,12 +29,12 @@ public class AuthenticationController {
     }
 
     @PostMapping(path = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Object register(@RequestBody ObjectNode json, HttpSession session) throws JsonProcessingException {
+    public Object register(@RequestBody ObjectNode json, HttpSession session) throws IOException {
         return authenticate(json, session, userService.register(json));
     }
 
     @PostMapping(path = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Object login(@RequestBody ObjectNode json, HttpSession session) throws JsonProcessingException {
+    public Object login(@RequestBody ObjectNode json, HttpSession session) throws IOException {
         return authenticate(json, session, userService.login(json));
     }
 

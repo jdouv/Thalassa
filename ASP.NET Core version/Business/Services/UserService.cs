@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Security.Claims;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -44,12 +45,12 @@ namespace Thalassa.Business.Services
                 DateTime.UtcNow.AddDays(1),
                 signingCredentials: new SigningCredentials(
                     new SymmetricSecurityKey(Encoding.Default.GetBytes("demoSecretForJwtGeneration")), SecurityAlgorithms.HmacSha512)
-                );
+            );
 
             return tokenHandler.WriteToken(token);
         } 
         
-        public object Register(JObject json)
+        public JObject Register(JObject json)
         {
             var user = json["fields"].ToObject<User>();
             json = Validate(json);
@@ -67,10 +68,12 @@ namespace Thalassa.Business.Services
             json["saved"] = _usersDataAccess.FindByPublicKey(user.PublicKey) != null;
             if (!json["saved"].ToObject<bool>()) return json;
 
-            return GenerateToken(user);
+            json["token"] = GenerateToken(user);
+            json["view"] = new StreamReader("Resources/Views/" + user.Position + ".js").ReadToEnd();
+            return json;
         }
 
-        public object Login(JObject json)
+        public JObject Login(JObject json)
         {
             var privateKey = json["fields"]["privateKey"].Value<string>();
             json = Validate(json);
@@ -78,7 +81,15 @@ namespace Thalassa.Business.Services
             var publicKey = CryptographyService.GetPublicKeyFromPrivate(privateKey);
             var user = _usersDataAccess.FindByPublicKey(publicKey);
 
-            return GenerateToken(user);
+            if (user != null)
+            {
+                json["token"] = GenerateToken(user);
+                json["view"] = new StreamReader("Resources/Views/" + user.Position + ".js").ReadToEnd();
+                return json;
+            }
+            
+            json["noUser"] = "noSuchCredentials";
+            return json;
         }
 
         public void Insert(User user)
@@ -131,14 +142,10 @@ namespace Thalassa.Business.Services
             {
                 if (value.Length > 0)
                 {
-                    if (Regex.IsMatch(value, "^[0-9a-fA-F]+$") && value.Length % 2 == 0)
-                    {
-                        if (type.Equals("login"))
-                            if (_usersDataAccess.FindByPublicKey(CryptographyService.GetPublicKeyFromPrivate(value)) == null)
-                                dictionary[key] = "errorNoUserWithSuchCredentials";
-                    } else
+                    if (!Regex.IsMatch(value, "^[0-9a-fA-F]+$") && value.Length % 2 != 0)
                         dictionary[key] = "errorPrivateKeyInvalid";
-                } else
+                }
+                else
                     dictionary[key] = "errorRequiredPrivateKey";
             }
 

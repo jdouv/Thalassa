@@ -10,8 +10,8 @@ namespace Thalassa.Business.Services
         User FindByPublicKey(string publicKey);
         User FindByPosition(string position);
         bool ValidateRegister(JObject json);
-        object Register(JObject json);
-        object Login(JObject json);
+        JObject Register(JObject json);
+        JObject Login(JObject json);
         void Insert(User user);
         void Update(User user);
     }

@@ -117,9 +117,6 @@ namespace Thalassa
                 .UseAuthorization()
                 .Use(next => context =>
                 {
-                    var jwToken = context.Session.GetString("JWToken");
-                    if (string.IsNullOrEmpty(jwToken))
-                        context.Request.Headers.Add("Authorization", "Bearer " + jwToken);
                     var tokens = antiForgery.GetAndStoreTokens(context);
                     context.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken, 
                         new CookieOptions { HttpOnly = false });
