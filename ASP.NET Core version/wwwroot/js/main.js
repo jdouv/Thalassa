@@ -1,4 +1,5 @@
 ﻿const { h, Fragment, render } = window.preact;
+const html = window.htm.bind(h);
 
 $(document).ready(() => {
 
@@ -342,7 +343,7 @@ $(document).ready(() => {
         });
 
         // Opens message modal when user clicks on “Details” link of push notification or error message
-        $(document).on('click', '.notificationDetails, .tableRowForm .errorDetailsLink', (e) => {
+        $(document).on('click', '.notificationDetails, .tableRowForm .errorDetailsLink', e => {
             e.preventDefault();
             modalOverlay.removeClass('hidden');
             messageModalElements.addClass('active');
@@ -410,7 +411,7 @@ $(document).ready(() => {
 
         function enableDark() {
             let togglerIcon = $('.navbar-toggler-icon');
-            
+
             dark.hide();
             lightCSS.prop('disabled', true);
             darkCSS.prop('disabled', false);
@@ -426,7 +427,7 @@ $(document).ready(() => {
 
         function enableLight() {
             let togglerIcon = $('.navbar-toggler-icon');
-            
+
             light.hide();
             darkCSS.prop('disabled', true);
             lightCSS.prop('disabled', false);
@@ -547,7 +548,7 @@ $(document).ready(() => {
             adjustElementWidth($(this));
             adjustTableAppearance();
         });
-        
+
         function toggleFormButtons(element) {
             element.val().length !== 0 ?
                 isValidForm(element) ? enableFormButtons(element) : disableOnlySubmit(element) : void(0);
@@ -746,12 +747,10 @@ $(document).ready(() => {
         function responseBoolean(response, element) {
             if (response === true) {
                 validFormAjax = true;
-                if (element.parents('form').hasClass('registerForm')) {
+                if (element.parents('form').hasClass('registerForm'))
                     generateKeys();
-                }
-            } else if (response === false) {
+            } else if (response === false)
                 validFormAjax = false;
-            }
         }
 
         function validVesselName(element) {
@@ -1051,7 +1050,7 @@ $(document).ready(() => {
         });
 
         // Renders home page (different home page based on whether there is logged in user or not)
-        $(document).on('click', '.navbar-brand', (e) => {
+        $(document).on('click', '.navbar-brand', e => {
             e.preventDefault();
             $('.navBut').css('border-bottom', 'solid 0');
 
@@ -1073,7 +1072,7 @@ $(document).ready(() => {
         });
 
         // Renders logout
-        $(document).on('click', '.logoutButton', (e) => {
+        $(document).on('click', '.logoutButton', e => {
             e.preventDefault();
             $.ajax('User/Logout').then(() => {
                 localStorage.removeItem('JWT');
@@ -1164,22 +1163,18 @@ $(document).ready(() => {
 
         function renderWelcome() {
             main.empty();
-            render(h(() => {
-                return (
-                    h("div", {class: "jumbotron animate slideIn"},
-                        h("h1", {class: "display-4"},
-                            h("span", {class: "spiral"}),
-                            h("span", {class: "logoName"})
-                        ),
-                        h("p", {class: "lead", "data-localization": "basicsWelcomeUnderConstruction"}),
-                        h("hr", {class: "my-4"}),
-                        h("div", {class: "jumbotron-buttons"},
-                            h("button", {type: "button", class: "button jumbotron-button", "data-localization": "usersLogin", name: "jumbotronLogin"}),
-                            h("button", {type: "button", class: "button jumbotron-button", "data-localization": "usersRegister", name: "register"})
-                        )
-                    )
-                )
-            }), mainSelector);
+            render(html`<div class="jumbotron animate slideIn">
+                        <h1 class="display-4">
+                            <span class="spiral" />
+                            <span class="logoName" />
+                        </h1>
+                        <p class="lead" data-localization="basicsWelcomeUnderConstruction" />
+                        <hr class="my-4" />
+                        <div class="jumbotron-buttons">
+                            <button type="button" class="button jumbotron-button" data-localization="usersLogin" name="jumbotronLogin" />
+                            <button type="button" class="button jumbotron-button" data-localization="usersRegister" name="register" />
+                        </div>
+                    </div>`, mainSelector);
             changeLanguage(main);
             adjustWelcomeLogo();
             main.fadeIn();
@@ -1190,27 +1185,23 @@ $(document).ready(() => {
             rightNavButtons.fadeOut();
             setTimeout(function() {
                 rightNavButtons.empty();
-                render(h(() => {
-                    return (
-                        h("li", {class: "nav-item"},
-                            h("div", {class: "dropdown navButDropdown animate slideIn"},
-                                h("button", {class: "btn btn-secondary dropdown-toggle dropdownButton navBut userIconButton", type: "button", id: "userOptions", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"},
-                                    h("span", {class: "symbol navButSymbolUser"}, "\uE13D")
-                                ),
-                                h("div", {class: "dropdown-menu dropdown-menu-right", "aria-labelledby": "userOptions"},
-                                    h("button", {class: "dropdown-item dropdownItem navButSettings", type: "button"},
-                                        h("span", {class: "symbol navButSymbolInline"}, "\uE713" + "  "),
-                                        h("span", {"data-localization": "basicsSettings"})
-                                    ),
-                                    h("button", {class: "dropdown-item dropdownItem logoutButton", type: "button"},
-                                        h("span", {class: "symbol navButSymbolInline"}, "\uf3b1" + "  "),
-                                        h("span", {"data-localization": "usersLogout"})
-                                    )
-                                )
-                            )
-                        )
-                    )
-                }), rightNavButtonsSelector);
+                render(html`<li class="nav-item">
+                            <div class="dropdown navButDropdown animate slideIn">
+                                <button class="btn btn-secondary dropdown-toggle dropdownButton navBut userIconButton" type="button" id="userOptions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="symbol navButSymbolUser">\uE13D</span>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userOptions">
+                                    <button class="dropdown-item dropdownItem navButSettings" type="button">
+                                        <span class="symbol navButSymbolInline">\uE713 </span>
+                                        <span data-localization="basicsSettings" />
+                                    </button>
+                                    <button class="dropdown-item dropdownItem logoutButton" type="button">
+                                        <span class="symbol navButSymbolInline">\uf3b1 </span>
+                                        <span data-localization="usersLogout" />
+                                    </button>
+                                </div>
+                            </div>
+                        </li>`, rightNavButtonsSelector);
                 changeLanguage(rightNavButtons);
                 rightNavButtons.delay(450).fadeIn();
             }, 450);
@@ -1221,18 +1212,14 @@ $(document).ready(() => {
             navbarUsers.fadeOut();
             setTimeout(function() {
                 navbarUsers.empty();
-                render(h(() => {
-                    return (
-                        h(Fragment, null,
-                            h("li", {class: "nav-item navLogin-wrapper", style: "display: none;"},
-                                h("button", {type: "button", class: "navBut navLogin", "data-localization": "usersSwitchToLogin"})
-                            ),
-                            h("li", {class: "nav-item navRegister-wrapper", style: "display: none;"},
-                                h("button", {type: "button", class: "navBut navRegister", "data-localization": "usersSwitchToRegister"})
-                            )
-                        )
-                    )
-                }), navbarUsersSelector);
+                render(html`<${Fragment}>
+                            <li class="nav-item navLogin-wrapper" style="display: none;">
+                                <button type="button" class="navBut navLogin" data-localization="usersSwitchToLogin" />
+                            </li>
+                            <li class="nav-item navRegister-wrapper" style="display: none;">
+                                <button type="button" class="navBut navRegister" data-localization="usersSwitchToRegister" />
+                            </li>
+                        <//>`, navbarUsersSelector);
                 changeLanguage(navbarUsers);
                 navbarUsers.delay(450).fadeIn();
             }, 450);
@@ -1242,13 +1229,9 @@ $(document).ready(() => {
             rightNavButtons.fadeOut();
             setTimeout(function() {
                 rightNavButtons.empty();
-                render(h(() => {
-                    return (
-                        h("li", {class: "nav-item animate slideIn"},
-                            h("button", {type: "button", class: "nav-item navButSymbol lightSymbol navButSettings", "data-localization-title": "basicsSettings"}, "\uE713")
-                        )
-                    )
-                }), rightNavButtonsSelector);
+                render(html`<li class="nav-item animate slideIn">
+                            <button type="button" class="nav-item navButSymbol lightSymbol navButSettings" data-localization-title="basicsSettings">\uE713</button>
+                        </li>`, rightNavButtonsSelector);
                 changeLanguage(rightNavButtons);
                 rightNavButtons.delay(450).fadeIn();
             }, 450);
@@ -1258,91 +1241,86 @@ $(document).ready(() => {
             main.fadeOut();
             setTimeout(function() {
                 main.empty();
-                render(h(() => {
-                    return (
-                        h("div", {class: "register-wrapper animate slideIn"},
-                            h("div", {class: "register"},
-                                h("div", {class: "title", "data-localization": "usersRegister"}),
-                                h("div", {class: "bg-text"},
-                                    h("form", {class: "registerForm formClass"},
-                                        h("div", {class: "form-row firstFormRow"},
-                                            h("div", {class: "col inputWrapper"},
-                                                h("input", {name: "firstName", type: "text",  maxlength: "100", id: "firstName", required: true}),
-                                                h("label", {for: "firstName", "data-localization": "usersFirstName"}),
-                                                h("div", {class: "formErrors"},
-                                                    h("div", {class: "formWarning", "data-localization": "usersInvalidFirstName", style: "display:none;"}),
-                                                    h("div", {class: "formWarningServer", style: "display:none;"})
-                                                )
-                                            ),
-                                            h("div", {class: "col inputWrapper"},
-                                                h("input", {name: "lastName", type: "text", maxlength: "100", id: "lastName", required: true}),
-                                                h("label", {for: "lastName", "data-localization": "usersLastName"}),
-                                                h("div", {class: "formErrors"},
-                                                    h("div", {class: "formWarning", "data-localization": "usersInvalidLastName", style: "display:none;"}),
-                                                    h("div", {class: "formWarningServer", style: "display:none;"})
-                                                )
-                                            )
-                                        ),
-                                        h("div", {class: "form-row"},
-                                            h("div", {class: "col inputWrapper positionsWrapper dropdownItemsWrapper"},
-                                                h("div", {class: "dropdown"},
-                                                    h("button", {class: "btn btn-secondary dropdown-toggle dropdownButton", "data-localization-title": "usersPosition", id: "userPosition", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false"},
-                                                        h("span", {"data-user-position": "usersPosition", "data-localization": "usersPosition"}),
-                                                        h("span", {class: "caret symbol"}, "\uE011")),
-                                                    h("div", {class: "dropdown-menu", "aria-labelledby": "userPosition"},
-                                                        h("button", {class: "dropdown-item navButSymbol position dropdownItem", "data-localization": "usersPositionscompanyVesselsRegistryManager", type: "button", value: "companyVesselsRegistryManager"}),
-                                                        h("button", {class: "dropdown-item navButSymbol position dropdownItem", "data-localization": "usersPositionslegalEngineer", type: "button", value: "legalEngineer"})
-                                                    )
-                                                ),
-                                                h("input", {class: "positionInput", name: "position", type: "text", id: "position", required: true, hidden: true}),
-                                                h("label", {style: "display:none;", for: "position", "data-localization": "usersPosition"}),
-                                                h("div", {class: "formErrors formErrorsFull"},
-                                                    h("div", {class: "formWarningServer", style: "display:none;"
-                                                    })
-                                                )
-                                            )
-                                        ),
-                                        h("div", {class: "form-row"},
-                                            h("div", {class: "col inputWrapper"},
-                                                h("input", {name: "email", class: "registerEmailInput", type: "text", id: "email", required: true}),
-                                                h("label", {for: "email", "data-localization": "usersEmail"}),
-                                                h("div", {class: "formErrors formErrorsFull"},
-                                                    h("div", {class: "formWarning", "data-localization": "errorEmailInvalid", style: "display:none;"}),
-                                                    h("div", {class: "emailAlreadyInUse", "data-localization": "errorEmailAlreadyInUse", style: "display:none;"}),
-                                                    h("div", {class: "formWarningServer", style: "display:none;"
-                                                    })
-                                                )
-                                            )
-                                        ),
-                                        h("div", {class: "form-row", style: "display:none;"},
-                                            h("div", {class: "col inputWrapper"},
-                                                h("input", {name: "privateKey", type: "password", id: "privateKeyText", required: true, hidden: true}),
-                                                h("label", {for: "privateKeyText", "data-localization": "usersPrivateKey"}),
-                                                h("div", {class: "formErrors formErrorsFull"},
-                                                    h("div", {class: "formWarningServer", style: "display:none;"})
-                                                )
-                                            )
-                                        ),
-                                        h("div", {class: "generatingKeysMessage", "data-localization": "usersGeneratingKeysMessage", style: "display:none;"}),
-                                        h("div", {class: "generatedKeys", style: "display:none;"}),
-                                        h("div", {class: "text-center formButtons"},
-                                            h("div", {class: "submitButtonWrapper formButton1", style: "display:none;"},
-                                                h("button", {type: "submit", class: "button submitButton registerButton", "data-localization": "usersRegister"})
-                                            ),
-                                            h("div", {class: "resetButtonWrapper formButton2", style: "display:none;"},
-                                                h("button", {class: "button resetButton", "data-localization": "basicsFormReset",type: "reset"})
-                                            )
-                                        ),
-                                        h(WaitDots),
-                                        h("div", {class: "afterSubmitNotSaved", style: "display:none;"},
-                                            h("span", {"data-localization": "errorSubmittedNotSaved"})
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    )
-                }), mainSelector);
+                render(html`<div class="register-wrapper animate slideIn">
+                            <div class="register">
+                                <div class="title" data-localization="usersRegister" />
+                                <div class="bg-text">
+                                    <form class="registerForm formClass">
+                                        <div class="form-row firstFormRow">
+                                            <div class="col inputWrapper">
+                                                <input name="firstName" type="text" maxlength="100" id="firstName" required />
+                                                <label for="firstName" data-localization="usersFirstName" />
+                                                <div class="formErrors">
+                                                    <div class="formWarning" data-localization="usersInvalidFirstName" style="display:none;" />
+                                                    <div class="formWarningServer" style="display:none;" />
+                                                </div>
+                                            </div>
+                                            <div class="col inputWrapper">
+                                                <input name="lastName" type="text" maxlength="100" id="lastName" required />
+                                                <label for="lastName" data-localization="usersLastName" />
+                                                <div class="formErrors">
+                                                    <div class="formWarning" data-localization="usersInvalidLastName" style="display:none;" />
+                                                    <div class="formWarningServer" style="display:none;" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col inputWrapper positionsWrapper dropdownItemsWrapper">
+                                                <div class="dropdown">
+                                                    <button class="btn btn-secondary dropdown-toggle dropdownButton" data-localization-title="usersPosition" id="userPosition" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <span data-user-position="usersPosition" data-localization="usersPosition" />
+                                                        <span class="caret symbol">\uE011</span>
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="userPosition">
+                                                        <button class="dropdown-item navButSymbol position dropdownItem" data-localization="usersPositionscompanyVesselsRegistryManager" type="button" value="companyVesselsRegistryManager" />
+                                                        <button class="dropdown-item navButSymbol position dropdownItem" data-localization="usersPositionslegalEngineer" type="button" value="legalEngineer" />
+                                                    </div>
+                                                </div>
+                                                <input class="positionInput" name="position" type="text" id="position" required hidden />
+                                                <label style="display:none;" for="position" data-localization="usersPosition" />
+                                                <div class="formErrors formErrorsFull">
+                                                    <div class="formWarningServer" style="display:none;" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col inputWrapper">
+                                                <input name="email" class="registerEmailInput" type="text" id="email" required />
+                                                <label for="email" data-localization="usersEmail" />
+                                                <div class="formErrors formErrorsFull">
+                                                    <div class="formWarning" data-localization="errorEmailInvalid" style="display:none;" />
+                                                    <div class="emailAlreadyInUse" data-localization="errorEmailAlreadyInUse" style="display:none;" />
+                                                    <div class="formWarningServer" style="display:none;" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row" style="display:none;">
+                                            <div class="col inputWrapper">
+                                                <input name="privateKey" type="password" id="privateKeyText" required hidden />
+                                                <label for="privateKeyText" data-localization="usersPrivateKey" />
+                                                <div class="formErrors formErrorsFull">
+                                                    <div class="formWarningServer" style="display:none;" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="generatingKeysMessage" data-localization="usersGeneratingKeysMessage" style="display:none;" />
+                                        <div class="generatedKeys" style="display:none;" />
+                                        <div class="text-center formButtons">
+                                            <div class="submitButtonWrapper formButton1" style="display:none;">
+                                                <button type="submit" class="button submitButton registerButton" data-localization="usersRegister" />
+                                            </div>
+                                            <div class="resetButtonWrapper formButton2" style="display:none;">
+                                                <button class="button resetButton" data-localization="basicsFormReset" type="reset" />
+                                            </div>
+                                        </div>
+                                        <${WaitDots} />
+                                        <div class="afterSubmitNotSaved" style="display:none;">
+                                            <span data-localization="errorSubmittedNotSaved" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>`, mainSelector);
                 toggleFormButtonsColor($('.register-wrapper'));
                 changeLanguage(main);
                 main.delay(450).fadeIn();
@@ -1353,44 +1331,40 @@ $(document).ready(() => {
             main.fadeOut();
             setTimeout(function() {
                 main.empty();
-                render(h(() => {
-                    return (
-                        h("div", {class: "login-wrapper animate slideIn"},
-                            h("div", {class: "login"},
-                                h("div", {class: "title", "data-localization": "usersLogin"}),
-                                h("div", {class: "bg-text"},
-                                    h("div", {class: "loginWithQRScan", "data-localization": "usersLoginWithQRScan"}),
-                                    h("video", {id: "loginQRScannerVideo"}),
-                                    h("div", {class: "orInputQRCodeLogin", "data-localization": "usersOrTypeQRCodeLogin"}),
-                                    h("form", {class: "loginForm"},
-                                        h("div", {class: "form-row firstFormRow inputWrapper"},
-                                            h("div", {class: "col"},
-                                                h("input", {name: "privateKey", id: "privateKey", type: "password", required: true}),
-                                                h("span", {class: "passwordEye symbol", "data-localization-title": "usersRevealPrivateKey"}, "\uE052"),
-                                                h("label", {for: "privateKey", "data-localization": "usersPrivateKey"}),
-                                                h("div", {class: "formErrors"},
-                                                    h("div", {class: "formWarningServer", style: "display:none;"})
-                                                )
-                                            )
-                                        ),
-                                        h("div", {class: "text-center formButtons"},
-                                            h("div", {class: "submitButtonWrapper formButton1", style: "display:none;"},
-                                                h("button", {type: "submit", class: "button submitButton loginButton", "data-localization": "usersLogin"})
-                                            ),
-                                            h("div", {class: "resetButtonWrapper formButton2", style: "display:none;"},
-                                                h("button", {class: "button resetButton", "data-localization": "basicsFormReset", type: "reset"})
-                                            )
-                                        ),
-                                        h(WaitDots),
-                                        h("div", {class: "afterSubmitNotSaved", style: "display:none;"},
-                                            h("span", {"data-localization": "errorNoUserWithSuchCredentials"})
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    )
-                }), mainSelector);
+                render(html`<div class="login-wrapper animate slideIn">
+                            <div class="login">
+                                <div class="title" data-localization="usersLogin" />
+                                <div class="bg-text">
+                                    <div class="loginWithQRScan" data-localization="usersLoginWithQRScan" />
+                                    <video id="loginQRScannerVideo" />
+                                    <div class="orInputQRCodeLogin" data-localization="usersOrTypeQRCodeLogin" />
+                                    <form class="loginForm">
+                                        <div class="form-row firstFormRow inputWrapper">
+                                            <div class="col">
+                                                <input name="privateKey" id="privateKey" type="password" required />
+                                                <span class="passwordEye symbol" data-localization-title="usersRevealPrivateKey">\uE052</span>
+                                                <label for="privateKey" data-localization="usersPrivateKey" />
+                                                <div class="formErrors">
+                                                    <div class="formWarningServer" style="display:none;" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-center formButtons">
+                                            <div class="submitButtonWrapper formButton1" style="display:none;">
+                                                <button type="submit" class="button submitButton loginButton" data-localization="usersLogin" />
+                                            </div>
+                                            <div class="resetButtonWrapper formButton2" style="display:none;">
+                                                <button class="button resetButton" data-localization="basicsFormReset" type="reset" />
+                                            </div>
+                                        </div>
+                                        <${WaitDots} />
+                                        <div class="afterSubmitNotSaved" style="display:none;">
+                                            <span data-localization="errorNoUserWithSuchCredentials" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>`, mainSelector);
                 changeLanguage(main);
                 let loginScanner = new Instascan.Scanner({video: document.getElementById('loginQRScannerVideo')});
                 Instascan.Camera.getCameras().then(cameras => {
@@ -1413,48 +1387,43 @@ $(document).ready(() => {
         function renderGeneratedKeys(keys) {
             let generatedKeys = $('.generatedKeys');
             generatedKeys.empty();
-            render(h(() => {
-                return (
-                    h("div", {class: "container"},
-                        h("div", {class: "row copyKeysToClipboard", "data-localization-title": "usersCopyKeysToClipboard"},
-                            h("div", {class: "col"},
-                                h("div", {class: "generatedKeysTitle", "data-localization": "usersPublicKey"}),
-                                h("div", {id: "publicKeyQR"}),
-                                h("div", {class: "generatedPublicKey", style: "display:none;"}, keys['publicKey'])
-                            ),
-                            h("div", {class: "col"},
-                                h("div", {class: "generatedKeysTitle", "data-localization": "usersPrivateKey"}),
-                                h("div", {id: "privateKeyQR"}),
-                                h("div", {class: "generatedPrivateKey", style: "display:none;"}, keys['privateKey'])
-                            )
-                        ),
-                        h("div", {class: "keysCopiedToClipboard", "data-localization": "usersKeysCopiedToClipboard", style: "display:none;"}),
-                        h("div", {class: "messageBeforeRegister", "data-localization": "usersMessageBeforeRegister"})
-                    )
-                )
-            }), document.querySelector('.generatedKeys'));
+            render(html`<div class="container">
+                        <div class="row copyKeysToClipboard" data-localization-title="usersCopyKeysToClipboard">
+                            <div class="col">
+                                <div class="generatedKeysTitle" data-localization="usersPublicKey" />
+                                <div id="publicKeyQR" />
+                                <div class="generatedPublicKey" style="display:none;">${keys['publicKey']}</div>
+                            </div>
+                            <div class="col">
+                                <div class="generatedKeysTitle" data-localization="usersPrivateKey" />
+                                <div id="privateKeyQR" />
+                                <div class="generatedPrivateKey" style="display:none;">${keys['privateKey']}</div>
+                            </div>
+                        </div>
+                        <div class="keysCopiedToClipboard" data-localization="usersKeysCopiedToClipboard" style="display:none;" />
+                        <div class="messageBeforeRegister" data-localization="usersMessageBeforeRegister" />
+                    </div>`, document.querySelector('.generatedKeys'));
             changeLanguage(generatedKeys);
         }
 
         window.WaitDots = () => {
-            return(
-                h("div", {class: "waitDots", style: "display:none;"},
-                    h("h1", {class: "dot one"}, "."),
-                    h("h1", {class: "dot two"}, "."),
-                    h("h1", {class: "dot three"}, ".")
-                )
+            return (
+                html`<div class="waitDots" style="display:none;">
+                    <h1 class="dot one">.</h1>
+                    <h1 class="dot two">.</h1>
+                    <h1 class="dot three">.</h1>
+                </div>`
             )
         };
 
         window.AfterUpdatedValidation = () => {
-            return(
-                h(Fragment, null,
-                    h("div", {class: "symbol bgTextSymbolCenter successTextColorSmall validationSymbolSmall", style: "display:none;"}, "\uE008"),
-                    h("div", {class: "changesNotSavedWrapper", style: "display:none;"},
-                        h("div", {class: "symbol bgTextSymbolCenter errorTextColor validationSymbolSmall"}, "\uE10A"),
-                        h("div", {class: "changesNotSavedText", "data-localization": "errorChangesNotSaved"})
-                    )
-                )
+            return (
+                html`<div class="symbol bgTextSymbolCenter successTextColorSmall validationSymbolSmall" style="display:none;">\uE008</div>
+                    <div class="changesNotSavedWrapper" style="display:none;">
+                        <div class="symbol bgTextSymbolCenter errorTextColor validationSymbolSmall">\uE10A</div>
+                        <div class="changesNotSavedText" data-localization="errorChangesNotSaved" />
+                        <div class="errorDetailsLink" data-localization="basicsDetails" />
+                    </div>`
             )
         };
 
