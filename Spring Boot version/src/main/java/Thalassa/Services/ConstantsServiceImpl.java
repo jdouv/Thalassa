@@ -64,8 +64,7 @@ public class ConstantsServiceImpl implements ConstantsService {
             deleteTempDir();
 
         // Create temporary directory
-        boolean tempDir = new File(tempDirPath).mkdir();
-        if (!tempDir)
+        if (!new File(tempDirPath).mkdir())
             throw new IOException("The temporary directory could not be created.");
         Constants.CERTIFICATE_PATH = tempDirPath + System.getProperty("file.separator") + Constants.CERTIFICATE_FILE_NAME;
 
