@@ -1,9 +1,9 @@
 package Thalassa.Controllers;
 
-import Thalassa.DataManagement.Services.UserService;
-import Thalassa.DataManagement.Services.CryptographyService;
+import Thalassa.Configuration.Constants;
+import Thalassa.Services.UserService;
+import Thalassa.Services.CryptographyService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.http.MediaType;
@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import java.io.File;
-import java.io.IOException;
+import java.util.HashMap;
 
 @RestController
 public class UserController {
@@ -52,7 +51,7 @@ public class UserController {
 
     // Returns localized messages
     @GetMapping(path = "/localization", produces = MediaType.APPLICATION_JSON_VALUE)
-    public JsonNode json() throws IOException {
-        return new ObjectMapper().readTree(new File("src/main/resources/locales.json"));
+    public HashMap<String, HashMap<String, String>> localization() {
+        return Constants.LOCALIZATION;
     }
 }

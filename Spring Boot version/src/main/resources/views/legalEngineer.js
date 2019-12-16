@@ -102,7 +102,8 @@ function renderAllContracts(json) {
 }
 
 // Determines what happens when user clicks on “All contracts” button
-$(document).on('click', '.allContractsButton', () => {
+$(document).on('click', '.allContractsButton', e => {
+    e.stopImmediatePropagation();
     main.fadeOut();
     openWait();
     setTimeout(function() {

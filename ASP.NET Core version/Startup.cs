@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -13,12 +14,12 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Thalassa.Business.Services;
 using Thalassa.DataAccess;
 using Thalassa.Models;
 using Thalassa.Models.LegalEngineering;
 using Thalassa.Models.LegalEngineering.Clauses;
 using Thalassa.Models.LegalEngineering.Clauses.FixedClauses;
+using Thalassa.Services;
 
 namespace Thalassa
 {
@@ -34,13 +35,25 @@ namespace Thalassa
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Set service constants
+            new ConstantsService(new ConstantsDataAccess()).SetConstants();
+
             services
-                .Configure<KestrelServerOptions>(options => {options.AllowSynchronousIO = true;})
-                .Configure<IISServerOptions>(options => {options.AllowSynchronousIO = true;})
+                .Configure<KestrelServerOptions>(options =>
+                {
+                    options.Listen(IPAddress.Loopback, 5001, listenOptions =>
+                    {
+                        listenOptions.Protocols = HttpProtocols.Http2;
+                        listenOptions.UseHttps(Constants.CertificatePath, Constants.CertificatePassword);
+                    });
+                    options.AllowSynchronousIO = true;
+                })
+                .Configure<IISServerOptions>(options => { options.AllowSynchronousIO = true; })
                 .Configure<CookiePolicyOptions>(options =>
                 {
                     // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                     options.CheckConsentNeeded = context => false;
+                    options.Secure = CookieSecurePolicy.Always;
                     options.MinimumSameSitePolicy = SameSiteMode.None;
                 })
                 .AddControllers();
@@ -66,7 +79,7 @@ namespace Thalassa
                     config.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("demoSecretForJwtGeneration")),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Constants.JwtKey)),
                         ValidateIssuer = true,
                         ValidIssuer = "https://localhost:5001",
                         ValidateAudience = true,
@@ -89,15 +102,17 @@ namespace Thalassa
                     options.Cookie.Name = "Session";
                     options.IdleTimeout = TimeSpan.FromMinutes(3600);
                 })
+                .AddSingleton<ConstantsDataAccess>()
+                .AddScoped<UsersDataAccess>()
+                .AddScoped<BlockchainDataAccess>()
+                .AddScoped<CompaniesDataAccess>()
+                .AddScoped<VesselsDataAccess>()
+                .AddSingleton<IConstantsService, ConstantsService>()
                 .AddScoped<IUserService, UserService>()
                 .AddScoped<IBlockchainService, BlockchainService>()
                 .AddScoped<ICompanyService, CompanyService>()
                 .AddScoped<IVesselService, VesselService>()
                 .AddScoped<IContractService, ContractService>()
-                .AddScoped<UsersDataAccess>()
-                .AddScoped<BlockchainDataAccess>()
-                .AddScoped<CompaniesDataAccess>()
-                .AddScoped<VesselsDataAccess>()
                 .AddMvc()
                 .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
         }

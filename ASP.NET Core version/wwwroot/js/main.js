@@ -4,11 +4,10 @@ const html = window.htm.bind(h);
 $(document).ready(() => {
 
     // Register service worker
-    if ('serviceWorker' in navigator) {
+    if ('serviceWorker' in navigator)
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('/sw.js', {scope: '/'}).then(() => {void(0);});
         });
-    }
 
     window.main = $('main');
     window.mainSelector = document.querySelector('main');
@@ -34,6 +33,7 @@ $(document).ready(() => {
     let modalOverlay = $('.modal-overlay');
     let validFormAjax;
     let keysHaveBeenGenerated;
+    let userView;
 
     // Fetch localized messages json
     $.getJSON('/User/Localization').then(localesJson => {
@@ -361,6 +361,11 @@ $(document).ready(() => {
             modalOverlay.addClass('hidden');
         });
 
+        // Hides dropdown when user clicks on a dropdown item
+        $(document).on('click', '.dropdown-item', function() {
+            $(this).parents('.dropdown').find('[data-toggle="dropdown"]').dropdown('hide');
+        });
+        
         // Animates dropdown at opening
         $(document).on('show.bs.dropdown', '.dropdown', function() {
             let dropdown = $(this).find('.dropdown-menu');
@@ -957,8 +962,10 @@ $(document).ready(() => {
 
         // Renders user’s view after successful register/login
         function renderView() {
-            if (localStorage.getItem('view') !== undefined)
-                new Function(localStorage.getItem('view'))();
+            if (localStorage.getItem('view') !== undefined) {
+                userView = () => { return new Function(localStorage.getItem('view'))(); };
+                userView();
+            }
         }
 
         // Determines what happens when form submission fails
@@ -1006,7 +1013,7 @@ $(document).ready(() => {
                         loginScanner.start(cameras[0]);
                     }
                 });
-                $(document).on('click', '.loginButton, .navbar-brand, .navRegister, .navbarUsers', function() {
+                $(document).on('click', '.loginButton, .navbar-brand, .navbar-nav .dropdown-item, .navRegister, .navbarUsers', function() {
                     loginScanner.stop();
                 });
             }
@@ -1075,6 +1082,7 @@ $(document).ready(() => {
         $(document).on('click', '.logoutButton', e => {
             e.preventDefault();
             $.ajax('User/Logout').then(() => {
+                userView = undefined;
                 localStorage.removeItem('JWT');
                 localStorage.removeItem('view');
                 renderMainRightNav();
@@ -1377,7 +1385,7 @@ $(document).ready(() => {
                         loginScanner.start(cameras[0]);
                     }
                 });
-                $(document).on('click', '.loginButton, .navbar-brand, .navRegister, .navbarUsers', function() {
+                $(document).on('click', '.loginButton, .navbar-brand, .navbar-nav .dropdown-item, .navRegister, .navbarUsers', function() {
                     loginScanner.stop();
                 });
                 main.delay(450).fadeIn();

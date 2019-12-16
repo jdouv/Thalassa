@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using Thalassa.Business.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using Thalassa.Models;
+using Thalassa.Services;
 
 namespace Thalassa.Controllers
 {

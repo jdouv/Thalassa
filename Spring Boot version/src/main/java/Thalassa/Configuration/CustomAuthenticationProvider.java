@@ -1,7 +1,7 @@
 package Thalassa.Configuration;
 
-import Thalassa.DataManagement.Services.CryptographyService;
-import Thalassa.DataManagement.Services.UserService;
+import Thalassa.Services.CryptographyService;
+import Thalassa.Services.UserService;
 import Thalassa.Models.User;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.security.authentication.AuthenticationProvider;

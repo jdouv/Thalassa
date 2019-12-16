@@ -14,6 +14,8 @@ public class Thalassa extends SpringBootServletInitializer {
     }
 
     public static void main(String[] args) {
+        System.setProperty("file.encoding", "UTF-8");
+        System.setProperty("spring.profiles.active", "production");
         SpringApplication.run(Thalassa.class, args);
     }
 }

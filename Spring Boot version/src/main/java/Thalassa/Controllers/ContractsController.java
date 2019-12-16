@@ -1,7 +1,7 @@
 package Thalassa.Controllers;
 
 import Thalassa.Controllers.AuthorizationAnnotations.AuthorizedLegalEngineer;
-import Thalassa.DataManagement.Services.ContractService;
+import Thalassa.Services.ContractService;
 import Thalassa.Models.LegalEngineering.Contract;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.ModelAttribute;

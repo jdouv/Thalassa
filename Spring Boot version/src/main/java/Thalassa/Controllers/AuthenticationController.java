@@ -2,8 +2,8 @@ package Thalassa.Controllers;
 
 import Thalassa.Configuration.CustomAuthenticationProvider;
 import Thalassa.Configuration.Jwt.JwtResponse;
-import Thalassa.DataManagement.Services.CryptographyService;
-import Thalassa.DataManagement.Services.UserService;
+import Thalassa.Services.CryptographyService;
+import Thalassa.Services.UserService;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

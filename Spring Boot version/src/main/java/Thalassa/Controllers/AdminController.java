@@ -1,7 +1,7 @@
 package Thalassa.Controllers;
 
 import Thalassa.Controllers.AuthorizationAnnotations.AuthorizedAdmin;
-import Thalassa.DataManagement.Services.BlockchainService;
+import Thalassa.Services.BlockchainService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;

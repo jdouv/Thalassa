@@ -1,12 +1,12 @@
 package Thalassa.Configuration;
 
-import Thalassa.DataManagement.Repositories.BlockRepository;
-import Thalassa.DataManagement.Repositories.UserRepository;
-import Thalassa.DataManagement.Services.BlockchainService;
-import Thalassa.DataManagement.Services.CompanyService;
-import Thalassa.DataManagement.Services.CryptographyService;
-import Thalassa.DataManagement.Services.UserService;
-import Thalassa.DataManagement.Services.VesselService;
+import Thalassa.Repositories.BlockRepository;
+import Thalassa.Repositories.UserRepository;
+import Thalassa.Services.BlockchainService;
+import Thalassa.Services.CompanyService;
+import Thalassa.Services.CryptographyService;
+import Thalassa.Services.UserService;
+import Thalassa.Services.VesselService;
 import Thalassa.Models.Company;
 import Thalassa.Models.LegalEngineering.Clauses.Clause;
 import Thalassa.Models.LegalEngineering.Clauses.FixedClauses.FixedClausesFactory;
@@ -15,12 +15,9 @@ import Thalassa.Models.User;
 import Thalassa.Models.Block;
 import Thalassa.Models.Vessel;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.muquit.libsodiumjna.SodiumLibrary;
-import com.sun.jna.Platform;
 import org.springframework.stereotype.Component;
 import sun.misc.Unsafe;
 import javax.annotation.PostConstruct;
-import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -57,28 +54,17 @@ public class Initializer {
 
     @PostConstruct
     void initialize() throws Exception {
-        // Suppress warnings
-        Field theUnsafe = Unsafe.class.getDeclaredField("theUnsafe");
-        theUnsafe.setAccessible(true);
-        Unsafe unsafe = (Unsafe) theUnsafe.get(null);
-        Class cls = Class.forName("jdk.internal.module.IllegalAccessLogger");
-        unsafe.putObjectVolatile(cls, unsafe.staticFieldOffset(cls.getDeclaredField("logger")), null);
 
         // Add Bouncy Castle provider
         java.security.Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
 
-        // Add Libsodium library
-        String arch = null;
-        if (System.getProperty("os.arch").contains("86"))
-            arch = "x86";
-        else if (System.getProperty("os.arch").contains("64"))
-            arch = "x64";
-        if (Platform.isMac())
-            SodiumLibrary.setLibraryPath(new File("libs/libsodium.dylib").getAbsolutePath());
-        else if (Platform.isWindows())
-            SodiumLibrary.setLibraryPath(new File("libs/libsodium_" + arch + ".dll").getAbsolutePath());
-        else
-            SodiumLibrary.setLibraryPath(new File("libs/libsodium_" + arch + ".so").getAbsolutePath());
+        // Suppress warnings
+        Field theUnsafe = Unsafe.class.getDeclaredField("theUnsafe");
+        theUnsafe.setAccessible(true);
+        Unsafe unsafe = (Unsafe) theUnsafe.get(null);
+        unsafe.putObjectVolatile(Class.forName("jdk.internal.module.IllegalAccessLogger"),
+                unsafe.staticFieldOffset(Class.forName("jdk.internal.module.IllegalAccessLogger")
+                        .getDeclaredField("logger")), null);
 
         // Set admin for demo purposes
         if (userService.findByPosition("admin") == null)

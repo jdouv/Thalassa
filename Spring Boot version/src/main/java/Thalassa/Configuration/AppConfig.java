@@ -4,17 +4,12 @@ import com.arangodb.ArangoDB;
 import com.arangodb.springframework.annotation.EnableArangoRepositories;
 import com.arangodb.springframework.config.ArangoConfiguration;
 import com.arangodb.springframework.core.convert.DefaultArangoTypeMapper;
-import org.apache.catalina.Context;
-import org.apache.tomcat.util.descriptor.web.SecurityCollection;
-import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
-import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
-import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@EnableArangoRepositories(basePackages = "Thalassa.DataManagement.Repositories")
+@EnableArangoRepositories(basePackages = Constants.SERVICE_NAME + "Repositories")
 public class AppConfig extends DefaultArangoTypeMapper implements ArangoConfiguration {
 
     @Override
@@ -24,7 +19,7 @@ public class AppConfig extends DefaultArangoTypeMapper implements ArangoConfigur
 
     @Override
     public String database() {
-        return "Thalassa";
+        return Constants.SERVICE_NAME;
     }
 
     @Override
@@ -35,18 +30,5 @@ public class AppConfig extends DefaultArangoTypeMapper implements ArangoConfigur
     @Bean
     public ServletContextInitializer servletContextInitializer() {
         return servletContext -> servletContext.getSessionCookieConfig().setName("Session");
-    }
-
-    @Bean
-    public ServletWebServerFactory servletContainer() {
-        return new TomcatServletWebServerFactory() {
-            @Override
-            protected void postProcessContext(Context context) {
-                context.addConstraint(new SecurityConstraint() {{
-                    setUserConstraint("CONFIDENTIAL");
-                    addCollection(new SecurityCollection() {{addPattern("/*");}} );
-                }});
-            }
-        };
     }
 }

@@ -46,7 +46,6 @@ function renderNavbar() {
 
 $(document).on('click', '.validateBlockchain', e => {
     e.stopImmediatePropagation();
-    console.log('Test');
     openWait();
     document.title = 'Blockchain';
     main.fadeOut();

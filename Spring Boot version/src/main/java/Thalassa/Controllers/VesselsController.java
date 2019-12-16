@@ -1,7 +1,7 @@
 package Thalassa.Controllers;
 
 import Thalassa.Controllers.AuthorizationAnnotations.AuthorizedCompanyVesselsRegistryManager;
-import Thalassa.DataManagement.Services.VesselService;
+import Thalassa.Services.VesselService;
 import Thalassa.Models.Vessel;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.node.ObjectNode;

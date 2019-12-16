@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Thalassa.Business.Services;
 using Thalassa.Models.LegalEngineering;
+using Thalassa.Services;
 
 namespace Thalassa.Controllers
 {

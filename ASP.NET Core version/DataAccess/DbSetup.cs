@@ -21,7 +21,7 @@ namespace Thalassa.DataAccess
             // Used in case of proxy server presence
             ArangoDatabase.ClientSetting.Proxy = new WebProxy("http://localhost:11027", true);
             
-            var sharedSetting = new DatabaseSharedSetting {Database = "Thalassa", Url = "http://localhost.:8529"};
+            var sharedSetting = new DatabaseSharedSetting {Database = Constants.ServiceName, Url = "http://localhost.:8529"};
             var credential = GetCredential();
             sharedSetting.SystemDatabaseCredential = new NetworkCredential(credential.UserName, credential.Password);
             sharedSetting.Credential = new NetworkCredential(credential.UserName, credential.Password);
@@ -35,7 +35,9 @@ namespace Thalassa.DataAccess
                     });
 
                 var collections = db.ListCollections().Select(collection => collection.Name).ToArray();
-                var collectionsToCreate = new[] {
+                var collectionsToCreate = new[]
+                {
+                    new Tuple<string, CollectionType>("Constants", CollectionType.Document),
                     new Tuple<string, CollectionType>("Users", CollectionType.Document),
                     new Tuple<string, CollectionType>("Blockchain", CollectionType.Document),
                     new Tuple<string, CollectionType>("Companies", CollectionType.Document),

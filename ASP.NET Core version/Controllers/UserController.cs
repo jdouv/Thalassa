@@ -1,10 +1,10 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Thalassa.Business.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
+using Thalassa.Services;
 
 namespace Thalassa.Controllers
 {
@@ -67,9 +67,9 @@ namespace Thalassa.Controllers
 
         // Returns localized messages
         [HttpGet("Localization")]
-        public JObject Localization()
+        public Dictionary<string, Dictionary<string, string>> Localization()
         {
-            return JObject.Parse(new StreamReader("Resources/locales.json").ReadToEnd());
+            return Constants.Localization;
         }
         
         [Route("Logout")]
