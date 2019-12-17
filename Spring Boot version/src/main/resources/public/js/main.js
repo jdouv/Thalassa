@@ -523,34 +523,43 @@ $(document).ready(()=> {
                     adjustCheckboxColor($(this));
                 });
             });
-            adjustTableAppearance();
+            adjustTablesAppearance();
         };
 
-        // Adjusts the tables’ appearance when called
-        function adjustTableAppearance() {
+        // Adjusts the window’s tables’ appearance when called
+        function adjustTablesAppearance() {
             let table = $('.table');
             if (table.is(':visible'))
-                if (!$('.smallTitle').is(':visible')) {
-                    if (window.outerWidth > $('main').width())
-                        if (!table.hasClass('responsiveTable'))
-                            table.addClass('responsiveTable');
-                } else {
-                    if (table.hasClass('responsiveTable'))
-                        table.removeClass('responsiveTable')
-                }
+                $('main').width() + 70 > $('html').width() ?
+                    enableSmallTable(table) :
+                    enableLargeTable(table);
         }
 
-        window.onresize = adjustTableAppearance;
+        // Adjusts the given table’s appearance so that all its elements fit the window when the table outgrows it
+        function enableSmallTable(table) {
+            table.removeClass('responsiveTable');
+            table.find('.tableRowTitle').addClass('d-none');
+            table.find('.smallTitle').removeClass('d-none');
+        }
+
+        // Restores the given table’s appearance when the window’s width is larger than its width
+        function enableLargeTable(table) {
+            table.addClass('responsiveTable');
+            table.find('.tableRowTitle').removeClass('d-none');
+            table.find('.smallTitle').addClass('d-none');
+        }
+
+        window.onresize = adjustTablesAppearance;
 
         // Adjusts the appearance of sticky-top elements when scrolling
         $(document).scroll(function () {
-            $('.sticky-top').toggleClass('stickyTopEnabled', $(this).scrollTop() > 200);
+            $('.sticky-top').toggleClass('stickyTopEnabled', $(this).scrollTop > 200);
         });
 
         // Determines what happens when user inputs something in a row form
         $(document).on('input', '.tableRowForm input', function() {
             adjustElementWidth($(this));
-            adjustTableAppearance();
+            adjustTablesAppearance();
         });
 
         function toggleFormButtons(element) {

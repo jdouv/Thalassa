@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -39,6 +39,14 @@ namespace Thalassa
             new ConstantsService(new ConstantsDataAccess()).SetConstants();
 
             services
+                .AddLogging(builder =>
+                    {
+                        builder.AddFilter("Default", LogLevel.None)
+                            .AddFilter("System", LogLevel.None)
+                            .AddFilter("Microsoft", LogLevel.None)
+                            .AddConsole();
+                    })
+                .Configure<ForwardedHeadersOptions>(options => { options.AllowedHosts = new[] { "*" }; })
                 .Configure<KestrelServerOptions>(options =>
                 {
                     options.Listen(IPAddress.Loopback, 5001, listenOptions =>
@@ -49,6 +57,11 @@ namespace Thalassa
                     options.AllowSynchronousIO = true;
                 })
                 .Configure<IISServerOptions>(options => { options.AllowSynchronousIO = true; })
+                .AddHttpsRedirection(options =>
+                {
+                    options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
+                    options.HttpsPort = 5001;
+                })
                 .Configure<CookiePolicyOptions>(options =>
                 {
                     // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -118,11 +131,8 @@ namespace Thalassa
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IAntiforgery antiForgery)
+        public void Configure(IApplicationBuilder app, IAntiforgery antiForgery)
         {
-            if (env.IsDevelopment())
-                app.UseDeveloperExceptionPage();
-
             app.UseHttpsRedirection()
                 .UseSession()
                 .UseFileServer()

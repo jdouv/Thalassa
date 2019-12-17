@@ -68,27 +68,27 @@ function renderAllContracts(json) {
                             </div>
                         </div>
                         <div class="table responsiveTable">
-                            <div class="row d-none d-lg-flex tableRowTitle">
+                            <div class="row tableRowTitle">
                                 <div class="col-auto align-self-center text-center wordBreak" data-localization="legalContractsTitle" />
                                 <div class="col-auto align-self-center text-center wordBreak" data-localization="blockchainTimestamp" />
                                 <div class="col-auto align-self-center text-center wordBreak" data-localization="blockchainHash" />
                             </div>
                             ${json.map(contract => {
                                 return (
-                                    html`<div class="row tableSimpleRow contractRow">
+                                    html`<div class="row justify-content-center tableSimpleRow contractRow">
                                         <div class="blockIndex" style="display:none;">${contract['index']}</div>
                                         <div class="col-lg-auto col-md-4 col-sm-6">
-                                            <div class="smallTitle d-lg-none" data-localization="legalContractsTitle" />
+                                            <div class="smallTitle d-none" data-localization="legalContractsTitle" />
                                             <div class="align-self-center text-center resultsBlockNumber">
                                                 <span data-localization="legalContractsTitlesLower${contract['title']}" />
                                             </div>
                                         </div>
                                         <div class="col-lg-auto col-md-4 col-sm-6">
-                                            <div class="smallTitle d-lg-none" data-localization="blockchainTimestamp" />
+                                            <div class="smallTitle d-none" data-localization="blockchainTimestamp" />
                                             <div class="align-self-center text-center" data-timestamp="${contract['timestamp']}" />
                                         </div>
                                         <div class="col-lg-auto col-md-4 col-sm-6">
-                                            <div class="smallTitle d-lg-none" data-localization="blockchainHash" />
+                                            <div class="smallTitle d-none" data-localization="blockchainHash" />
                                             <div class="align-self-center text-center validationResultsHash">${contract['hash']}</div>
                                         </div>
                                     </div>`

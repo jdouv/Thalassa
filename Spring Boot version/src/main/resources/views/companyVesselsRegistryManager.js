@@ -1,10 +1,11 @@
 const AddNewVesselForm = () => {
     return (
         html`<${Fragment}>
-            <div class="addButton addNewVesselButton animate slideIn" />
-            <button data-localization-title="vesselsAddNew" class="plus">
-                <span>+</span>
-            </button>
+            <div class="addButton addNewVesselButton animate slideIn">
+                <button data-localization-title="vesselsAddNew" class="plus">
+                    <span>+</span>
+                </button>
+            </div>
             <div class="newVesselWrapper animate slideIn" style="display:none;">
                 <div class="innerFormTitle" data-localization="vesselsAddNew" />
                 <div class="bg-text formWithCloseButton">
@@ -182,7 +183,7 @@ function renderVesselsRegistry(json) {
             </div>
             <div class="hintEdit" data-localization="hintEdit" />
             <div class="table responsiveTable">
-                <div class="row d-none d-lg-flex tableRowTitle marginBottom15 sticky-top transition">
+                <div class="row tableRowTitle marginBottom15 sticky-top transition">
                     <div class="col-auto align-self-center text-center wordBreak" data-localization="vesselsName" />
                     <div class="col-auto align-self-center text-center wordBreak" data-localization="vesselsFlag" />
                     <div class="col-auto align-self-center text-center wordBreak" data-localization="vesselsImoNumber" />
@@ -192,9 +193,9 @@ function renderVesselsRegistry(json) {
                 </div>
                 ${json.map(vessel => {
                     return (
-                        html`<form class="row vesselUpdateForm tableRowForm tableSimpleRow vesselRow">
+                        html`<form class="row justify-content-center vesselUpdateForm tableRowForm tableSimpleRow vesselRow">
                             <div class="col-lg-auto col-md-4 col-sm-6 inputWrapper">
-                                <div class="smallTitle d-lg-none" data-localization="vesselsName" />
+                                <div class="smallTitle d-none" data-localization="vesselsName" />
                                 <input class="rowFormTextElement" name="name" type="text" maxlength="100" value="${vessel['name']}" />
                                 <div class="formErrors formErrorsFull">
                                     <div class="formWarning" data-localization="vesselsInvalidName" style="display:none;" />
@@ -203,7 +204,7 @@ function renderVesselsRegistry(json) {
                                 <${AfterUpdatedValidation} />
                             </div>
                             <div class="col-lg-auto col-md-4 col-sm-6 inputWrapper vesselFlagsWrapper dropdownItemsWrapper">
-                                <div class="smallTitle d-lg-none" data-localization="vesselsFlag" />
+                                <div class="smallTitle d-none" data-localization="vesselsFlag" />
                                 <div class="dropdown">
                                     <button class="btn btn-secondary dropdown-toggle dropdownButton" data-localization-title="vesselsFlag" id="updateVesselVesselsFlag${vessel['id']}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span data-vessel-flag="${vessel['flag']}">${vessel['flag']}</span>
@@ -221,7 +222,7 @@ function renderVesselsRegistry(json) {
                                 <${AfterUpdatedValidation} />
                             </div>
                             <div class="col-lg-auto col-md-4 col-sm-6 inputWrapper">
-                                <div class="smallTitle d-lg-none" data-localization="vesselsImoNumber" />
+                                <div class="smallTitle d-none" data-localization="vesselsImoNumber" />
                                 <input class="rowFormTextElement" name="imoNumber" type="text" maxlength="100" value="${vessel['imoNumber']}" />
                                 <div class="formErrors formErrorsFull">
                                     <div class="formWarning" data-localization="vesselsInvalidImoNumber" style="display:none;" />
@@ -230,7 +231,7 @@ function renderVesselsRegistry(json) {
                                 <${AfterUpdatedValidation} />
                             </div>
                             <div class="col-lg-auto col-md-4 col-sm-6 inputWrapper">
-                                <div class="smallTitle d-lg-none" data-localization="vesselsDwt" />
+                                <div class="smallTitle d-none" data-localization="vesselsDwt" />
                                 <input class="rowFormTextElement" name="dwt" type="text" maxlength="10" value="${vessel['dwt']}" />
                                 <div class="formErrors formErrorsFull">
                                     <div class="formWarning" data-localization="errorRequiredVesselDwt" style="display:none;" />
@@ -239,7 +240,7 @@ function renderVesselsRegistry(json) {
                                 <${AfterUpdatedValidation} />
                             </div>
                             <div class="col-lg-auto col-md-4 col-sm-6 inputWrapper">
-                                <div class="smallTitle d-lg-none" data-localization="vesselsYearBuilt" />
+                                <div class="smallTitle d-none" data-localization="vesselsYearBuilt" />
                                 <input class="rowFormTextElement" name="yearBuilt" type="text" minlength="4" maxlength="4" value="${vessel['yearBuilt']}" />
                                 <div class="formErrors formErrorsFull">
                                     <div class="formWarning" data-localization="errorSizeVesselYearBuilt" style="display:none;" />
@@ -248,7 +249,7 @@ function renderVesselsRegistry(json) {
                                 <${AfterUpdatedValidation} />
                             </div>
                             <div class="col-lg-auto col-md-4 col-sm-6 inputWrapper checkboxField">
-                                <div class="smallTitle d-lg-none" data-localization="vesselsUnderConstruction" />
+                                <div class="smallTitle d-none" data-localization="vesselsUnderConstruction" />
                                 <label class="toggle">
                                     <input class="vesselUnderConstructionInput" name="underConstruction" data-value-type="boolean" type="checkbox" checked="${vessel['underConstruction']}" value="${vessel['underConstruction']}" />
                                     <div />

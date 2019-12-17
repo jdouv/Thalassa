@@ -90,7 +90,7 @@ function renderBlockchainValidation(array) {
                                 ${!$.isEmptyObject(array[0]) ?
                                     html`<div class="invalidBlockchainResultsHead text-center" data-localization="adminBlockchainResultsCalculationMessage" />
                                         <div class="table responsiveTable">
-                                            <div class="row d-none d-lg-flex tableRowTitle">
+                                            <div class="row tableRowTitle">
                                                 <div class="col-auto align-self-center text-center wordBreak" data-localization="blockchainBlockNumber" />
                                                 <div class="col-auto align-self-center text-center wordBreak" data-localization="blockchainTimestamp" />
                                                 <div class="col-auto align-self-center text-center wordBreak" data-localization="blockchainHashExpected" />
@@ -98,21 +98,21 @@ function renderBlockchainValidation(array) {
                                             </div>
                                             ${$.map(array[0], (element, index) => {
                                                 return (
-                                                    html`<div class="row tableSimpleRow blockchainValidationResultRow">
+                                                    html`<div class="row justify-content-center tableSimpleRow blockchainValidationResultRow">
                                                         <div class="col-lg-auto col-md-4 col-sm-6">
-                                                            <div class="smallTitle d-lg-none" data-localization="blockchainBlockNumber" />
+                                                            <div class="smallTitle d-none" data-localization="blockchainBlockNumber" />
                                                             <div class="resultsBlockNumber">${index}</div>
                                                         </div>
                                                         <div class="col-lg-auto col-md-4 col-sm-6">
-                                                            <div class="smallTitle d-lg-none" data-localization="blockchainTimestamp" />
+                                                            <div class="smallTitle d-none" data-localization="blockchainTimestamp" />
                                                             <div data-timestamp="${element[0]}" />
                                                         </div>
                                                         <div class="col-lg-auto col-md-4 col-sm-6">
-                                                            <div class="smallTitle d-lg-none" data-localization="blockchainHashExpected" />
+                                                            <div class="smallTitle d-none" data-localization="blockchainHashExpected" />
                                                             <div class="validationResultsHash">${element[1]}</div>
                                                         </div>
                                                         <div class="col-lg-auto col-md-4 col-sm-6">
-                                                            <div class="smallTitle d-lg-none" data-localization="blockchainHashFound" />
+                                                            <div class="smallTitle d-none" data-localization="blockchainHashFound" />
                                                             <div class="validationResultsHash">${element[2]}</div>
                                                         </div>
                                                     </div>`
@@ -124,7 +124,7 @@ function renderBlockchainValidation(array) {
                                     ${!$.isEmptyObject(array[1]) ?
                                         html`<div class="invalidBlockchainResultsHead text-center" data-localization="adminBlockchainResultsReferenceMessage" />
                                             <div class="table responsiveTable">
-                                                <div class="row d-none d-lg-flex tableRowTitle">
+                                                <div class="row tableRowTitle">
                                                     <div class="col-auto align-self-center text-center wordBreak" data-localization="blockchainNumberTimestampOfFirst" />
                                                     <div class="col-auto align-self-center text-center wordBreak" data-localization="blockchainNumberTimestampOfSecond" />
                                                     <div class="col-auto align-self-center text-center wordBreak" data-localization="blockchainHashExpected" />
@@ -132,27 +132,27 @@ function renderBlockchainValidation(array) {
                                                 </div>
                                                 ${$.map(array[1], (element, index) => {
                                                     return (
-                                                        html`<div class="row tableSimpleRow blockchainValidationResultRow">
+                                                        html`<div class="row justify-content-center tableSimpleRow blockchainValidationResultRow">
                                                             <div class="col-lg-auto col-md-4 col-sm-6">
-                                                                <div class="smallTitle d-lg-none" data-localization="blockchainNumberTimestampOfFirst" />
+                                                                <div class="smallTitle d-none" data-localization="blockchainNumberTimestampOfFirst" />
                                                                 <div>
                                                                     <span>${index} / </span>
                                                                     <span data-timestamp="${element[0]}" />
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-auto col-md-4 col-sm-6">
-                                                                <div class="smallTitle d-lg-none" data-localization="blockchainNumberTimestampOfSecond" />
+                                                                <div class="smallTitle d-none" data-localization="blockchainNumberTimestampOfSecond" />
                                                                 <div>
                                                                     <span>${parseInt(index) + 1} / </span>
                                                                     <span data-timestamp="${element[1]}" />
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-auto col-md-4 col-sm-6">
-                                                                <div class="smallTitle d-lg-none" data-localization="blockchainHashExpected" />
+                                                                <div class="smallTitle d-none" data-localization="blockchainHashExpected" />
                                                                 <div class="validationResultsHash">${element[2]}</div>
                                                             </div>
                                                             <div class="col-lg-auto col-md-4 col-sm-6">
-                                                                <div class="smallTitle d-lg-none" data-localization="blockchainHashFound" />
+                                                                <div class="smallTitle d-none" data-localization="blockchainHashFound" />
                                                                 <div class="validationResultsHash">${element[3]}</div>
                                                             </div>
                                                         </div>`
