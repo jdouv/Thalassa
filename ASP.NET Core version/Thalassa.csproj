@@ -6,7 +6,7 @@
         <PublishReadyToRunShowWarnings>true</PublishReadyToRunShowWarnings>
         <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
         <OutputType>Exe</OutputType>
-        <ApplicationIcon>wwwroot\favicon.ico</ApplicationIcon>
+        <ApplicationIcon>wwwroot/favicon.ico</ApplicationIcon>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
         <CopyOutputSymbolsToPublishDirectory>false</CopyOutputSymbolsToPublishDirectory>
