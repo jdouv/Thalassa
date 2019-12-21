@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@EnableArangoRepositories(basePackages = Constants.SERVICE_NAME + "Repositories")
+@EnableArangoRepositories(basePackages = Constants.SERVICE_NAME + ".Repositories")
 public class AppConfig extends DefaultArangoTypeMapper implements ArangoConfiguration {
 
     @Override
