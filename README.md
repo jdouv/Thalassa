@@ -64,7 +64,7 @@ Note for Spring Boot version: Because Thalassa uses Libsodium (in addition to Bo
 During login and because Thalassa uses camera scanning of the private key (in QR code form), if the user logs in before camera is fully initialized (e.g. when user quickly pastes the private key and logins), the camera may still be on even after login. In this case, click the service’s logo in the upper-left corner or the dropdown menu next to it (navbar) and the camera will be disabled. This issue is under investigation.
 
 
-# © 2019 jdouv Some rights reserved
+# © 2019-2020 jdouv Some rights reserved
 ## Copyright notice
 
 The project in this repository utilizes third party software and sources, as described in the next paragraph. Apart from all these, the specific implementation of the ideas and initiatives described above, including the name “Thalassa” when referring to an electronic service unifying the marine industry, the spiral of the logo as depicted in this page and the project’s internal files, the “Legen” syntax, the structure of this web application (code files and the database’s structure related to importing and exporting data relevant to the scope of this service), the elements’ position and the way they appear, are intellectual property rights of jdouv, hereby declared.
