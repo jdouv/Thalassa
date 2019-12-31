@@ -16,9 +16,7 @@ import Thalassa.Models.Block;
 import Thalassa.Models.Vessel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
-import sun.misc.Unsafe;
 import javax.annotation.PostConstruct;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,8 +24,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 // Most methods in this class are for demo purposes only.
-// In a production environment, only cryptography libraries initialization and
-// method blockchainService.initializeBlockchain() are needed.
+// In a production environment, only blockchainService.initializeBlockchain() is needed.
 @Component
 public class Initializer {
 
@@ -57,14 +54,6 @@ public class Initializer {
 
         // Add Bouncy Castle provider
         java.security.Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
-
-        // Suppress warnings
-        Field theUnsafe = Unsafe.class.getDeclaredField("theUnsafe");
-        theUnsafe.setAccessible(true);
-        Unsafe unsafe = (Unsafe) theUnsafe.get(null);
-        unsafe.putObjectVolatile(Class.forName("jdk.internal.module.IllegalAccessLogger"),
-                unsafe.staticFieldOffset(Class.forName("jdk.internal.module.IllegalAccessLogger")
-                        .getDeclaredField("logger")), null);
 
         // Set admin for demo purposes
         if (userService.findByPosition("admin") == null)
