@@ -147,7 +147,7 @@ $(document).on('click', '.navCompanyVesselsRegistryManager', e => {
     main.fadeOut();
     openWait();
     setTimeout(() => {
-        $.post('/vesselsRegistry', response => {
+        $.post(serviceContextPath + '/vesselsRegistry', response => {
             closeWait();
             main.empty();
             render(h(AddNewVesselForm), mainSelector);
@@ -281,7 +281,7 @@ $(document).on('click', '.submitNewVesselButton', function(e) {
     openWaitDots(form);
 
     $.post({
-        url: '/insertVessel',
+        url: serviceContextPath + '/insertVessel',
         contentType: 'application/json;charset=utf-8',
         dataType: 'json',
         data: JSON.stringify(form.serializeJSON({checkboxUncheckedValue: 'false'}))}, firstResponse => {
@@ -294,7 +294,7 @@ $(document).on('click', '.submitNewVesselButton', function(e) {
                     $('main .newVesselWrapper').slideUp(500);
                     $('main .addNewVesselButton').slideDown(500);
                     resetForm(submitVesselButton);
-                    $.post('/vesselsRegistry', secondResponse => {
+                    $.post(serviceContextPath + '/vesselsRegistry', secondResponse => {
                         vesselsRegistry.empty();
                         renderVesselsRegistry(secondResponse);
                         changeLanguage(vesselsRegistry);
@@ -330,7 +330,7 @@ function updateVessel(element) {
     });
 
     $.post({
-        url: '/updateVessel',
+        url: serviceContextPath + '/updateVessel',
         contentType: 'application/json;charset=utf-8',
         dataType: 'json',
         data: JSON.stringify(form.serializeJSON({checkboxUncheckedValue: 'false'}))}, response => {

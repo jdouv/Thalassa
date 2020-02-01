@@ -51,7 +51,7 @@ $(document).on('click', '.validateBlockchain', e => {
     main.fadeOut();
     openWait();
     setTimeout(() => {
-        $.post('/validateBlockchain', response => {
+        $.post(serviceContextPath + '/validateBlockchain', response => {
             closeWait();
             main.empty();
             renderBlockchainValidation(response);

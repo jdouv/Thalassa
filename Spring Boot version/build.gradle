@@ -4,6 +4,7 @@ plugins {
     id 'eclipse'
     id 'org.springframework.boot' version '2.2.4.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'war'
 }
 
 group 'Thalassa'
@@ -17,6 +18,10 @@ springBoot {
 }
 
 bootJar {
+    archiveBaseName = 'Thalassa'
+}
+
+war {
     archiveBaseName = 'Thalassa'
 }
 

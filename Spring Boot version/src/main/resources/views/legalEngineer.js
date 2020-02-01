@@ -107,7 +107,7 @@ $(document).on('click', '.allContractsButton', e => {
     main.fadeOut();
     openWait();
     setTimeout(function() {
-        $.post('/contracts', function(response) {
+        $.post(serviceContextPath + '/contracts', function(response) {
                 closeWait();
                 main.empty();
                 renderAllContracts(response);
@@ -129,7 +129,7 @@ $(document).on('click', '.contractRow', function(e) {
     const index = $(this).children('.blockIndex').text();
     main.fadeOut();
     setTimeout(function() {
-        $.post('/contract/' + index, function(response) {
+        $.post(serviceContextPath + '/contract/' + index, function(response) {
             main.empty();
             renderContract(response);
             changeLanguage(main);
@@ -329,7 +329,7 @@ $(document).on('click', '.contractClause > .row', function() {
 // Tests off-hire clause
 $(document).on('click', '.enableClause', e => {
     e.stopImmediatePropagation();
-    $.post('/testEnableClause', response => {
+    $.post(serviceContextPath + '/testEnableClause', response => {
             $('.testEnabledClause').slideUp(300).empty().append(response).slideDown(300);
         }
     );

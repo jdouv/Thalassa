@@ -3,10 +3,13 @@ const html = window.htm.bind(h);
 
 $(document).ready(()=> {
 
+    window.serviceContextPath = window.location.pathname.substring(0, window.location.pathname.indexOf("/", 2));
+
     // Register service worker
     if ('serviceWorker' in navigator)
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/sw.js', {scope: '/'}).then(() => {void(0);});
+            navigator.serviceWorker.register(serviceContextPath + '/sw.js?contextPath=' + serviceContextPath,
+                {scope: '/'}).then(() => {void(0);});
         });
 
     window.main = $('main');
@@ -33,9 +36,10 @@ $(document).ready(()=> {
     let modalOverlay = $('.modal-overlay');
     let validFormAjax;
     let keysHaveBeenGenerated;
+    let userView;
 
     // Fetch localized messages json
-    $.getJSON('/localization').done(localesJson => {
+    $.getJSON(serviceContextPath + '/localization').done(localesJson => {
 
         // Pre-configure Ajax to send antiforgery and JWT tokens as headers on every request
         $.ajaxPrefilter((options, originalOptions, jqXhr) => {
@@ -674,7 +678,7 @@ $(document).ready(()=> {
             delete json['fields']['privateKey'];
 
             $.post({
-                url: '/registerIsValid',
+                url: serviceContextPath + '/registerIsValid',
                 contentType: 'application/json;charset=utf-8',
                 dataType: 'json',
                 data: JSON.stringify(json)}, response => {
@@ -688,7 +692,7 @@ $(document).ready(()=> {
         function generateKeys() {
             let generatingKeysMessage = $('.generatingKeysMessage');
             generatingKeysMessage.slideDown(300);
-            $.post('/generateKeys', response => {
+            $.post(serviceContextPath + '/generateKeys', response => {
                 generatingKeysMessage.slideUp(300);
                 renderGeneratedKeys(response);
                 keysHaveBeenGenerated = true;
@@ -899,7 +903,7 @@ $(document).ready(()=> {
         // Checks if the e-mail provided by the user already exists by calling the appropriate controller
         function emailExists(element) {
             $.post({
-                url: '/emailExists',
+                url: serviceContextPath + '/emailExists',
                 contentType: 'application/json;charset=utf-8',
                 dataType: 'json',
                 data: element.val()}, response => {
@@ -941,7 +945,7 @@ $(document).ready(()=> {
             json['fields'] = form.serializeJSON({checkboxUncheckedValue: 'false'});
             setTimeout(() => {
                 $.post({
-                    url: '/' + text,
+                    url: serviceContextPath + '/' + text,
                     contentType: 'application/json;charset=utf-8',
                     data: JSON.stringify(json)}, response => {
                     closeWaitDots(form);
@@ -1089,7 +1093,7 @@ $(document).ready(()=> {
         // Renders logout
         $(document).on('click', '.logoutButton', e => {
             e.preventDefault();
-            $.post('/logout').then(() => {
+            $.post(serviceContextPath + '/logout').then(() => {
                 userView = undefined;
                 localStorage.removeItem('JWT');
                 localStorage.removeItem('view');

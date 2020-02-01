@@ -1,37 +1,41 @@
-const cacheName = `Thalassa`;
+const cacheName = 'Thalassa';
+
 self.addEventListener('install', e => {
+    const contextPath = new URL(location.href).searchParams.get('contextPath');
+
     e.waitUntil(
         caches.open(cacheName).then(cache => {
             return cache.addAll([
-                `/`,
-                `/sw.js`,
-                `/index.html`,
-                `/favicon.ico`,
-                `/manifest.json`,
-                `/localization`,
-                `/css/common.css`,
-                `/css/dark.css`,
-                `/css/light.css`,
-                `/css/reset.css`,
-                `/img/background.jpg`,
-                `/img/background-blurred.jpg`,
-                `/img/logo72.png`,
-                `/img/logo96.png`,
-                `/img/logo128.png`,
-                `/img/logo144.png`,
-                `/img/logo152.png`,
-                `/img/logo192.png`,
-                `/img/logo384.png`,
-                `/img/logo512.png`,
-                `/js/main.js`,
-                `/js/qrcodegen.js`,
-                `/js/instascan.min.js`,
-                `/js/moment.js`,
-                `/js/jquery.serializejson.min.js`,
-                `/js/preact.js`,
-                `https://code.jquery.com/jquery-3.4.1.min.js`,
-                `https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js`,
-                `https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js`
+                contextPath + '/',
+                contextPath + '/sw.js',
+                contextPath + '/index.html',
+                contextPath + '/favicon.ico',
+                contextPath + '/manifest.json',
+                contextPath + '/localization',
+                contextPath + '/css/common.css',
+                contextPath + '/css/dark.css',
+                contextPath + '/css/light.css',
+                contextPath + '/css/reset.css',
+                contextPath + '/img/background.jpg',
+                contextPath + '/img/background-blurred.jpg',
+                contextPath + '/img/logo72.png',
+                contextPath + '/img/logo96.png',
+                contextPath + '/img/logo128.png',
+                contextPath + '/img/logo144.png',
+                contextPath + '/img/logo152.png',
+                contextPath + '/img/logo192.png',
+                contextPath + '/img/logo384.png',
+                contextPath + '/img/logo512.png',
+                contextPath + '/js/htm.js',
+                contextPath + '/js/main.js',
+                contextPath + '/js/qrcodegen.js',
+                contextPath + '/js/instascan.min.js',
+                contextPath + '/js/moment.js',
+                contextPath + '/js/jquery.serializejson.min.js',
+                contextPath + '/js/preact.js',
+                'https://code.jquery.com/jquery-3.4.1.min.js',
+                'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js',
+                'https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'
             ])
                 .then(() => self.skipWaiting());
         })
