@@ -14,10 +14,10 @@ function renderDashboard() {
                         </svg>
                     </div>
                     <div class="welcomeName">
-                        <span data-localization="usersWelcome" />
+                        <span data-localization="usersWelcome"></span>
                         <span>, ${parseJWT(localStorage.getItem('JWT'))['firstName']}.</span>
                     </div>
-                    <div class="welcomeSubtitle" data-localization="usersWelcomeSubtitle" />
+                    <div class="welcomeSubtitle" data-localization="usersWelcomeSubtitle"></div>
                 </div>`, mainSelector);
         changeLanguage(main);
         main.delay(450).fadeIn();
@@ -36,7 +36,7 @@ function renderNavbar() {
                         <span class="caret symbol">\uE011</span>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="blockchainOptions">
-                        <button class="dropdown-item dropdownItem validateBlockchain" data-localization="adminValidateBlockchain" type="button" />
+                        <button class="dropdown-item dropdownItem validateBlockchain" data-localization="adminValidateBlockchain" type="button"></button>
                     </div>
                 </li>`, navbarUsersSelector);
         changeLanguage(navbarUsers);
@@ -71,7 +71,7 @@ function renderBlockchainValidation(array) {
                     html`<div class="row">
                         <div class="col">
                             <div class="symbol bgTextSymbolCenter">\uE946"</div>
-                            <div class="bgTextMessage text-center" data-localization="adminBlockchainIsEmpty" />
+                            <div class="bgTextMessage text-center" data-localization="adminBlockchainIsEmpty"></div>
                         </div>
                     </div>`
                     :
@@ -79,40 +79,40 @@ function renderBlockchainValidation(array) {
                         html`<div class="row">
                             <div class="col">
                                 <div class="symbol bgTextSymbolCenter successTextColor">\uE008</div>
-                                <div class="bgTextMessage text-center" data-localization="adminBlockchainIsValid" />
+                                <div class="bgTextMessage text-center" data-localization="adminBlockchainIsValid"></div>
                             </div>
                         </div>`
                         :
                         html`<div class="row">
                             <div class="col">
                                 <div class="symbol bgTextSymbolCenter errorTextColor">\uE10A</div>
-                                <div data-localization="adminBlockchainIsInvalid" />
+                                <div data-localization="adminBlockchainIsInvalid"></div>
                                 ${!$.isEmptyObject(array[0]) ?
-                                    html`<div class="invalidBlockchainResultsHead text-center" data-localization="adminBlockchainResultsCalculationMessage" />
+                                    html`<div class="invalidBlockchainResultsHead text-center" data-localization="adminBlockchainResultsCalculationMessage"></div>
                                         <div class="table responsiveTable">
                                             <div class="row tableRowTitle">
-                                                <div class="col-auto align-self-center text-center wordBreak" data-localization="blockchainBlockNumber" />
-                                                <div class="col-auto align-self-center text-center wordBreak" data-localization="blockchainTimestamp" />
-                                                <div class="col-auto align-self-center text-center wordBreak" data-localization="blockchainHashExpected" />
-                                                <div class="col-auto align-self-center text-center wordBreak" data-localization="blockchainHashFound" />
+                                                <div class="col-auto align-self-center text-center wordBreak" data-localization="blockchainBlockNumber"></div>
+                                                <div class="col-auto align-self-center text-center wordBreak" data-localization="blockchainTimestamp"></div>
+                                                <div class="col-auto align-self-center text-center wordBreak" data-localization="blockchainHashExpected"></div>
+                                                <div class="col-auto align-self-center text-center wordBreak" data-localization="blockchainHashFound"></div>
                                             </div>
                                             ${$.map(array[0], (element, index) => {
                                                 return (
                                                     html`<div class="row justify-content-center tableSimpleRow blockchainValidationResultRow">
                                                         <div class="col-lg-auto col-md-4 col-sm-6">
-                                                            <div class="smallTitle d-none" data-localization="blockchainBlockNumber" />
+                                                            <div class="smallTitle d-none" data-localization="blockchainBlockNumber"></div>
                                                             <div class="resultsBlockNumber">${index}</div>
                                                         </div>
                                                         <div class="col-lg-auto col-md-4 col-sm-6">
-                                                            <div class="smallTitle d-none" data-localization="blockchainTimestamp" />
-                                                            <div data-timestamp="${element[0]}" />
+                                                            <div class="smallTitle d-none" data-localization="blockchainTimestamp"></div>
+                                                            <div data-timestamp="${element[0]}"></div>
                                                         </div>
                                                         <div class="col-lg-auto col-md-4 col-sm-6">
-                                                            <div class="smallTitle d-none" data-localization="blockchainHashExpected" />
+                                                            <div class="smallTitle d-none" data-localization="blockchainHashExpected"></div>
                                                             <div class="validationResultsHash">${element[1]}</div>
                                                         </div>
                                                         <div class="col-lg-auto col-md-4 col-sm-6">
-                                                            <div class="smallTitle d-none" data-localization="blockchainHashFound" />
+                                                            <div class="smallTitle d-none" data-localization="blockchainHashFound"></div>
                                                             <div class="validationResultsHash">${element[2]}</div>
                                                         </div>
                                                     </div>`
@@ -122,37 +122,37 @@ function renderBlockchainValidation(array) {
                                     :
                                     void(0)}
                                     ${!$.isEmptyObject(array[1]) ?
-                                        html`<div class="invalidBlockchainResultsHead text-center" data-localization="adminBlockchainResultsReferenceMessage" />
+                                        html`<div class="invalidBlockchainResultsHead text-center" data-localization="adminBlockchainResultsReferenceMessage"></div>
                                             <div class="table responsiveTable">
                                                 <div class="row tableRowTitle">
-                                                    <div class="col-auto align-self-center text-center wordBreak" data-localization="blockchainNumberTimestampOfFirst" />
-                                                    <div class="col-auto align-self-center text-center wordBreak" data-localization="blockchainNumberTimestampOfSecond" />
-                                                    <div class="col-auto align-self-center text-center wordBreak" data-localization="blockchainHashExpected" />
-                                                    <div class="col-auto align-self-center text-center wordBreak" data-localization="blockchainHashFound" />
+                                                    <div class="col-auto align-self-center text-center wordBreak" data-localization="blockchainNumberTimestampOfFirst"></div>
+                                                    <div class="col-auto align-self-center text-center wordBreak" data-localization="blockchainNumberTimestampOfSecond"></div>
+                                                    <div class="col-auto align-self-center text-center wordBreak" data-localization="blockchainHashExpected"></div>
+                                                    <div class="col-auto align-self-center text-center wordBreak" data-localization="blockchainHashFound"></div>
                                                 </div>
                                                 ${$.map(array[1], (element, index) => {
                                                     return (
                                                         html`<div class="row justify-content-center tableSimpleRow blockchainValidationResultRow">
                                                             <div class="col-lg-auto col-md-4 col-sm-6">
-                                                                <div class="smallTitle d-none" data-localization="blockchainNumberTimestampOfFirst" />
+                                                                <div class="smallTitle d-none" data-localization="blockchainNumberTimestampOfFirst"></div>
                                                                 <div>
                                                                     <span>${index} / </span>
-                                                                    <span data-timestamp="${element[0]}" />
+                                                                    <span data-timestamp="${element[0]}"></div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-auto col-md-4 col-sm-6">
-                                                                <div class="smallTitle d-none" data-localization="blockchainNumberTimestampOfSecond" />
+                                                                <div class="smallTitle d-none" data-localization="blockchainNumberTimestampOfSecond"></div>
                                                                 <div>
                                                                     <span>${parseInt(index) + 1} / </span>
-                                                                    <span data-timestamp="${element[1]}" />
+                                                                    <span data-timestamp="${element[1]}"></span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-auto col-md-4 col-sm-6">
-                                                                <div class="smallTitle d-none" data-localization="blockchainHashExpected" />
+                                                                <div class="smallTitle d-none" data-localization="blockchainHashExpected"></div>
                                                                 <div class="validationResultsHash">${element[2]}</div>
                                                             </div>
                                                             <div class="col-lg-auto col-md-4 col-sm-6">
-                                                                <div class="smallTitle d-none" data-localization="blockchainHashFound" />
+                                                                <div class="smallTitle d-none" data-localization="blockchainHashFound"></div>
                                                                 <div class="validationResultsHash">${element[3]}</div>
                                                             </div>
                                                         </div>`

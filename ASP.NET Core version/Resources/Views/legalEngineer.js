@@ -14,10 +14,10 @@ function renderDashboard() {
                         </svg>
                     </div>
                     <div class="welcomeName">
-                        <span data-localization="usersWelcome" />
+                        <span data-localization="usersWelcome"></span>
                         <span>, ${parseJWT(localStorage.getItem('JWT'))['firstName']}.</span>
                     </div>
-                    <div class="welcomeSubtitle" data-localization="usersWelcomeSubtitle" />
+                    <div class="welcomeSubtitle" data-localization="usersWelcomeSubtitle"></div>
                 </div>`, mainSelector);
         changeLanguage(main);
         main.delay(450).fadeIn();
@@ -32,15 +32,15 @@ function renderNavbar() {
         render(html`<li class="dropdown navButDropdown animate slideIn">
                     <button class="btn btn-secondary dropdown-toggle dropdownButton navBut" type="button" id="navContractOptions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="symbol navButSymbolInline">\uF571 </span>
-                        <span data-localization="legalContracts" />
+                        <span data-localization="legalContracts"></span>
                         <span class="caret symbol">\uE011</span>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="navContractOptions">
-                        <button class="dropdown-item contractOption dropdownItem allContractsButton" data-localization="legalContractsAllContracts" type="button" />
+                        <button class="dropdown-item contractOption dropdownItem allContractsButton" data-localization="legalContractsAllContracts" type="button"></button>
                         <button class="dropdown-item contractOption dropdownItem draftNewContractButton" type="button">
-                            <span data-localization="legalContractsNewContract" />
+                            <span data-localization="legalContractsNewContract"></span>
                             <span> (</span>
-                            <span data-localization="basicsCurrentlyUnavailable" />
+                            <span data-localization="basicsCurrentlyUnavailable"></span>
                             <span>)</span>
                         </button>
                     </div>
@@ -56,7 +56,7 @@ function renderAllContracts(json) {
                     html`<div class="row">
                         <div class="col">
                             <div class="symbol bgTextSymbolCenter text-center">\uF571</div>
-                            <div class="bgTextMessage text-center" data-localization="legalContractsEmpty" />
+                            <div class="bgTextMessage text-center" data-localization="legalContractsEmpty"></div>
                         </div>
                     </div>`
                     :
@@ -64,31 +64,31 @@ function renderAllContracts(json) {
                         <div class="row">
                             <div class="col">
                                 <div class="symbol bgTextSymbolCenter text-center">\uF571</div>
-                                <div class="bgTextTitleText text-center" data-localization="legalContracts" />
+                                <div class="bgTextTitleText text-center" data-localization="legalContracts"></div>
                             </div>
                         </div>
                         <div class="table responsiveTable">
                             <div class="row tableRowTitle">
-                                <div class="col-auto align-self-center text-center wordBreak" data-localization="legalContractsTitle" />
-                                <div class="col-auto align-self-center text-center wordBreak" data-localization="blockchainTimestamp" />
-                                <div class="col-auto align-self-center text-center wordBreak" data-localization="blockchainHash" />
+                                <div class="col-auto align-self-center text-center wordBreak" data-localization="legalContractsTitle"></div>
+                                <div class="col-auto align-self-center text-center wordBreak" data-localization="blockchainTimestamp"></div>
+                                <div class="col-auto align-self-center text-center wordBreak" data-localization="blockchainHash"></div>
                             </div>
                             ${json.map(contract => {
                                 return (
                                     html`<div class="row justify-content-center tableSimpleRow contractRow">
                                         <div class="blockIndex" style="display:none;">${contract['index']}</div>
                                         <div class="col-lg-auto col-md-4 col-sm-6">
-                                            <div class="smallTitle d-none" data-localization="legalContractsTitle" />
+                                            <div class="smallTitle d-none" data-localization="legalContractsTitle"></div>
                                             <div class="align-self-center text-center resultsBlockNumber">
-                                                <span data-localization="legalContractsTitlesLower${contract['title']}" />
+                                                <span data-localization="legalContractsTitlesLower${contract['title']}"></span>
                                             </div>
                                         </div>
                                         <div class="col-lg-auto col-md-4 col-sm-6">
-                                            <div class="smallTitle d-none" data-localization="blockchainTimestamp" />
-                                            <div class="align-self-center text-center" data-timestamp="${contract['timestamp']}" />
+                                            <div class="smallTitle d-none" data-localization="blockchainTimestamp"></div>
+                                            <div class="align-self-center text-center" data-timestamp="${contract['timestamp']}"></div>
                                         </div>
                                         <div class="col-lg-auto col-md-4 col-sm-6">
-                                            <div class="smallTitle d-none" data-localization="blockchainHash" />
+                                            <div class="smallTitle d-none" data-localization="blockchainHash"></div>
                                             <div class="align-self-center text-center validationResultsHash">${contract['hash']}</div>
                                         </div>
                                     </div>`
@@ -156,18 +156,18 @@ function renderContract(composedContract) {
     render(html`<div class="contract bg-text container animate slideIn vw-100">
                 <section class="row contractTitleGroup">
                     <div class="col-lg-4 offset-lg-4 mr-auto align-self-center contractTitle">
-                        <span data-localization="legalContractsTitlesUpper${composedContract['contract']['title']}" />
+                        <span data-localization="legalContractsTitlesUpper${composedContract['contract']['title']}"></span>
                     </div>
                     <div class="col-lg-auto contractTitleQRGroup">
-                        <div class="contractQR qrCode" data-localization-title="basicsCopyQR" />
-                        <div class="copiedQR text-center" data-localization="basicsCopiedQR" style="display:none;" />
+                        <div class="contractQR qrCode" data-localization-title="basicsCopyQR"></div>
+                        <div class="copiedQR text-center" data-localization="basicsCopiedQR" style="display:none;"></div>
                         <div class="contractHash qrCodeText" style="display:none;">${composedContract['hash']}</div>
-                        <div class="contractTimestamp" data-timestamp="${composedContract['timestamp']}" />
+                        <div class="contractTimestamp" data-timestamp="${composedContract['timestamp']}"></div>
                     </div>
                 </section>
                 <div class="row">
                     <div class="col">
-                        <button class="collapseButton" data-localization="legalContractingParties" type="button" data-toggle="collapse" data-target="#contractingParties" aria-expanded="false" aria-controls="contractingParties" />
+                        <button class="collapseButton" data-localization="legalContractingParties" type="button" data-toggle="collapse" data-target="#contractingParties" aria-expanded="false" aria-controls="contractingParties"></button>
                         <div class="collapse" id="contractingParties">
                             <div class="card card-body">
                                 <div class="row justify-content-center">
@@ -175,18 +175,18 @@ function renderContract(composedContract) {
                                         return (
                                             html`<div class="col-auto infoBox contractSignature">
                                                 <div class="signatureQRGroup">
-                                                    <div class="contractSignaturesQR qrCode" data-localization-title="basicsCopyQR" />
-                                                    <div class="copiedQR text-center" data-localization="basicsCopiedQR" style="display:none;" />
+                                                    <div class="contractSignaturesQR qrCode" data-localization-title="basicsCopyQR"></div>
+                                                    <div class="copiedQR text-center" data-localization="basicsCopiedQR" style="display:none;"></div>
                                                     <div class="qrCodeText contractSignatureToValidate" style="display:none;">${signature['signature']}</div>
                                                     ${signature['valid'] === true ?
                                                         html`<div class="signatureValidationValid">
                                                             <div class="symbol bgTextSymbolCenter successTextColorSmall validationSymbolSmall">\uE008</div>
-                                                            <div class="copiedQR" data-localization="blockchainSignatureValid" />
+                                                            <div class="copiedQR" data-localization="blockchainSignatureValid"></div>
                                                         </div>`
                                                         :
                                                         html`<div class="signatureValidationInvalid">
                                                             <div class="symbol bgTextSymbolCenter errorTextColor validationSymbolSmall">\uE10A</div>
-                                                            <div class="copiedQR" data-localization="blockchainSignatureInvalid" />
+                                                            <div class="copiedQR" data-localization="blockchainSignatureInvalid"></div>
                                                         </div>`
                                                     }
                                                 </div>
@@ -195,10 +195,10 @@ function renderContract(composedContract) {
                                                         <span class="bold signatureNameHighlight">${signature['signer']['firstName'] + " " + signature['signer']['lastName']}</span>
                                                     </div>
                                                     <div>
-                                                        <span class="bold" data-localization="usersPositions${signature['signer']['position']}" />
+                                                        <span class="bold" data-localization="usersPositions${signature['signer']['position']}"></span>
                                                     </div>
                                                     ${signature['onBehalfOf'] !== undefined ?
-                                                            html`<div data-localization="legalContractsOnBehalfOf" />
+                                                            html`<div data-localization="legalContractsOnBehalfOf"></div>
                                                             <div>
                                                                 <span class="bold">${signature['onBehalfOf']['firstName'] + " " + signature['onBehalfOf']['lastName']}</span>
                                                             </div>`
@@ -212,7 +212,7 @@ function renderContract(composedContract) {
                                 </div>
                             </div>
                         </div>
-                        <button class="collapseButton" data-localization="legalContractsEssentials" type="button" data-toggle="collapse" data-target="#essentials" aria-expanded="false" aria-controls="essentials" />
+                        <button class="collapseButton" data-localization="legalContractsEssentials" type="button" data-toggle="collapse" data-target="#essentials" aria-expanded="false" aria-controls="essentials"></button>
                         <div class="collapse" id="essentials">
                             <div class="card card-body">
                                 ${composedContract['contract']['essentials']['type'] === 'timeCharter' ?
@@ -227,35 +227,35 @@ function renderContract(composedContract) {
                                                 <div class="rightInfo">
                                                     <div>
                                                         <span class="bold">
-                                                            <span data-localization="vesselsName" />
+                                                            <span data-localization="vesselsName"></span>
                                                             <span>:</span>
                                                         </span>
                                                         <span> ${composedContract['contract']['essentials']['vessel']['name']}</span>
                                                     </div>
                                                     <div>
                                                         <span class="bold">
-                                                            <span data-localization="vesselsImoNumber" />
+                                                            <span data-localization="vesselsImoNumber"></span>
                                                             <span>:</span>
                                                         </span>
                                                         <span> ${composedContract['contract']['essentials']['vessel']['imoNumber']}</span>
                                                     </div>
                                                     <div>
                                                         <span class="bold">
-                                                            <span data-localization="vesselsFlag" />
+                                                            <span data-localization="vesselsFlag"></span>
                                                             <span>:</span>
                                                         </span>
                                                         <span> ${composedContract['contract']['essentials']['vessel']['flag']}</span>
                                                     </div>
                                                     <div>
                                                         <span class="bold">
-                                                            <span data-localization="vesselsYearBuilt" />
+                                                            <span data-localization="vesselsYearBuilt"></span>
                                                             <span>:</span>
                                                         </span>
                                                         <span> ${composedContract['contract']['essentials']['vessel']['yearBuilt']}</span>
                                                     </div>
                                                     <div>
                                                         <span class="bold">
-                                                            <span data-localization="vesselsDwt" />
+                                                            <span data-localization="vesselsDwt"></span>
                                                             <span>:</span>
                                                         </span>
                                                         <span class="numberSeparators"> ${composedContract['contract']['essentials']['vessel']['dwt']}</span>
@@ -274,17 +274,17 @@ function renderContract(composedContract) {
                 <div class="row">
                     <div class="col">
                         ${composedContract['contract']['clauses'] != null ?
-                            html`<button class="collapseButton" data-localization="legalContractsClauses" type="button" data-toggle="collapse" data-target="#clauses" aria-expanded="false" aria-controls="clauses" />
+                            html`<button class="collapseButton" data-localization="legalContractsClauses" type="button" data-toggle="collapse" data-target="#clauses" aria-expanded="false" aria-controls="clauses"></button>
                                 <div class="collapse" id="clauses">
                                     <div class="card card-body">
                                         ${$.map(composedContract['contract']['clauses'], clause => {
                                             return (
                                                 html`<div class="contractClause">
                                                     <div class="clauseTitle">${clause['title']}</div>
-                                                    <div class="testEnabledClause" style="display:none;" />
+                                                    <div class="testEnabledClause" style="display:none;"></div>
                                                     <div class="row justify-content-center" data-localization-title="legalContractsToggleLegen">
                                                         <div class="col paragraphReadable">
-                                                            <div class="clauseSubtitle animate slideIn" data-localization="legalContractsReadable" style="display:none;" />
+                                                            <div class="clauseSubtitle animate slideIn" data-localization="legalContractsReadable" style="display:none;"></div>
                                                             ${$.map(clause['paragraphs'], paragraph => {
                                                                 return (
                                                                     html`<div class="paragraphGroup">
@@ -307,7 +307,7 @@ function renderContract(composedContract) {
                                                         </div>
                                                     </div>
                                                     <div style="text-align:center;margin-top:10px;">
-                                                        <button type="button" class="button enableClause" data-localization="legalEnableClause" />
+                                                        <button type="button" class="button enableClause" data-localization="legalEnableClause"></button>
                                                     </div>
                                                 </div>`
                                             )

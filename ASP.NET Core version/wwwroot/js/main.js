@@ -1182,14 +1182,14 @@ $(document).ready(() => {
             main.empty();
             render(html`<div class="jumbotron animate slideIn">
                         <h1 class="display-4">
-                            <span class="spiral" />
-                            <span class="logoName" />
+                            <span class="spiral"></span>
+                            <span class="logoName"></span>
                         </h1>
-                        <p class="lead" data-localization="basicsWelcomeUnderConstruction" />
+                        <p class="lead" data-localization="basicsWelcomeUnderConstruction"></p>
                         <hr class="my-4" />
                         <div class="jumbotron-buttons">
-                            <button type="button" class="button jumbotron-button" data-localization="usersLogin" name="jumbotronLogin" />
-                            <button type="button" class="button jumbotron-button" data-localization="usersRegister" name="register" />
+                            <button type="button" class="button jumbotron-button" data-localization="usersLogin" name="jumbotronLogin"></button>
+                            <button type="button" class="button jumbotron-button" data-localization="usersRegister" name="register"></button>
                         </div>
                     </div>`, mainSelector);
             changeLanguage(main);
@@ -1210,11 +1210,11 @@ $(document).ready(() => {
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userOptions">
                                     <button class="dropdown-item dropdownItem navButSettings" type="button">
                                         <span class="symbol navButSymbolInline">\uE713 </span>
-                                        <span data-localization="basicsSettings" />
+                                        <span data-localization="basicsSettings"></span>
                                     </button>
                                     <button class="dropdown-item dropdownItem logoutButton" type="button">
                                         <span class="symbol navButSymbolInline">\uf3b1 </span>
-                                        <span data-localization="usersLogout" />
+                                        <span data-localization="usersLogout"></span>
                                     </button>
                                 </div>
                             </div>
@@ -1231,10 +1231,10 @@ $(document).ready(() => {
                 navbarUsers.empty();
                 render(html`<${Fragment}>
                             <li class="nav-item navLogin-wrapper" style="display: none;">
-                                <button type="button" class="navBut navLogin" data-localization="usersSwitchToLogin" />
+                                <button type="button" class="navBut navLogin" data-localization="usersSwitchToLogin"></button>
                             </li>
                             <li class="nav-item navRegister-wrapper" style="display: none;">
-                                <button type="button" class="navBut navRegister" data-localization="usersSwitchToRegister" />
+                                <button type="button" class="navBut navRegister" data-localization="usersSwitchToRegister"></button>
                             </li>
                         <//>`, navbarUsersSelector);
                 changeLanguage(navbarUsers);
@@ -1260,24 +1260,24 @@ $(document).ready(() => {
                 main.empty();
                 render(html`<div class="register-wrapper animate slideIn">
                             <div class="register">
-                                <div class="title" data-localization="usersRegister" />
+                                <div class="title" data-localization="usersRegister"></div>
                                 <div class="bg-text">
                                     <form class="registerForm formClass">
                                         <div class="form-row firstFormRow">
                                             <div class="col inputWrapper">
                                                 <input name="firstName" type="text" maxlength="100" id="firstName" required />
-                                                <label for="firstName" data-localization="usersFirstName" />
+                                                <label for="firstName" data-localization="usersFirstName"></label>
                                                 <div class="formErrors">
-                                                    <div class="formWarning" data-localization="usersInvalidFirstName" style="display:none;" />
-                                                    <div class="formWarningServer" style="display:none;" />
+                                                    <div class="formWarning" data-localization="usersInvalidFirstName" style="display:none;"></div>
+                                                    <div class="formWarningServer" style="display:none;"></div>
                                                 </div>
                                             </div>
                                             <div class="col inputWrapper">
                                                 <input name="lastName" type="text" maxlength="100" id="lastName" required />
-                                                <label for="lastName" data-localization="usersLastName" />
+                                                <label for="lastName" data-localization="usersLastName"></label>
                                                 <div class="formErrors">
-                                                    <div class="formWarning" data-localization="usersInvalidLastName" style="display:none;" />
-                                                    <div class="formWarningServer" style="display:none;" />
+                                                    <div class="formWarning" data-localization="usersInvalidLastName" style="display:none;"></div>
+                                                    <div class="formWarningServer" style="display:none;"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -1285,54 +1285,54 @@ $(document).ready(() => {
                                             <div class="col inputWrapper positionsWrapper dropdownItemsWrapper">
                                                 <div class="dropdown">
                                                     <button class="btn btn-secondary dropdown-toggle dropdownButton" data-localization-title="usersPosition" id="userPosition" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <span data-user-position="usersPosition" data-localization="usersPosition" />
+                                                        <span data-user-position="usersPosition" data-localization="usersPosition"></span>
                                                         <span class="caret symbol">\uE011</span>
                                                     </button>
                                                     <div class="dropdown-menu" aria-labelledby="userPosition">
-                                                        <button class="dropdown-item navButSymbol position dropdownItem" data-localization="usersPositionscompanyVesselsRegistryManager" type="button" value="companyVesselsRegistryManager" />
-                                                        <button class="dropdown-item navButSymbol position dropdownItem" data-localization="usersPositionslegalEngineer" type="button" value="legalEngineer" />
+                                                        <button class="dropdown-item navButSymbol position dropdownItem" data-localization="usersPositionscompanyVesselsRegistryManager" type="button" value="companyVesselsRegistryManager"></button>
+                                                        <button class="dropdown-item navButSymbol position dropdownItem" data-localization="usersPositionslegalEngineer" type="button" value="legalEngineer"></button>
                                                     </div>
                                                 </div>
                                                 <input class="positionInput" name="position" type="text" id="position" required hidden />
-                                                <label style="display:none;" for="position" data-localization="usersPosition" />
+                                                <label style="display:none;" for="position" data-localization="usersPosition"></label>
                                                 <div class="formErrors formErrorsFull">
-                                                    <div class="formWarningServer" style="display:none;" />
+                                                    <div class="formWarningServer" style="display:none;"></div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="col inputWrapper">
                                                 <input name="email" class="registerEmailInput" type="text" id="email" required />
-                                                <label for="email" data-localization="usersEmail" />
+                                                <label for="email" data-localization="usersEmail"></label>
                                                 <div class="formErrors formErrorsFull">
-                                                    <div class="formWarning" data-localization="errorEmailInvalid" style="display:none;" />
-                                                    <div class="emailAlreadyInUse" data-localization="errorEmailAlreadyInUse" style="display:none;" />
-                                                    <div class="formWarningServer" style="display:none;" />
+                                                    <div class="formWarning" data-localization="errorEmailInvalid" style="display:none;"></div>
+                                                    <div class="emailAlreadyInUse" data-localization="errorEmailAlreadyInUse" style="display:none;"></div>
+                                                    <div class="formWarningServer" style="display:none;"></div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-row" style="display:none;">
                                             <div class="col inputWrapper">
                                                 <input name="privateKey" type="password" id="privateKeyText" required hidden />
-                                                <label for="privateKeyText" data-localization="usersPrivateKey" />
+                                                <label for="privateKeyText" data-localization="usersPrivateKey"></label>
                                                 <div class="formErrors formErrorsFull">
-                                                    <div class="formWarningServer" style="display:none;" />
+                                                    <div class="formWarningServer" style="display:none;"></div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="generatingKeysMessage" data-localization="usersGeneratingKeysMessage" style="display:none;" />
-                                        <div class="generatedKeys" style="display:none;" />
+                                        <div class="generatingKeysMessage" data-localization="usersGeneratingKeysMessage" style="display:none;"></div>
+                                        <div class="generatedKeys" style="display:none;"></div>
                                         <div class="text-center formButtons">
                                             <div class="submitButtonWrapper formButton1" style="display:none;">
-                                                <button type="submit" class="button submitButton registerButton" data-localization="usersRegister" />
+                                                <button type="submit" class="button submitButton registerButton" data-localization="usersRegister"></button>
                                             </div>
                                             <div class="resetButtonWrapper formButton2" style="display:none;">
-                                                <button class="button resetButton" data-localization="basicsFormReset" type="reset" />
+                                                <button class="button resetButton" data-localization="basicsFormReset" type="reset"></button>
                                             </div>
                                         </div>
                                         <${WaitDots} />
                                         <div class="afterSubmitNotSaved" style="display:none;">
-                                            <span data-localization="errorSubmittedNotSaved" />
+                                            <span data-localization="errorSubmittedNotSaved"></span>
                                         </div>
                                     </form>
                                 </div>
@@ -1350,33 +1350,33 @@ $(document).ready(() => {
                 main.empty();
                 render(html`<div class="login-wrapper animate slideIn">
                             <div class="login">
-                                <div class="title" data-localization="usersLogin" />
+                                <div class="title" data-localization="usersLogin"></div>
                                 <div class="bg-text">
-                                    <div class="loginWithQRScan" data-localization="usersLoginWithQRScan" />
-                                    <video id="loginQRScannerVideo" />
-                                    <div class="orInputQRCodeLogin" data-localization="usersOrTypeQRCodeLogin" />
+                                    <div class="loginWithQRScan" data-localization="usersLoginWithQRScan"></div>
+                                    <video id="loginQRScannerVideo"></video>
+                                    <div class="orInputQRCodeLogin" data-localization="usersOrTypeQRCodeLogin"></div>
                                     <form class="loginForm">
                                         <div class="form-row firstFormRow inputWrapper">
                                             <div class="col">
                                                 <input name="privateKey" id="privateKey" type="password" required />
                                                 <span class="passwordEye symbol" data-localization-title="usersRevealPrivateKey">\uE052</span>
-                                                <label for="privateKey" data-localization="usersPrivateKey" />
+                                                <label for="privateKey" data-localization="usersPrivateKey"></label>
                                                 <div class="formErrors">
-                                                    <div class="formWarningServer" style="display:none;" />
+                                                    <div class="formWarningServer" style="display:none;"></div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="text-center formButtons">
                                             <div class="submitButtonWrapper formButton1" style="display:none;">
-                                                <button type="submit" class="button submitButton loginButton" data-localization="usersLogin" />
+                                                <button type="submit" class="button submitButton loginButton" data-localization="usersLogin"></button>
                                             </div>
                                             <div class="resetButtonWrapper formButton2" style="display:none;">
-                                                <button class="button resetButton" data-localization="basicsFormReset" type="reset" />
+                                                <button class="button resetButton" data-localization="basicsFormReset" type="reset"></button>
                                             </div>
                                         </div>
                                         <${WaitDots} />
                                         <div class="afterSubmitNotSaved" style="display:none;">
-                                            <span data-localization="errorNoUserWithSuchCredentials" />
+                                            <span data-localization="errorNoUserWithSuchCredentials"></span>
                                         </div>
                                     </form>
                                 </div>
@@ -1407,18 +1407,18 @@ $(document).ready(() => {
             render(html`<div class="container">
                         <div class="row copyKeysToClipboard" data-localization-title="usersCopyKeysToClipboard">
                             <div class="col">
-                                <div class="generatedKeysTitle" data-localization="usersPublicKey" />
-                                <div id="publicKeyQR" />
+                                <div class="generatedKeysTitle" data-localization="usersPublicKey"></div>
+                                <div id="publicKeyQR"></div>
                                 <div class="generatedPublicKey" style="display:none;">${keys['publicKey']}</div>
                             </div>
                             <div class="col">
-                                <div class="generatedKeysTitle" data-localization="usersPrivateKey" />
-                                <div id="privateKeyQR" />
+                                <div class="generatedKeysTitle" data-localization="usersPrivateKey"></div>
+                                <div id="privateKeyQR"></div>
                                 <div class="generatedPrivateKey" style="display:none;">${keys['privateKey']}</div>
                             </div>
                         </div>
-                        <div class="keysCopiedToClipboard" data-localization="usersKeysCopiedToClipboard" style="display:none;" />
-                        <div class="messageBeforeRegister" data-localization="usersMessageBeforeRegister" />
+                        <div class="keysCopiedToClipboard" data-localization="usersKeysCopiedToClipboard" style="display:none;"></div>
+                        <div class="messageBeforeRegister" data-localization="usersMessageBeforeRegister"></div>
                     </div>`, document.querySelector('.generatedKeys'));
             changeLanguage(generatedKeys);
         }
@@ -1438,8 +1438,8 @@ $(document).ready(() => {
                 html`<div class="symbol bgTextSymbolCenter successTextColorSmall validationSymbolSmall" style="display:none;">\uE008</div>
                     <div class="changesNotSavedWrapper" style="display:none;">
                         <div class="symbol bgTextSymbolCenter errorTextColor validationSymbolSmall">\uE10A</div>
-                        <div class="changesNotSavedText" data-localization="errorChangesNotSaved" />
-                        <div class="errorDetailsLink" data-localization="basicsDetails" />
+                        <div class="changesNotSavedText" data-localization="errorChangesNotSaved"></div>
+                        <div class="errorDetailsLink" data-localization="basicsDetails"></div>
                     </div>`
             )
         };

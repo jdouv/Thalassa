@@ -7,7 +7,7 @@
                 </button>
             </div>
             <div class="newVesselWrapper animate slideIn" style="display:none;">
-                <div class="innerFormTitle" data-localization="vesselsAddNew" />
+                <div class="innerFormTitle" data-localization="vesselsAddNew"></div>
                 <div class="bg-text formWithCloseButton">
                     <div class="formCloseButton">
                         <svg viewBox="0 0 20 20">
@@ -18,30 +18,30 @@
                         <div class="form-row firstFormRow">
                             <div class="col inputWrapper">
                                 <input name="name" type="text" maxlength="100" id="newVesselName" required />
-                                <label for="newVesselName" data-localization="vesselsName" />
+                                <label for="newVesselName" data-localization="vesselsName"></label>
                                 <div class="formErrors formErrorsFull">
-                                    <div class="formWarning" data-localization="vesselsInvalidName" style="display:none;" />
-                                    <div class="formWarningServer" style="display:none;" />
+                                    <div class="formWarning" data-localization="vesselsInvalidName" style="display:none;"></div>
+                                    <div class="formWarningServer" style="display:none;"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col inputWrapper">
                                 <input name="imoNumber" type="text" maxlength="100" id="newVesselImoNumber" required />
-                                <label for="newVesselImoNumber" data-localization="vesselsImoNumber" />
+                                <label for="newVesselImoNumber" data-localization="vesselsImoNumber"></label>
                                 <div class="formErrors">
-                                    <div class="formWarning" data-localization="vesselsInvalidImoNumber" style="display:none;" />
-                                    <div class="formWarningServer" style="display:none;" />
+                                    <div class="formWarning" data-localization="vesselsInvalidImoNumber" style="display:none;"></div>
+                                    <div class="formWarningServer" style="display:none;"></div>
                                 </div>
                             </div>
                             <div class="col inputWrapper checkboxField">
                                 <div class="col-auto">
-                                    <span data-localization="vesselsUnderConstruction" />
+                                    <span data-localization="vesselsUnderConstruction"></span>
                                 </div>
                                 <div class="col-auto">
                                     <label class="toggle">
                                         <input class="vesselUnderConstructionInput" name="underConstruction" data-value-type="boolean" type="checkbox" />
-                                        <div />
+                                        <div></div>
                                     </label>
                                 </div>
                             </div>
@@ -50,45 +50,45 @@
                             <div class="col inputWrapper vesselFlagsWrapper dropdownItemsWrapper">
                                <div class="dropdown">
                                     <button class="btn btn-secondary dropdown-toggle dropdownButton" data-localization-title="vesselsFlag" id="newVesselVesselsFlag" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span data-vessel-flag="vesselsFlag" data-localization="vesselsFlag" />
+                                        <span data-vessel-flag="vesselsFlag" data-localization="vesselsFlag"></span>
                                         <span class="caret symbol">\uE011</span>
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="newVesselVesselsFlag">
-                                        <button class="dropdown-item navButSymbol vesselFlag dropdownItem" data-localization="vesselsFlagsGR" type="button" value="GR" />
-                                        <button class="dropdown-item navButSymbol vesselFlag dropdownItem" data-localization="vesselsFlagsUS" type="button" value="US" />
+                                        <button class="dropdown-item navButSymbol vesselFlag dropdownItem" data-localization="vesselsFlagsGR" type="button" value="GR"></button>
+                                        <button class="dropdown-item navButSymbol vesselFlag dropdownItem" data-localization="vesselsFlagsUS" type="button" value="US"></button>
                                     </div>
                                 </div>
                                 <input class="vesselFlagInput" name="flag" type="text" id="newVesselFlag" required hidden />
-                                <label style="display:none;" for="newVesselFlag" data-localization="vesselsFlag" />
+                                <label style="display:none;" for="newVesselFlag" data-localization="vesselsFlag"></label>
                                 <div class="formErrors formErrorsFull">
-                                    <div class="formWarningServer" style="display:none;" />
+                                    <div class="formWarningServer" style="display:none;"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="col inputWrapper">
                                 <input name="dwt" type="text" maxlength="10" id="newVesselDwt" required />
-                                <label for="newVesselDwt" data-localization="vesselsDwt" />
+                                <label for="newVesselDwt" data-localization="vesselsDwt"></label>
                                 <div class="formErrors">
-                                    <div class="formWarning" data-localization="errorRequiredVesselDwt" style="display:none;" />
-                                    <div class="formWarningServer" style="display:none;" />
+                                    <div class="formWarning" data-localization="errorRequiredVesselDwt" style="display:none;"></div>
+                                    <div class="formWarningServer" style="display:none;"></div>
                                 </div>
                             </div>
                             <div class="col inputWrapper">
                                 <input name="yearBuilt" type="text" minlength="4" maxlength="4" id="newVesselYearBuilt" required />
-                                <label for="newVesselYearBuilt" data-localization="vesselsYearBuilt" />
+                                <label for="newVesselYearBuilt" data-localization="vesselsYearBuilt"></label>
                                 <div class="formErrors">
-                                    <div class="formWarning" data-localization="errorSizeVesselYearBuilt" style="display:none;" />
-                                    <div class="formWarningServer" style="display:none;" />
+                                    <div class="formWarning" data-localization="errorSizeVesselYearBuilt" style="display:none;"></div>
+                                    <div class="formWarningServer" style="display:none;"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="text-center formButtons">
                             <div class="submitButtonWrapper formButton1" style="display:none;">
-                                <button type="submit" class="button submitButton submitNewVesselButton" data-localization="basicsAdd" />
+                                <button type="submit" class="button submitButton submitNewVesselButton" data-localization="basicsAdd"></button>
                             </div>
                             <div class="resetButtonWrapper formButton2" style="display:none;">
-                                <button class="button resetButton" data-localization="basicsFormReset" type="reset" />
+                                <button class="button resetButton" data-localization="basicsFormReset" type="reset"></button>
                             </div>
                         </div>
                         <${WaitDots} />
@@ -115,10 +115,10 @@ function renderDashboard() {
                         </svg>
                     </div>
                     <div class="welcomeName">
-                        <span data-localization="usersWelcome" />
+                        <span data-localization="usersWelcome"></span>
                         <span>, ${parseJWT(localStorage.getItem('JWT'))['firstName']}.</span>
                     </div>
-                    <div class="welcomeSubtitle" data-localization="usersWelcomeSubtitle" />
+                    <div class="welcomeSubtitle" data-localization="usersWelcomeSubtitle"></div>
                 </div>`, mainSelector);
         changeLanguage(main);
         main.delay(450).fadeIn();
@@ -133,7 +133,7 @@ function renderNavbar() {
         render(html`<li class="nav-item">
                     <button type="button" class="navBut navCompanyVesselsRegistryManager">
                         <span class="symbol navButSymbolInline">\uE7E3 </span>
-                        <span data-localization="vesselsRegistry" />
+                        <span data-localization="vesselsRegistry"></span>
                     </button>
                 </li>`, navbarUsersSelector);
         changeLanguage(navbarUsers);
@@ -170,89 +170,89 @@ function renderVesselsRegistry(json) {
         html`<div class="row">
                 <div class="col">
                     <div class="symbol bgTextSymbolCenter text-center">\uE946</div>
-                    <div class="bgTextMessage text-center" data-localization="vesselsRegistryIsEmpty" />
+                    <div class="bgTextMessage text-center" data-localization="vesselsRegistryIsEmpty"></div>
                 </div>
             </div>`
         :
-        html`<div class="vesselAddedSuccessfully" data-localization="vesselsVesselSuccessfullyAdded" style="display:none;" />
+        html`<div class="vesselAddedSuccessfully" data-localization="vesselsVesselSuccessfullyAdded" style="display:none;"></div>
             <div class="row marginBottom15">
                 <div class="col">
                     <div class="symbol bgTextSymbolCenter text-center">\uE7E3</div>
-                    <div class="bgTextTitleText text-center" data-localization="vesselsRegistry" />
+                    <div class="bgTextTitleText text-center" data-localization="vesselsRegistry"></div>
                 </div>
             </div>
-            <div class="hintEdit" data-localization="hintEdit" />
+            <div class="hintEdit" data-localization="hintEdit"></div>
             <div class="table responsiveTable">
                 <div class="row tableRowTitle marginBottom15 sticky-top transition">
-                    <div class="col-auto align-self-center text-center wordBreak" data-localization="vesselsName" />
-                    <div class="col-auto align-self-center text-center wordBreak" data-localization="vesselsFlag" />
-                    <div class="col-auto align-self-center text-center wordBreak" data-localization="vesselsImoNumber" />
-                    <div class="col-auto align-self-center text-center wordBreak" data-localization="vesselsDwt" />
-                    <div class="col-auto align-self-center text-center wordBreak" data-localization="vesselsYearBuilt" />
-                    <div class="col-auto align-self-center text-center wordBreak" data-localization="vesselsUnderConstruction" />
+                    <div class="col-auto align-self-center text-center wordBreak" data-localization="vesselsName"></div>
+                    <div class="col-auto align-self-center text-center wordBreak" data-localization="vesselsFlag"></div>
+                    <div class="col-auto align-self-center text-center wordBreak" data-localization="vesselsImoNumber"></div>
+                    <div class="col-auto align-self-center text-center wordBreak" data-localization="vesselsDwt"></div>
+                    <div class="col-auto align-self-center text-center wordBreak" data-localization="vesselsYearBuilt"></div>
+                    <div class="col-auto align-self-center text-center wordBreak" data-localization="vesselsUnderConstruction"></div>
                 </div>
                 ${json.map(vessel => {
             return (
                 html`<form class="row justify-content-center vesselUpdateForm tableRowForm tableSimpleRow vesselRow">
                             <div class="col-lg-auto col-md-4 col-sm-6 inputWrapper">
-                                <div class="smallTitle d-none" data-localization="vesselsName" />
+                                <div class="smallTitle d-none" data-localization="vesselsName"></div>
                                 <input class="rowFormTextElement" name="name" type="text" maxlength="100" value="${vessel['name']}" />
                                 <div class="formErrors formErrorsFull">
-                                    <div class="formWarning" data-localization="vesselsInvalidName" style="display:none;" />
-                                    <div class="formWarningServer" style="display:none;" />
+                                    <div class="formWarning" data-localization="vesselsInvalidName" style="display:none;"></div>
+                                    <div class="formWarningServer" style="display:none;"></div>
                                 </div>
                                 <${AfterUpdatedValidation} />
                             </div>
                             <div class="col-lg-auto col-md-4 col-sm-6 inputWrapper vesselFlagsWrapper dropdownItemsWrapper">
-                                <div class="smallTitle d-none" data-localization="vesselsFlag" />
+                                <div class="smallTitle d-none" data-localization="vesselsFlag"></div>
                                 <div class="dropdown">
                                     <button class="btn btn-secondary dropdown-toggle dropdownButton" data-localization-title="vesselsFlag" id="updateVesselVesselsFlag${vessel['id']}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span data-vessel-flag="${vessel['flag']}">${vessel['flag']}</span>
                                         <span class="caret symbol">\uE011</span>
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="updateVesselVesselsFlag${vessel['id']}">
-                                        <button class="dropdown-item navButSymbol vesselFlag dropdownItem" data-localization="vesselsFlagsGR" type="button" value="GR" />
-                                        <button class="dropdown-item navButSymbol vesselFlag dropdownItem" data-localization="vesselsFlagsUS" type="button" value="US" />
+                                        <button class="dropdown-item navButSymbol vesselFlag dropdownItem" data-localization="vesselsFlagsGR" type="button" value="GR"></button>
+                                        <button class="dropdown-item navButSymbol vesselFlag dropdownItem" data-localization="vesselsFlagsUS" type="button" value="US"></button>
                                     </div>
                                 </div>
                                 <input class="vesselFlagInput" name="flag" type="text" hidden value="${vessel['flag']}" />
                                 <div class="formErrors formErrorsFull">
-                                    <div class="formWarningServer" style="display:none;" />
+                                    <div class="formWarningServer" style="display:none;"></div>
                                 </div>
                                 <${AfterUpdatedValidation} />
                             </div>
                             <div class="col-lg-auto col-md-4 col-sm-6 inputWrapper">
-                                <div class="smallTitle d-none" data-localization="vesselsImoNumber" />
+                                <div class="smallTitle d-none" data-localization="vesselsImoNumber"></div>
                                 <input class="rowFormTextElement" name="imoNumber" type="text" maxlength="100" value="${vessel['imoNumber']}" />
                                 <div class="formErrors formErrorsFull">
-                                    <div class="formWarning" data-localization="vesselsInvalidImoNumber" style="display:none;" />
-                                    <div class="formWarningServer" style="display:none;" />
+                                    <div class="formWarning" data-localization="vesselsInvalidImoNumber" style="display:none;"></div>
+                                    <div class="formWarningServer" style="display:none;"></div>
                                 </div>
                                 <${AfterUpdatedValidation} />
                             </div>
                             <div class="col-lg-auto col-md-4 col-sm-6 inputWrapper">
-                                <div class="smallTitle d-none" data-localization="vesselsDwt" />
+                                <div class="smallTitle d-none" data-localization="vesselsDwt"></div>
                                 <input class="rowFormTextElement" name="dwt" type="text" maxlength="10" value="${vessel['dwt']}" />
                                 <div class="formErrors formErrorsFull">
-                                    <div class="formWarning" data-localization="errorRequiredVesselDwt" style="display:none;" />
-                                    <div class="formWarningServer" style="display:none;" />
+                                    <div class="formWarning" data-localization="errorRequiredVesselDwt" style="display:none;"></div>
+                                    <div class="formWarningServer" style="display:none;"></div>
                                 </div>
                                 <${AfterUpdatedValidation} />
                             </div>
                             <div class="col-lg-auto col-md-4 col-sm-6 inputWrapper">
-                                <div class="smallTitle d-none" data-localization="vesselsYearBuilt" />
+                                <div class="smallTitle d-none" data-localization="vesselsYearBuilt"></div>
                                 <input class="rowFormTextElement" name="yearBuilt" type="text" minlength="4" maxlength="4" value="${vessel['yearBuilt']}" />
                                 <div class="formErrors formErrorsFull">
-                                    <div class="formWarning" data-localization="errorSizeVesselYearBuilt" style="display:none;" />
-                                    <div class="formWarningServer" style="display:none;" />
+                                    <div class="formWarning" data-localization="errorSizeVesselYearBuilt" style="display:none;"></div>
+                                    <div class="formWarningServer" style="display:none;"></div>
                                 </div>
                                 <${AfterUpdatedValidation} />
                             </div>
                             <div class="col-lg-auto col-md-4 col-sm-6 inputWrapper checkboxField">
-                                <div class="smallTitle d-none" data-localization="vesselsUnderConstruction" />
+                                <div class="smallTitle d-none" data-localization="vesselsUnderConstruction"></div>
                                 <label class="toggle">
                                     <input class="vesselUnderConstructionInput" name="underConstruction" data-value-type="boolean" type="checkbox" checked="${vessel['underConstruction']}" value="${vessel['underConstruction']}" />
-                                    <div />
+                                    <div></div>
                                 </label>
                                 <${AfterUpdatedValidation} />
                             </div>
