@@ -106,7 +106,7 @@ $(document).on('click', '.allContractsButton', e => {
     e.stopImmediatePropagation();
     main.fadeOut();
     openWait();
-    setTimeout(function() {
+    setTimeout(() => {
         $.post('/Contracts/Contracts', function(response) {
                 closeWait();
                 main.empty();
@@ -128,7 +128,7 @@ $(document).on('click', '.contractRow', function(e) {
     e.stopImmediatePropagation();
     const index = $(this).children('.blockIndex').text();
     main.fadeOut();
-    setTimeout(function() {
+    setTimeout(() => {
         $.post('/Contracts/Contract/' + index, function(response) {
             main.empty();
             renderContract(response);

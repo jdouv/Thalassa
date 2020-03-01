@@ -1223,7 +1223,7 @@ $(document).ready(()=> {
         // Adjusts right navbar’s section after login
         window.renderRightNavLogin = () => {
             rightNavButtons.fadeOut();
-            setTimeout(function() {
+            setTimeout(() => {
                 rightNavButtons.empty();
                 render(html`<li class="nav-item">
                             <div class="dropdown navButDropdown animate slideIn">
@@ -1250,7 +1250,7 @@ $(document).ready(()=> {
         function renderNavbarRegisterLogin() {
             let navbarUsers = $('.navbarUsers');
             navbarUsers.fadeOut();
-            setTimeout(function() {
+            setTimeout(() => {
                 navbarUsers.empty();
                 render(html`<${Fragment}>
                             <li class="nav-item navLogin-wrapper" style="display: none;">
@@ -1267,7 +1267,7 @@ $(document).ready(()=> {
 
         function renderMainRightNav() {
             rightNavButtons.fadeOut();
-            setTimeout(function() {
+            setTimeout(() => {
                 rightNavButtons.empty();
                 render(html`<li class="nav-item animate slideIn">
                             <button type="button" class="nav-item navButSymbol lightSymbol navButSettings" data-localization-title="basicsSettings">\uE713</button>
@@ -1279,7 +1279,7 @@ $(document).ready(()=> {
 
         function renderRegister() {
             main.fadeOut();
-            setTimeout(function() {
+            setTimeout(() => {
                 main.empty();
                 render(html`<div class="register-wrapper animate slideIn">
                             <div class="register">
@@ -1369,7 +1369,7 @@ $(document).ready(()=> {
 
         function renderLogin() {
             main.fadeOut();
-            setTimeout(function() {
+            setTimeout(() => {
                 main.empty();
                 render(html`<div class="login-wrapper animate slideIn">
                             <div class="login">
