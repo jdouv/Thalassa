@@ -28,10 +28,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .csrf().ignoringAntMatchers("/register", "/login", "/emailExists", "/registerIsValid", "/generateKeys")
+                .csrf().ignoringAntMatchers("/connectionTest", "/register", "/login", "/emailExists", "/registerIsValid", "/generateKeys")
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and()
-                .authorizeRequests().antMatchers("/", "/register", "/login", "/emailExists", "/registerIsValid", "/generateKeys", "/localization", "/sw.js", "/index.html").permitAll()
+                .authorizeRequests().antMatchers("/connectionTest", "/", "/register", "/login", "/emailExists", "/registerIsValid", "/generateKeys", "/localization", "/sw.js", "/index.html").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling()

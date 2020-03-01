@@ -65,6 +65,12 @@ namespace Thalassa.Controllers
             return result;
         }
 
+        [HttpPost("View")]
+        public string View()
+        {
+            return _userService.View(HttpContext);
+        }
+        
         // Returns localized messages
         [HttpGet("Localization")]
         public Dictionary<string, Dictionary<string, string>> Localization()

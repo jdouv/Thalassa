@@ -8,6 +8,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -62,11 +66,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         json.put("saved", savedUser.getPublicKey() != null);
         if (!json.get("saved").asBoolean()) return json;
 
-        BufferedReader viewReader = new BufferedReader(new InputStreamReader(
-                getClass().getResourceAsStream("/views/" + user.getPosition() + ".js")));
-        String view = viewReader.lines().collect(Collectors.joining(System.lineSeparator()));
-
-        return new JwtResponse(jwtTokenUtil.generateToken(user), view);
+        return new JwtResponse(jwtTokenUtil.generateToken(user));
     }
 
     @Override
@@ -76,16 +76,29 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (json.has("invalidFields")) return json;
         final User user = userRepository.findByPublicKey(CryptographyService.getPublicKeyFromPrivate(privateKey));
 
-        if (user != null) {
-            BufferedReader viewReader = new BufferedReader(new InputStreamReader(
-                    getClass().getResourceAsStream("/views/" + user.getPosition() + ".js")));
-            String view = viewReader.lines().collect(Collectors.joining(System.lineSeparator()));
-
-            return new JwtResponse(jwtTokenUtil.generateToken(user), view);
-        }
+        if (user != null)
+            return new JwtResponse(jwtTokenUtil.generateToken(user));
 
         json.put("noUser", "noSuchCredentials");
         return json;
+    }
+
+    @Override
+    public String view(HttpServletRequest request) {
+        final String requestTokenHeader = request.getHeader("Authorization");
+
+        if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
+            String publicKey = jwtTokenUtil.getClaimFromToken(requestTokenHeader.substring(7), Claims::getSubject);
+            final User user = userRepository.findByPublicKey(publicKey);
+            if (user != null) {
+                BufferedReader viewReader = new BufferedReader(new InputStreamReader(
+                        getClass().getResourceAsStream("/views/" + user.getPosition() + ".js")));
+
+                return viewReader.lines().collect(Collectors.joining(System.lineSeparator()));
+            } else
+                throw new NullPointerException("The public key is valid but the user could not be found.");
+        } else
+            throw new JwtException("The user token could not be found in the HTTP request.");
     }
 
     @Override

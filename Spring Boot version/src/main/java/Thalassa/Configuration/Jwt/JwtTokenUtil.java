@@ -25,7 +25,7 @@ public class JwtTokenUtil implements Serializable {
     @Value("https://localhost:8443")
     private String audience;
 
-    <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
+    public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
         return claimsResolver.apply(Jwts.parser().setSigningKey(Constants.JWT_KEY).parseClaimsJws(token).getBody());
     }
 

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 public interface UserService {
@@ -15,6 +16,7 @@ public interface UserService {
     boolean validateRegister(ObjectNode json) throws JsonProcessingException;
     Object register(ObjectNode json) throws IOException;
     Object login(ObjectNode json) throws IOException;
+    String view(HttpServletRequest request);
     void save(User user);
     UserDetails loadUserByUsername(String publicKey) throws UsernameNotFoundException;
     JsonNode findUserAndCompany(String publicKey) throws JsonProcessingException;

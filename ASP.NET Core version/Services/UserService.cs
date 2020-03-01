@@ -5,6 +5,7 @@ using System.IO;
 using System.Security.Claims;
 using System.Text;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 using Thalassa.Models;
 using Thalassa.DataAccess;
@@ -70,7 +71,6 @@ namespace Thalassa.Services
             if (!json["saved"].ToObject<bool>()) return json;
 
             json["token"] = GenerateToken(user);
-            json["view"] = new StreamReader("Resources/Views/" + user.Position + ".js").ReadToEnd();
             return json;
         }
 
@@ -85,7 +85,6 @@ namespace Thalassa.Services
             if (user != null)
             {
                 json["token"] = GenerateToken(user);
-                json["view"] = new StreamReader("Resources/Views/" + user.Position + ".js").ReadToEnd();
                 return json;
             }
             
@@ -93,6 +92,20 @@ namespace Thalassa.Services
             return json;
         }
 
+        public string View(HttpContext httpContext)
+        {
+            string requestTokenHeader = httpContext.Request.Headers["Authorization"];
+
+            if (requestTokenHeader == null || !requestTokenHeader.StartsWith("Bearer "))
+                throw new Exception("The user token could not be found in the HTTP request.");
+            var publicKey = new JwtSecurityTokenHandler().ReadJwtToken(requestTokenHeader.Substring(7)).Subject;
+            var user = _usersDataAccess.FindByPublicKey(publicKey);
+            if (user != null)
+                return new StreamReader("Resources/Views/" + user.Position + ".js").ReadToEnd();
+            
+            throw new NullReferenceException("The public key is valid but the user could not be found.");
+        }
+        
         public void Insert(User user)
         {
             user.PrivateKey = null; // since the service lies on blockchain, private keys must not be stored

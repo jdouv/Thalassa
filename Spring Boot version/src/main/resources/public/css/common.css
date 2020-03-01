@@ -1533,3 +1533,17 @@ main #vesselsRegistry {
     text-align: center;
     margin: 20px 0 5px 0;
 }
+
+.navLogoOffline {
+    font-size: 28px;
+    top: 10px;
+    margin-right: 5px;
+}
+
+.navbar-light .navbar-brand:focus, .navbar-light .navbar-brand:hover {
+    color: rgba(32, 59, 99, .8);
+}
+
+.navbar-dark .navbar-brand:focus, .navbar-dark .navbar-brand:hover {
+    color: rgba(255, 255, 255, .8);
+}

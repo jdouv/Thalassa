@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
@@ -36,6 +38,11 @@ public class AuthenticationController {
     @PostMapping(path = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Object login(@RequestBody ObjectNode json, HttpSession session) throws IOException {
         return authenticate(json, session, userService.login(json));
+    }
+
+    @PostMapping("/view")
+    public String view(HttpServletRequest request) {
+        return userService.view(request);
     }
 
     private Object authenticate(@RequestBody ObjectNode json, HttpSession session, Object result) {

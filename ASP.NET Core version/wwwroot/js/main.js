@@ -33,7 +33,6 @@ $(document).ready(() => {
     let modalOverlay = $('.modal-overlay');
     let validFormAjax;
     let keysHaveBeenGenerated;
-    let userView;
 
     // Fetch localized messages json
     $.getJSON('/User/Localization').then(localesJson => {
@@ -948,7 +947,6 @@ $(document).ready(() => {
                     closeWaitDots(form);
                     if (response.hasOwnProperty('token')) {
                         localStorage.setItem('JWT', response['token']);
-                        localStorage.setItem('view', response['view']);
                         renderView();
                     } else if (response.hasOwnProperty('noUser')) {
                         if (response['noUser'] === 'noSuchCredentials') {
@@ -971,10 +969,9 @@ $(document).ready(() => {
 
         // Renders user’s view after successful register/login
         function renderView() {
-            if (localStorage.getItem('view') !== undefined) {
-                userView = () => { return new Function(localStorage.getItem('view'))(); };
-                userView();
-            }
+            $.post('/User/View').then(response => {
+                return new Function(response.toString())();
+            }).fail(jqXHR => {notifyError('errorLoginFailed', jqXHR);});
         }
 
         // Determines what happens when form submission fails
@@ -1091,9 +1088,7 @@ $(document).ready(() => {
         $(document).on('click', '.logoutButton', e => {
             e.preventDefault();
             $.ajax('User/Logout').then(() => {
-                userView = undefined;
                 localStorage.removeItem('JWT');
-                localStorage.removeItem('view');
                 renderMainRightNav();
                 renderNavbarRegisterLogin();
                 navBut.css('border-bottom', 'solid 0');

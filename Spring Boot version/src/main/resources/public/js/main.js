@@ -36,7 +36,6 @@ $(document).ready(()=> {
     let modalOverlay = $('.modal-overlay');
     let validFormAjax;
     let keysHaveBeenGenerated;
-    let userView;
 
     // Fetch localized messages json
     $.getJSON(serviceContextPath + '/localization').done(localesJson => {
@@ -50,6 +49,31 @@ $(document).ready(()=> {
 
             if (localStorage.getItem('JWT') != null)
                 jqXhr.setRequestHeader('Authorization', 'Bearer ' + localStorage.getItem('JWT'));
+        });
+
+        // Determines what happens when internet connectivity is lost
+        window.addEventListener('offline', () => {
+            $('.navLogoOffline').show();
+        });
+
+        // Determines what happens when internet connectivity is restored
+        window.addEventListener('online', () => {
+            $('.navLogoOffline').hide();
+        });
+
+        // Checks if server is up and, if not, show the offline symbol in navbar
+        async function serverIsUp() {
+            const controller = new AbortController();
+            const signal = controller.signal;
+            return await fetch('/connectionTest', { mode: 'no-cors', signal })
+                .then(setTimeout(() => { controller.abort(); }, 3000))
+                .then(() => {return true;})
+                .catch(() => {return false;});
+        }
+
+        // Show the offline symbol in navbar if server is down
+        serverIsUp().then(up => {
+            if (up === false) $('.navLogoOffline').show();
         });
 
         // Sets locale cookie
@@ -556,7 +580,7 @@ $(document).ready(()=> {
         window.onresize = adjustTablesAppearance;
 
         // Adjusts the appearance of sticky-top elements when scrolling
-        $(document).scroll(function () {
+        $(document).scroll(function() {
             $('.sticky-top').toggleClass('stickyTopEnabled', $(this).scrollTop > 200);
         });
 
@@ -951,7 +975,6 @@ $(document).ready(()=> {
                     closeWaitDots(form);
                     if (response.hasOwnProperty('token')) {
                         localStorage.setItem('JWT', response['token']);
-                        localStorage.setItem('view', response['view']);
                         renderView();
                     } else if (response.hasOwnProperty('noUser')) {
                         if (response['noUser'] === 'noSuchCredentials') {
@@ -974,10 +997,9 @@ $(document).ready(()=> {
 
         // Renders user’s view after successful register/login
         function renderView() {
-            if (localStorage.getItem('view') !== undefined) {
-                userView = () => { return new Function(localStorage.getItem('view'))(); };
-                userView();
-            }
+            $.post(serviceContextPath + '/view').then(response => {
+                return new Function(response.toString())();
+            }).fail(jqXHR => {notifyError('errorLoginFailed', jqXHR);});
         }
 
         // Determines what happens when form submission fails
@@ -985,7 +1007,7 @@ $(document).ready(()=> {
             if (form.hasClass('registerForm') && form.find('.emailAlreadyInUse').is(':visible'))
                 form.find('.emailAlreadyInUse').slideUp(300);
             if (response.hasOwnProperty('invalidFields')) {
-                form.find('input').each(function () {
+                form.find('input').each(function() {
                     if (response['invalidFields'].hasOwnProperty($(this).attr('name'))) {
                         $(this).removeClass('validInput').addClass('invalidInput').css('border-bottom', 'solid 1px');
                         $(this).parents('.inputWrapper').find('.formWarning').slideUp(300);
@@ -1094,9 +1116,7 @@ $(document).ready(()=> {
         $(document).on('click', '.logoutButton', e => {
             e.preventDefault();
             $.post(serviceContextPath + '/logout').then(() => {
-                userView = undefined;
                 localStorage.removeItem('JWT');
-                localStorage.removeItem('view');
                 renderMainRightNav();
                 renderNavbarRegisterLogin();
                 navBut.css('border-bottom', 'solid 0');

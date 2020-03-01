@@ -22,6 +22,11 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping("/connectionTest")
+    public boolean connectionTest() {
+        return true;
+    }
+
     // Checks if the e-mail provided by the user during registration already exists and returns boolean
     @PostMapping("/emailExists")
     public boolean emailExists(@RequestBody String email) {

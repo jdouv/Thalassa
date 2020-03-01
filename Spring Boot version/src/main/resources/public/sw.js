@@ -51,7 +51,7 @@ self.addEventListener('fetch', function(event) {
         caches.open(cacheName).then(function(cache) {
             return cache.match(event.request).then(function (response) {
                 return response || fetch(event.request).then(function(response) {
-                    if (event.request.method.toUpperCase() === 'GET')
+                    if (event.request.method.toUpperCase() === 'GET' && !event.request.url.includes('connectionTest'))
                         cache.put(event.request, response.clone()).then(() => {void(0);});
                     return response;
                 });
