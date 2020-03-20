@@ -61,7 +61,7 @@ $(document).ready(()=> {
             $('.navLogoOffline').hide();
         });
 
-        // Checks if server is up and, if not, show the offline symbol in navbar
+        // Checks if server is up
         async function serverIsUp() {
             const controller = new AbortController();
             const signal = controller.signal;
