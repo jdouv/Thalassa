@@ -33,7 +33,7 @@ dependencies {
     implementation 'javax.xml.bind:jaxb-api:2.3.1'
     implementation 'com.arangodb:arangodb-spring-data:3.2.3'
     implementation 'org.apache.tomcat:tomcat-jasper:9.0.35'
-    implementation 'org.bouncycastle:bcprov-jdk15on:1.65'
+    implementation 'org.bouncycastle:bcprov-jdk15on:1.65.01'
     implementation 'com.muquit.libsodiumjna:libsodium-jna:1.0.4'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
