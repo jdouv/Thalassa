@@ -26,28 +26,26 @@ namespace Thalassa.DataAccess
             sharedSetting.SystemDatabaseCredential = new NetworkCredential(credential.UserName, credential.Password);
             sharedSetting.Credential = new NetworkCredential(credential.UserName, credential.Password);
 
-            using (var db = new ArangoDatabase(sharedSetting))
-            {
-                if (!db.ListDatabases().Contains(sharedSetting.Database))
-                    db.CreateDatabase(sharedSetting.Database, new List<DatabaseUser>
-                    {
-                        new DatabaseUser{Username = credential.UserName, Passwd = credential.Password}
-                    });
-
-                var collections = db.ListCollections().Select(collection => collection.Name).ToArray();
-                var collectionsToCreate = new[]
+            using var db = new ArangoDatabase(sharedSetting);
+            if (!db.ListDatabases().Contains(sharedSetting.Database))
+                db.CreateDatabase(sharedSetting.Database, new List<DatabaseUser>
                 {
-                    new Tuple<string, CollectionType>("Constants", CollectionType.Document),
-                    new Tuple<string, CollectionType>("Users", CollectionType.Document),
-                    new Tuple<string, CollectionType>("Blockchain", CollectionType.Document),
-                    new Tuple<string, CollectionType>("Companies", CollectionType.Document),
-                    new Tuple<string, CollectionType>("Vessels", CollectionType.Document)
-                };
+                    new DatabaseUser{Username = credential.UserName, Passwd = credential.Password}
+                });
 
-                foreach (var (item1, item2) in collectionsToCreate)
-                    if (collections.Contains(item1) == false)
-                        db.CreateCollection(item1, type: item2);
-            }
+            var collections = db.ListCollections().Select(collection => collection.Name).ToArray();
+            var collectionsToCreate = new[]
+            {
+                new Tuple<string, CollectionType>("Constants", CollectionType.Document),
+                new Tuple<string, CollectionType>("Users", CollectionType.Document),
+                new Tuple<string, CollectionType>("Blockchain", CollectionType.Document),
+                new Tuple<string, CollectionType>("Companies", CollectionType.Document),
+                new Tuple<string, CollectionType>("Vessels", CollectionType.Document)
+            };
+
+            foreach (var (item1, item2) in collectionsToCreate)
+                if (collections.Contains(item1) == false)
+                    db.CreateCollection(item1, type: item2);
 
             return sharedSetting;
         });

@@ -7,18 +7,19 @@
         <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
         <OutputType>Exe</OutputType>
         <ApplicationIcon>wwwroot/favicon.ico</ApplicationIcon>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <TargetFramework>netcoreapp5.0</TargetFramework>
         <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
         <CopyOutputSymbolsToPublishDirectory>false</CopyOutputSymbolsToPublishDirectory>
+        <LangVersion>9</LangVersion>
     </PropertyGroup>
     
     <ItemGroup>
       <PackageReference Include="ArangoDB.Client" Version="0.7.70" />
-      <PackageReference Include="BouncyCastle.NetCore" Version="1.8.6" />
-      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.8" />
-      <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.8" />
-      <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="3.1.8" />
-      <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="3.1.8" />
+      <PackageReference Include="BouncyCastle.NetCore" Version="1.8.8" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" Version="5.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="5.0.0" />
       <PackageReference Include="Sodium.Core" Version="1.2.3" />
     </ItemGroup>
     
